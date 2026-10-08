@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>User manual — Bulwark</title><meta name="description" content="User manual — Bulwark"><meta name="theme-color" content="#0D1422">
+<meta property="og:type" content="website"><meta property="og:title" content="User manual — Bulwark"><meta property="og:description" content="User manual — Bulwark"><meta property="og:site_name" content="Bulwark"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="User manual — Bulwark"><meta name="twitter:description" content="User manual — Bulwark">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/cockpit.css"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D1422'/%3E%3Crect x='6' y='18' width='20' height='4' fill='%23F2B441'/%3E%3Crect x='6' y='10' width='20' height='2' fill='%232BD17E'/%3E%3C/svg%3E"></head><body><div class="wrap">
+<header><a class="mark" href="../index.html">BULWARK<span>prop challenge survival cockpit</span></a><nav><a href="../index.html#calculators">Calculators</a><a href="../compare.html">Compare firms</a><a href="../docs/verify.html">How we verify</a><a href="../docs/faq.html">FAQ</a><a href="../docs/changelog.html">Changelog</a><a href="../docs/quickstart.html">Quick-start</a><a href="../docs/manual.html">Manual</a><a href="../index.html#waitlist">Waitlist</a></nav></header><section style="border-top:0;padding-top:12px"><div class="doc"><h1>Bulwark — User Manual v1.2</h1>
+<p><em>For the free per-firm calculators and the Bulwark TradingView cockpit. Everything here is general information about rule mathematics, not financial advice. Bulwark never recommends trades and makes no claims about trading outcomes. Rules change — always verify against your firm&#39;s official dashboard.</em></p>
+<h2>1 · The one idea</h2>
+<p>A prop-firm challenge is lost at a <strong>floor</strong>, not at a target. Every firm publishes two floors — a daily loss limit and a maximum loss limit — but each firm defines them differently: from which starting point, as a percentage of what, moving or fixed. Bulwark computes <em>your</em> firm&#39;s floors the way <em>your</em> firm defines them, draws a <strong>STOP line</strong> a safe distance above the floor, and tells you the <strong>largest position a full stop-loss can survive</strong> without crossing it. That is the whole product. Everything else is how you feed it numbers and how it shows its working.</p>
+<h2>2 · Vocabulary</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Anchor</strong></td>
+<td>The value your daily limit hangs from — FTMO: balance at midnight Prague; FundedNext: day-start balance at 00:00 server time; The5ers: the <em>higher</em> of yesterday&#39;s closing balance and closing equity.</td>
+</tr>
+<tr>
+<td><strong>Basis</strong></td>
+<td>What the percentage is of — FTMO and FundedNext: your <em>initial</em> capital (so $5,000 on a $100k account stays $5,000 forever); The5ers: the day-start value itself.</td>
+</tr>
+<tr>
+<td><strong>Daily floor</strong></td>
+<td>Anchor minus the daily limit amount. Touch it (on equity, floating included) and the day, or the account, is over.</td>
+</tr>
+<tr>
+<td><strong>Max floor</strong></td>
+<td>Initial capital minus the max limit — or, for trailing programs, the highest balance/equity reached minus the limit, sometimes locking once it reaches initial.</td>
+</tr>
+<tr>
+<td><strong>STOP line</strong></td>
+<td>The daily floor plus a safety buffer — by default 75% of the limit used, 25% kept for slippage and spread. Professionals stop before the firm stops them.</td>
+</tr>
+<tr>
+<td><strong>Room</strong></td>
+<td>Live equity minus the STOP line. When room runs out, size runs out.</td>
+</tr>
+<tr>
+<td><strong>Limit used</strong></td>
+<td>How far you&#39;ve travelled from the anchor toward the floor, as a percentage of the limit.</td>
+</tr>
+<tr>
+<td><strong>Max safe size</strong></td>
+<td>The smaller of the risk you <em>want</em> and the room you <em>have</em>, divided by what one lot loses at your stop. Always rounded <strong>down</strong>.</td>
+</tr>
+</tbody></table>
+<h2>3 · The calculators (bulwarktrader.com)</h2>
+<p><strong>No prop firm? Use &quot;Your own rules.&quot;</strong> Self-funded traders set the daily loss they will stop at and the maximum drawdown they will pause at; the same engine computes the floors, the STOP line and the max safe size from your own numbers. The defaults are examples, not recommendations.</p>
+<p><strong>Three firms need a note.</strong> The5ers publishes two products: the standard 2-Step Plan (3% daily) and High Stakes 2-Step (5% daily, anchored to the higher of starting balance and equity) — pick the page that matches your account. FundingPips measures a max-loss breach on the <strong>lower</strong> of equity and balance; the calculator does the same, so a balance sitting on the floor reads BREACHED even while equity floats above it; FundingPips also sells its 2-Step Standard with an optional 3% daily-loss add-on, which has its own calculator. Topstep and FTMO Futures define their limits in <strong>dollars</strong> per account size — the calculator shows the dollar figure and its percentage, and each account size has its own page, so pick the size you trade.</p>
+<p><strong>Seasonal reset times.</strong> FundedNext and The5ers reset at 00:00 MT5 server time, which the firms state as GMT+3 in summer and GMT+2 in winter; the countdown uses the Europe/Athens zone. In the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.</p>
+<p>One page per firm program, computed entirely in your browser — no signup, no account, nothing sent anywhere.</p>
+<p><strong>Enter, in order:</strong> your account size · your <strong>day-start value</strong> (the page tells you which definition your firm uses — read it off the firm&#39;s dashboard, not your platform) · today&#39;s closed trades as a space-separated list (<code>450 -520 300</code>) · floating P&amp;L of anything open · for trailing programs, your highest balance so far · your risk % and stop distance, and what one stop unit is worth per lot (leave it blank if unsure — Bulwark refuses to size rather than guess).</p>
+<p><strong>Read:</strong> the STATUS banner first (OK / STOP FOR TODAY / BREACHED). Then the tape — your equity needle against the anchor, STOP, daily floor and max floor. Then the four figures. Then the size. <strong>Show working</strong> lists every step of the arithmetic — if a number surprises you, that is where to look, and where a wrong input reveals itself.</p>
+<p><strong>The parse echo.</strong> After you type trades, the line under the box says what Bulwark read: &quot;3 trades · 2W 1L · P&amp;L 230&quot;. If it doesn&#39;t match what you meant, fix the entry. A comma between digits is refused as ambiguous rather than guessed — use spaces between trades and a dot for decimals.</p>
+<p><strong>Conflict banners.</strong> Where a firm&#39;s own pages disagree (The5ers currently states both 3% and 5% for the same rule), the page uses the tighter value and says so in an amber banner that can&#39;t be dismissed.</p>
+<h2>4 · The TradingView cockpit</h2>
+<p><em>Status:</em> the cockpit script is being relaunched together with this site (private first, then public). Beta testers receive the script file directly and add it through the Pine Editor; the steps are the same.</p>
+<p>The same engine as an on-chart panel: floors, STOP, limit used, size — and, when you enter an open position&#39;s direction, size and entry price, floating P&amp;L, equity and alerts that update <strong>tick by tick</strong>. It ships free, in a single edition, with the Bulwark launch. Setup is six settings groups, covered step by step in the <a href="quickstart.html">Quick-start</a>. Three alert conditions are available: STOP line hit, limit breached, and FX conversion unavailable.</p>
+<h2>5 · The honesty system</h2>
+<p>Bulwark is built to refuse rather than guess, and to say what it can&#39;t see. Sizes never round up. A profit target hit to the exact cent reads reached (the level is computed exactly, not from a floating-point product). If a currency conversion can&#39;t be resolved, the size reads &quot;n/a&quot; instead of a wrong number. Floating profit past the target reads &quot;not yet banked&quot;. Equity that hasn&#39;t been updated says so. When you see a refusal or a warning, it isn&#39;t a bug — it&#39;s the tool declining to invent a figure that could cost you an account.</p>
+<h2>6 · Troubleshooting</h2>
+<p><strong>No panel appears after adding the TradingView script</strong> — reload the chart. TradingView&#39;s &quot;move tables to bottom panel&quot; feature can stall table rendering; it&#39;s a platform quirk, not your settings. <strong>Size shows &quot;n/a (conversion)&quot;</strong> — the account currency and the chart&#39;s quote currency can&#39;t be bridged on that symbol; size the trade from your platform&#39;s own calculator for that pair. <strong>The trade count is wrong</strong> — check for commas: <code>1,250</code> is read as one trade of 1250; <code>450 520</code> is two trades. <strong>The reset countdown looks frozen</strong> — on a closed market the chart doesn&#39;t tick; it corrects at the first tick. <strong>The floor looks too high/low</strong> — nine times in ten the day-start value was read from the platform instead of the firm dashboard; the definitions differ.</p>
+<h2>7 · Limitations, plainly</h2>
+<p>Bulwark cannot see trades or positions your platform doesn&#39;t show it — anything on other symbols is manual. It cannot see peaks between your updates unless the chart is open. Non-FX contract sizes follow the chart symbol&#39;s specification; verify against your broker. Firm rules are re-verified weekly against the firms&#39; own pages, and every preset carries the date it was last checked — but the firm&#39;s dashboard, not Bulwark, is the authority on your account.</p>
+<h2>8 · Editions and privacy</h2>
+<p>The engine is free for one account — calculators and the cockpit alike. A Pro tier for the web cockpit (multiple accounts, statement import, alerts, audit export) comes later for those who want it; the floors will never be paywalled. Bulwark asks for no credentials, stores nothing from the calculators, and runs no advertising or affiliate arrangements with any firm or broker. Terms, privacy and refunds: <a href="legal.html">legal</a>.</p>
+</div></section><footer><p><b>Bulwark shows rule mathematics — general information, not financial advice. It never recommends trades and makes no claims about trading outcomes. Rules change; always verify against your firm's dashboard.</b></p><p>Bulwark is not affiliated with, endorsed by, or acting for any proprietary-trading firm or broker, and receives no commissions from any. Firm names are used to identify their published rules. No account credentials are ever requested. Computation happens in your browser; no numbers leave your device. © 2026 Bulwark · <a href="../docs/legal.html">Terms · Privacy · Refunds</a></p></footer></div></body></html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>index.html</loc></url>
+  <url><loc>compare.html</loc></url>
+  <url><loc>docs/quickstart.html</loc></url>
+  <url><loc>docs/manual.html</loc></url>
+  <url><loc>docs/legal.html</loc></url>
+  <url><loc>docs/verify.html</loc></url>
+  <url><loc>docs/faq.html</loc></url>
+  <url><loc>docs/changelog.html</loc></url>
+  <url><loc>calculators/ftmo-2-step.html</loc></url>
+  <url><loc>calculators/ftmo-1-step.html</loc></url>
+  <url><loc>calculators/ftmo-futures-growth-50k.html</loc></url>
+  <url><loc>calculators/ftmo-futures-growth-100k.html</loc></url>
+  <url><loc>calculators/ftmo-futures-growth-150k.html</loc></url>
+  <url><loc>calculators/fundednext-stellar-2-step.html</loc></url>
+  <url><loc>calculators/fundednext-stellar-1-step.html</loc></url>
+  <url><loc>calculators/fundednext-stellar-lite.html</loc></url>
+  <url><loc>calculators/fundingpips-2-step-standard.html</loc></url>
+  <url><loc>calculators/fundingpips-2-step-standard-3pct-addon.html</loc></url>
+  <url><loc>calculators/fundingpips-2-step-flex.html</loc></url>
+  <url><loc>calculators/fundingpips-2-step-pro.html</loc></url>
+  <url><loc>calculators/the5ers-2-step-new.html</loc></url>
+  <url><loc>calculators/the5ers-2-step-classic.html</loc></url>
+  <url><loc>calculators/the5ers-high-stakes-2-step.html</loc></url>
+  <url><loc>calculators/topstep-combine-50k.html</loc></url>
+  <url><loc>calculators/topstep-combine-100k.html</loc></url>
+  <url><loc>calculators/topstep-combine-150k.html</loc></url>
+  <url><loc>calculators/your-own-rules.html</loc></url>
+</urlset>

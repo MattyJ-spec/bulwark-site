@@ -1,0 +1,1454 @@
+{
+  "schema": "bulwark.presets.v1.6",
+  "generatedFrom": "engine v0.2.1 golden presets + Firm Rules Census v0.2 + weekly re-verification 2026-10-08 (all sources re-read on the firms' own pages)",
+  "asOf": "2026-10-08",
+  "rules": [
+    "A preset ships to a calculator page only if status is 'verified' or 'verified-with-conflict' (the latter renders its disclosure banner).",
+    "Any rule change creates a NEW preset id with a new verifiedAsOf; existing ids are never edited in place (Founding Rule 7).",
+    "Re-fetch every source weekly; record the check even when nothing changed."
+  ],
+  "reverification": [
+    {
+      "date": "2026-10-08",
+      "line": "Re-verification 2026-10-08 · FTMO 2/2 unchanged, Futures Growth CHANGED (split by size: $2,000 / $3,500 / $5,000 drawdown) · FundedNext 3/3 floors unchanged, reset zone CHANGED to seasonal (Europe/Athens), targets encoded · FundingPips 3/3 floors unchanged, help centre MOVED (Zendesk), targets encoded, 3% add-on added as a fourth calculator · The5ers 2/2 standard floors unchanged (profitable-days rule removed, seasonal reset zone), High Stakes targets CHANGED 8/5 → 10/5 · Topstep 3/3 floors unchanged, DLL and targets now PRIMARY, consistency construct queued (E-14) · Apex pending · your-own-rules n/a · pages unavailable: none (FundingPips old URLs 404 — relocated) · changes shipped: 16 new dated presets (13 superseded) · new conflicts: none"
+    }
+  ],
+  "presets": [
+    {
+      "id": "ftmo-2step@2026-09-19",
+      "firm": "FTMO",
+      "program": "FTMO Challenge 2-Step",
+      "slug": "ftmo-2-step",
+      "daily": {
+        "pct": 5,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "Europe/Prague",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          10,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 4,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter your account BALANCE at midnight Prague time (CE(S)T), as shown on your FTMO dashboard.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://ftmo.com/en/trading-objectives/",
+        "https://academy.ftmo.com/lesson/maximum-daily-loss/",
+        "https://academy.ftmo.com/lesson/maximum-loss/"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "verificationLog": [
+        "2026-09-19 verified",
+        "2026-10-08 unchanged — ftmo.com trading-objectives page (modified 2026-09-30): 5% daily of initial from balance at 00:00 CE(S)T, 10% static max, targets 10%/5%, min 4 days"
+      ]
+    },
+    {
+      "id": "ftmo-1step@2026-09-19",
+      "firm": "FTMO",
+      "program": "FTMO Challenge 1-Step",
+      "slug": "ftmo-1-step",
+      "daily": {
+        "pct": 3,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "Europe/Prague",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "trailingEodBalance"
+      },
+      "target": {
+        "pctByPhase": [
+          10
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "consistency": {
+        "type": "bestDay",
+        "capPct": 50,
+        "denominator": "positiveDaysProfit",
+        "breachConsequence": "defersPass"
+      },
+      "minDays": 4,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter your BALANCE at midnight Prague time. Also enter your highest end-of-day balance — the max-loss floor trails it and never moves down.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://ftmo.com/en/trading-objectives/",
+        "https://ftmo.com/en/blog/drawdowns/"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "verificationLog": [
+        "2026-09-19 verified",
+        "2026-10-08 unchanged — ftmo.com trading-objectives page (modified 2026-09-30): 3% daily, 10% max trailing on highest 00:00 CE(S)T balance, Best Day ≤50% of positive days' profit (not a breach), target 10%"
+      ]
+    },
+    {
+      "id": "ftmo-futures-growth-50k@2026-10-08",
+      "firm": "FTMO",
+      "program": "FTMO Futures — Growth Account $50K (evaluation)",
+      "slug": "ftmo-futures-growth-50k",
+      "daily": null,
+      "max": {
+        "pct": 4,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize",
+        "displayAmount": 2000
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "n/a",
+        "max": "terminate"
+      },
+      "anchorHint": "No daily loss limit in this evaluation. Enter $50,000 as the account size and your highest END-OF-DAY balance — the max-drawdown floor trails it and locks once it reaches your starting capital.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://ftmo.com/en/futures/trading-objectives-and-rules/"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "FTMO defines the Growth Account's maximum drawdown as a dollar figure — $2,000 on the $50K account (4% of the starting capital). It trails the highest end-of-day balance and locks at the starting capital. Profit target $3,000. FTMO's page lists a best-day consistency objective (40% or 50% of total profit, without stating which applies to Growth) — not modelled here; read it from your dashboard. No daily loss limit in the evaluation.",
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance",
+        "displayAmount": 3000
+      },
+      "defaultInitialSize": 50000,
+      "verificationLog": [
+        "2026-10-08 CHANGED — split by account size: FTMO's futures page (modified 2026-09-14, fetched 2026-10-08) defines the maximum drawdown as $2,000 / $3,500 / $5,000 for $50K / $100K / $150K (4% / 3.5% / 3.33%); the single 4% preset was under-protective for the larger sizes. Profit targets ($3,000 / $6,000 / $9,000 = 6%) encoded from the same page."
+      ],
+      "supersedes": "ftmo-futures-growth-eval@2026-09-19"
+    },
+    {
+      "id": "ftmo-futures-growth-100k@2026-10-08",
+      "firm": "FTMO",
+      "program": "FTMO Futures — Growth Account $100K (evaluation)",
+      "slug": "ftmo-futures-growth-100k",
+      "daily": null,
+      "max": {
+        "pct": 3.5,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize",
+        "displayAmount": 3500
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "n/a",
+        "max": "terminate"
+      },
+      "anchorHint": "No daily loss limit in this evaluation. Enter $100,000 as the account size and your highest END-OF-DAY balance — the max-drawdown floor trails it and locks once it reaches your starting capital.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://ftmo.com/en/futures/trading-objectives-and-rules/"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "FTMO defines the Growth Account's maximum drawdown as a dollar figure — $3,500 on the $100K account (3.5% of the starting capital). It trails the highest end-of-day balance and locks at the starting capital. Profit target $6,000. FTMO's page lists a best-day consistency objective (40% or 50% of total profit, without stating which applies to Growth) — not modelled here; read it from your dashboard. No daily loss limit in the evaluation.",
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance",
+        "displayAmount": 6000
+      },
+      "defaultInitialSize": 100000,
+      "verificationLog": [
+        "2026-10-08 CHANGED — split by account size: FTMO's futures page (modified 2026-09-14, fetched 2026-10-08) defines the maximum drawdown as $2,000 / $3,500 / $5,000 for $50K / $100K / $150K (4% / 3.5% / 3.33%); the single 4% preset was under-protective for the larger sizes. Profit targets ($3,000 / $6,000 / $9,000 = 6%) encoded from the same page."
+      ],
+      "supersedes": "ftmo-futures-growth-eval@2026-09-19"
+    },
+    {
+      "id": "ftmo-futures-growth-150k@2026-10-08",
+      "firm": "FTMO",
+      "program": "FTMO Futures — Growth Account $150K (evaluation)",
+      "slug": "ftmo-futures-growth-150k",
+      "daily": null,
+      "max": {
+        "pct": 3.3333333333,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize",
+        "displayAmount": 5000
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "n/a",
+        "max": "terminate"
+      },
+      "anchorHint": "No daily loss limit in this evaluation. Enter $150,000 as the account size and your highest END-OF-DAY balance — the max-drawdown floor trails it and locks once it reaches your starting capital.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://ftmo.com/en/futures/trading-objectives-and-rules/"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "FTMO defines the Growth Account's maximum drawdown as a dollar figure — $5,000 on the $150K account (3.33% of the starting capital). It trails the highest end-of-day balance and locks at the starting capital. Profit target $9,000. FTMO's page lists a best-day consistency objective (40% or 50% of total profit, without stating which applies to Growth) — not modelled here; read it from your dashboard. No daily loss limit in the evaluation.",
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance",
+        "displayAmount": 9000
+      },
+      "defaultInitialSize": 150000,
+      "verificationLog": [
+        "2026-10-08 CHANGED — split by account size: FTMO's futures page (modified 2026-09-14, fetched 2026-10-08) defines the maximum drawdown as $2,000 / $3,500 / $5,000 for $50K / $100K / $150K (4% / 3.5% / 3.33%); the single 4% preset was under-protective for the larger sizes. Profit targets ($3,000 / $6,000 / $9,000 = 6%) encoded from the same page."
+      ],
+      "supersedes": "ftmo-futures-growth-eval@2026-09-19"
+    },
+    {
+      "id": "fundednext-stellar-2step@2026-10-08",
+      "firm": "FundedNext",
+      "program": "Stellar 2-Step",
+      "slug": "fundednext-stellar-2-step",
+      "daily": {
+        "pct": 5,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          8,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 5,
+      "breach": {
+        "daily": "pause",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter your BALANCE at the start of the trading day — 00:00 server time (GMT+3 in summer, GMT+2 in winter).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://help.fundednext.com/en/articles/8019811-how-can-i-calculate-the-daily-loss-limit",
+        "https://help.fundednext.com/en/articles/8021076-what-rules-do-i-need-to-follow-in-the-stellar-2-step-challenge",
+        "https://fundednext.com/general-rules/cfds/trading-objectives"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "Server time: FundedNext states GMT+3 during daylight-saving time and GMT+2 for the rest of the year (help-centre article 8019811, 8 Apr 2026); Bulwark uses the Europe/Athens zone for the countdown. In the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard. Max-loss wording on FundedNext's pages is balance-based (\"must not drop below 90% of its initial balance\"); the calculator measures equity, the conservative reading.",
+      "verificationLog": [
+        "2026-10-08 CHANGED — reset zone re-encoded from the fixed summer offset (Etc/GMT-3) to the seasonal zone the firm states (GMT+3 summer / GMT+2 winter → Europe/Athens); profit targets and minimum days encoded from fundednext.com's trading-objectives page (fetched 2026-10-08). Floors unchanged: 5% daily of initial, 10% static max."
+      ],
+      "supersedes": "fundednext-stellar-2step@2026-09-19"
+    },
+    {
+      "id": "fundednext-stellar-1step@2026-10-08",
+      "firm": "FundedNext",
+      "program": "Stellar 1-Step",
+      "slug": "fundednext-stellar-1-step",
+      "daily": {
+        "pct": 3,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 6,
+        "model": "static"
+      },
+      "minDays": 2,
+      "breach": {
+        "daily": "pause",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter your BALANCE at the start of the trading day — 00:00 server time (GMT+3 in summer, GMT+2 in winter).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://help.fundednext.com/en/articles/8021061-what-are-the-rules-for-the-stellar-1-step-challenge-at-fundednext",
+        "https://help.fundednext.com/en/articles/8019811-how-can-i-calculate-the-daily-loss-limit",
+        "https://fundednext.com/general-rules/cfds/trading-objectives"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "target": {
+        "pctByPhase": [
+          10
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "notes": "Server time: FundedNext states GMT+3 during daylight-saving time and GMT+2 for the rest of the year (help-centre article 8019811, 8 Apr 2026); Bulwark uses the Europe/Athens zone for the countdown. In the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard. Max-loss wording on FundedNext's pages is balance-based (\"must not drop below 90% of its initial balance\"); the calculator measures equity, the conservative reading.",
+      "verificationLog": [
+        "2026-10-08 CHANGED — reset zone re-encoded from the fixed summer offset (Etc/GMT-3) to the seasonal zone the firm states (GMT+3 summer / GMT+2 winter → Europe/Athens); profit targets and minimum days encoded from fundednext.com's trading-objectives page (fetched 2026-10-08). Floors unchanged: 3% daily of initial, 6% static max."
+      ],
+      "supersedes": "fundednext-stellar-1step@2026-09-19"
+    },
+    {
+      "id": "fundednext-stellar-lite@2026-10-08",
+      "firm": "FundedNext",
+      "program": "Stellar Lite",
+      "slug": "fundednext-stellar-lite",
+      "daily": {
+        "pct": 4,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 8,
+        "model": "static"
+      },
+      "minDays": 5,
+      "breach": {
+        "daily": "pause",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter your BALANCE at the start of the trading day — 00:00 server time (GMT+3 in summer, GMT+2 in winter).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://help.fundednext.com/en/articles/9094072-what-rules-do-i-need-to-follow-in-the-stellar-lite-challenge",
+        "https://help.fundednext.com/en/articles/8019811-how-can-i-calculate-the-daily-loss-limit",
+        "https://fundednext.com/general-rules/cfds/trading-objectives"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "target": {
+        "pctByPhase": [
+          8,
+          4
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "notes": "Server time: FundedNext states GMT+3 during daylight-saving time and GMT+2 for the rest of the year (help-centre article 8019811, 8 Apr 2026); Bulwark uses the Europe/Athens zone for the countdown. In the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard. Max-loss wording on FundedNext's pages is balance-based (\"must not drop below 90% of its initial balance\"); the calculator measures equity, the conservative reading.",
+      "verificationLog": [
+        "2026-10-08 CHANGED — reset zone re-encoded from the fixed summer offset (Etc/GMT-3) to the seasonal zone the firm states (GMT+3 summer / GMT+2 winter → Europe/Athens); profit targets and minimum days encoded from fundednext.com's trading-objectives page (fetched 2026-10-08). Floors unchanged: 4% daily of initial, 8% static max."
+      ],
+      "supersedes": "fundednext-stellar-lite@2026-09-19"
+    },
+    {
+      "id": "fundednext-stellar-instant@2026-09-19",
+      "firm": "FundedNext",
+      "program": "Stellar Instant",
+      "slug": "fundednext-stellar-instant",
+      "daily": null,
+      "max": {
+        "pct": 6,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "n/a",
+        "max": "terminate"
+      },
+      "anchorHint": "No daily loss limit. Enter your highest balance to date — the max-loss floor rises with profit and stops at your initial balance.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://help.fundednext.com/en/articles/11641163-what-are-the-daily-loss-limit-and-the-maximum-loss-limit-for-the-stellar-instant-accounts"
+      ],
+      "status": "verified-amber",
+      "calculatorEligible": false,
+      "disclosure": "FundedNext's text does not settle whether the trailing floor follows closed balance or equity highs (RV-4). Calculator withheld until resolved.",
+      "verificationLog": [
+        "2026-09-19 verified",
+        "2026-10-08 unchanged — fundednext.com trading-objectives page: no daily limit; 6% trailing max that stops rising at the initial balance; balance-vs-equity trail still unresolved (RV-4) — calculator still withheld"
+      ]
+    },
+    {
+      "id": "fundingpips-2step-standard@2026-10-08",
+      "firm": "FundingPips",
+      "program": "2-Step Standard",
+      "slug": "fundingpips-2-step-standard",
+      "daily": {
+        "pct": 5,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "minDays": 3,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time (UTC+3 — stated by the firm as a fixed offset).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://help.fundingpips.com/hc/en-us/articles/34501809112081-2-Step-Standard",
+        "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "target": {
+        "pctByPhase": [
+          8,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "notes": "Daily loss 5% of the higher of opening balance and opening equity; max loss 10% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Profit targets 8% / 5%; minimum 3 trading days per phase. FundingPips also sells this model with a 3% daily-loss add-on chosen at purchase — if you bought it, use the '2-Step Standard (3% daily add-on)' calculator. FundingPips' help centre moved to help.fundingpips.com/hc on or before 2026-10-08; the article numbers are unchanged and the rule text was re-read on the new pages.",
+      "verificationLog": [
+        "2026-10-08 CHANGED — sources moved to the firm's new help centre; profit targets (8%/5%) and minimum days (3 per phase) now encoded from the firm's own pages (previously disclosed as not encoded); the '3% or 5%' purchase configuration split into two calculators. Floors unchanged: 5% daily of the higher of opening balance/equity, 10% static max on the lower of equity/balance."
+      ],
+      "supersedes": "fundingpips-2step-standard@2026-09-21"
+    },
+    {
+      "id": "fundingpips-2step-standard-3pct@2026-10-08",
+      "firm": "FundingPips",
+      "program": "2-Step Standard (3% daily-loss add-on)",
+      "slug": "fundingpips-2-step-standard-3pct-addon",
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time (UTC+3 — stated by the firm as a fixed offset).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://help.fundingpips.com/hc/en-us/articles/34501809112081-2-Step-Standard",
+        "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "target": {
+        "pctByPhase": [
+          8,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "notes": "The 2-Step Standard bought with the 3% daily-loss add-on: daily loss 3% of the higher of opening balance and opening equity; max loss 10% static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Profit targets 8% / 5%; no minimum trading days with the add-on. If you did not buy the add-on, use the standard 5% calculator. FundingPips' help centre moved to help.fundingpips.com/hc on or before 2026-10-08; the article numbers are unchanged and the rule text was re-read on the new pages.",
+      "verificationLog": [
+        "2026-10-08 CHANGED — sources moved to the firm's new help centre; profit targets (8%/5%) and minimum days (3 per phase) now encoded from the firm's own pages (previously disclosed as not encoded); the '3% or 5%' purchase configuration split into two calculators. Floors unchanged: 5% daily of the higher of opening balance/equity, 10% static max on the lower of equity/balance."
+      ],
+      "supersedes": "fundingpips-2step-standard@2026-09-21"
+    },
+    {
+      "id": "fundingpips-2step-flex@2026-10-08",
+      "firm": "FundingPips",
+      "program": "2-Step Flex",
+      "slug": "fundingpips-2-step-flex",
+      "daily": {
+        "pct": 4,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 12,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "minDays": 1,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time (UTC+3 — stated by the firm as a fixed offset).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://help.fundingpips.com/hc/en-us/articles/47835196271249-2-Step-Flex",
+        "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "target": {
+        "pctByPhase": [
+          10,
+          8
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "notes": "Daily loss 4% of the higher of opening balance and opening equity; max loss 12% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). 80%-split path: profit targets 10% / 8% with 1 minimum trading day per phase. The 95%-split path instead requires 3 profitable days (≥0.5% each) per phase — not modelled here; read it from your dashboard. FundingPips' help centre moved to help.fundingpips.com/hc on or before 2026-10-08; the article numbers are unchanged and the rule text was re-read on the new pages.",
+      "verificationLog": [
+        "2026-10-08 CHANGED — sources moved to the firm's new help centre; profit targets (10%/8%, 80% split) and the 1-day minimum now encoded from the firm's own page. Floors unchanged: 4% daily of the higher of opening balance/equity, 12% static max on the lower of equity/balance."
+      ],
+      "supersedes": "fundingpips-2step-flex@2026-09-21"
+    },
+    {
+      "id": "fundingpips-2step-pro@2026-10-08",
+      "firm": "FundingPips",
+      "program": "2-Step Pro",
+      "slug": "fundingpips-2-step-pro",
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 6,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time (UTC+3 — stated by the firm as a fixed offset).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://help.fundingpips.com/hc/en-us/articles/34502027344017-2-Step-Pro-Model",
+        "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "target": {
+        "pctByPhase": [
+          6,
+          6
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "notes": "Daily loss 3% of the higher of opening balance and opening equity; max loss 6% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Profit target 6% in each phase; no minimum trading days for accounts bought from 26 August 2026 (earlier accounts keep 1 day). FundingPips' help centre moved to help.fundingpips.com/hc on or before 2026-10-08; the article numbers are unchanged and the rule text was re-read on the new pages.",
+      "verificationLog": [
+        "2026-10-08 CHANGED — sources moved to the firm's new help centre; profit targets (6%/6%) and the zero-day minimum now encoded from the firm's own page. Floors unchanged: 3% daily of the higher of opening balance/equity, 6% static max on the lower of equity/balance."
+      ],
+      "supersedes": "fundingpips-2step-pro@2026-09-21"
+    },
+    {
+      "id": "the5ers-2step-new@2026-10-08",
+      "firm": "The5ers",
+      "program": "2-Step Plan — New (standard plan)",
+      "slug": "the5ers-2-step-new",
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          10,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of yesterday's closing balance and closing equity, taken at 00:00 MT5 server time (GMT+2 in winter, GMT+3 in summer).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://the5ers.com/faqs/2-step-plan-rules-specifications/",
+        "the5ers.com live-chat transcript 2026-09-21 (02_research/the5ers_livechat_transcript_2026-09-21.md)"
+      ],
+      "status": "verified-with-conflict",
+      "calculatorEligible": true,
+      "disclosure": "The5ers publishes 3% daily on its 2-Step Plan Rules page (last update 7 Sep 2026) and 5% on its High Stakes pages. The firm's live-chat assistant (21 Sep 2026) states the 3% applies to the standard 2-Step plans and 5% to High Stakes — this preset is the STANDARD 2-Step plan (New: targets 10% / 5%) at 3%. The 2-Step Plan Rules page states no minimum profitable-days requirement; the earlier preset's 3-day rule came from the High Stakes page and has been removed here. Verify on your dashboard.",
+      "notes": "Reset: the firm's assistant states MT5 server time, GMT+2 in winter and GMT+3 in summer; Bulwark uses the Europe/Athens zone for the countdown — in the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.",
+      "verificationLog": [
+        "2026-10-08 CHANGED — reset zone re-encoded from the fixed summer offset to the seasonal zone the firm's assistant states (GMT+2 winter / GMT+3 summer → Europe/Athens); the 3-profitable-days rule removed because the 2-Step Plan Rules page (last update 7 Sep 2026, re-read 2026-10-08) does not state it. Floors unchanged: 3% of the higher of yesterday's closing balance/equity, 10% static max."
+      ],
+      "supersedes": "the5ers-2step-new@2026-09-07"
+    },
+    {
+      "id": "the5ers-2step-classic@2026-10-08",
+      "firm": "The5ers",
+      "program": "2-Step Plan — Classic (standard plan)",
+      "slug": "the5ers-2-step-classic",
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          8,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of yesterday's closing balance and closing equity, taken at 00:00 MT5 server time (GMT+2 in winter, GMT+3 in summer).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://the5ers.com/faqs/2-step-plan-rules-specifications/",
+        "the5ers.com live-chat transcript 2026-09-21 (02_research/the5ers_livechat_transcript_2026-09-21.md)"
+      ],
+      "status": "verified-with-conflict",
+      "calculatorEligible": true,
+      "disclosure": "The5ers publishes 3% daily on its 2-Step Plan Rules page (last update 7 Sep 2026) and 5% on its High Stakes pages. The firm's live-chat assistant (21 Sep 2026) states the 3% applies to the standard 2-Step plans and 5% to High Stakes — this preset is the STANDARD 2-Step plan (Classic: targets 8% / 5%) at 3%. The 2-Step Plan Rules page states no minimum profitable-days requirement; the earlier preset's 3-day rule came from the High Stakes page and has been removed here. Verify on your dashboard.",
+      "notes": "Reset: the firm's assistant states MT5 server time, GMT+2 in winter and GMT+3 in summer; Bulwark uses the Europe/Athens zone for the countdown — in the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.",
+      "verificationLog": [
+        "2026-10-08 CHANGED — reset zone re-encoded from the fixed summer offset to the seasonal zone the firm's assistant states (GMT+2 winter / GMT+3 summer → Europe/Athens); the 3-profitable-days rule removed because the 2-Step Plan Rules page (last update 7 Sep 2026, re-read 2026-10-08) does not state it. Floors unchanged: 3% of the higher of yesterday's closing balance/equity, 10% static max."
+      ],
+      "supersedes": "the5ers-2step-classic@2026-09-07"
+    },
+    {
+      "id": "the5ers-highstakes-2step@2026-10-08",
+      "firm": "The5ers",
+      "program": "High Stakes 2-Step",
+      "slug": "the5ers-high-stakes-2-step",
+      "daily": {
+        "pct": 5,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          10,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your starting balance and starting equity for today, as recorded at 00:00 MT5 server time (GMT+2 in winter, GMT+3 in summer).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://the5ers.com/high-stakes/",
+        "https://the5ers.com/faqs/what-are-the-general-rules-for-the-high-stakes-program/",
+        "the5ers.com live-chat transcript 2026-09-21 (02_research/the5ers_livechat_transcript_2026-09-21.md)"
+      ],
+      "status": "verified-with-conflict",
+      "calculatorEligible": true,
+      "disclosure": "High Stakes 2-Step: 5% daily of the higher of starting balance and equity (the firm's High Stakes page, re-read 8 Oct 2026, and its live-chat assistant, 21 Sep 2026). Profit targets read from the High Stakes page itself: Step 1 10%, Step 2 5% — the June FAQ's 8% / 5% no longer appears there. Minimum 3 profitable days of at least 0.5% of the initial balance, profit measured as min(midnight balance, midnight equity) − previous day's balance. A separate 2-Step Plan Rules page states 3% daily — the firm's assistant says that applies to the standard plan, not High Stakes. Verify on your dashboard.",
+      "profitableDays": {
+        "required": 3,
+        "minDayProfitPctOfInitial": 0.5
+      },
+      "notes": "Reset: MT5 server time, GMT+2 in winter and GMT+3 in summer (firm's assistant); Bulwark uses the Europe/Athens zone for the countdown — in the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.",
+      "verificationLog": [
+        "2026-10-08 CHANGED — profit targets 8%/5% → 10%/5% (the5ers.com/high-stakes plan table, fetched 2026-10-08; the June FAQ, last update 15 Sep 2026, no longer lists targets); minimum 3 profitable days (≥0.5% of initial) encoded from the same page; reset zone re-encoded to the seasonal zone (Europe/Athens). Floors unchanged: 5% of the higher of starting balance/equity, 10% static max."
+      ],
+      "supersedes": "the5ers-highstakes-2step@2026-09-21"
+    },
+    {
+      "id": "topstep-combine-50k@2026-10-08",
+      "firm": "Topstep",
+      "program": "Trading Combine $50K (futures)",
+      "slug": "topstep-combine-50k",
+      "daily": {
+        "pct": 2,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "America/Chicago",
+        "resetHour": 17,
+        "displayAmount": 1000
+      },
+      "max": {
+        "pct": 4,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize",
+        "displayAmount": 2000
+      },
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance",
+        "displayAmount": 3000
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "lockout",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter $50,000 as the account size and your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it flattens positions and locks trading until the next session, but does not fail the Combine.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://intercom.help/topstep-llc/en/articles/8284204",
+        "https://help.topstep.com/en/articles/10490293",
+        "https://help.topstep.com/en/articles/8284208"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $1,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $2,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $3,000. Topstep's consistency target (your single best day at or below 55% of the profit target; exceeding it raises the target rather than failing the account) is not yet modelled by the calculator — read it from your dashboard.",
+      "defaultInitialSize": 50000,
+      "verificationLog": [
+        "2026-10-08 CHANGED — Daily Loss Limit now PRIMARY (Topstep help centre article 10490293, updated 30 Jun 2026) and profit target now PRIMARY (article 8284208 'Consistency at Topstep'); the secondary-sourced '50% of total profit' consistency rule removed — Topstep's own rule is best day ≤55% of the profit target, a construct the engine does not model yet (E-14 queued). Floors unchanged: DLL 2% static from the session-start balance; MLL trailing end-of-day balance with lock at the starting balance."
+      ],
+      "supersedes": "topstep-combine-50k@2026-09-22"
+    },
+    {
+      "id": "topstep-combine-100k@2026-10-08",
+      "firm": "Topstep",
+      "program": "Trading Combine $100K (futures)",
+      "slug": "topstep-combine-100k",
+      "daily": {
+        "pct": 2,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "America/Chicago",
+        "resetHour": 17,
+        "displayAmount": 2000
+      },
+      "max": {
+        "pct": 3,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize",
+        "displayAmount": 3000
+      },
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance",
+        "displayAmount": 6000
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "lockout",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter $100,000 as the account size and your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it flattens positions and locks trading until the next session, but does not fail the Combine.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://intercom.help/topstep-llc/en/articles/8284204",
+        "https://help.topstep.com/en/articles/10490293",
+        "https://help.topstep.com/en/articles/8284208"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $2,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $3,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $6,000. Topstep's consistency target (your single best day at or below 55% of the profit target; exceeding it raises the target rather than failing the account) is not yet modelled by the calculator — read it from your dashboard.",
+      "defaultInitialSize": 100000,
+      "verificationLog": [
+        "2026-10-08 CHANGED — Daily Loss Limit now PRIMARY (Topstep help centre article 10490293, updated 30 Jun 2026) and profit target now PRIMARY (article 8284208 'Consistency at Topstep'); the secondary-sourced '50% of total profit' consistency rule removed — Topstep's own rule is best day ≤55% of the profit target, a construct the engine does not model yet (E-14 queued). Floors unchanged: DLL 2% static from the session-start balance; MLL trailing end-of-day balance with lock at the starting balance."
+      ],
+      "supersedes": "topstep-combine-100k@2026-09-22"
+    },
+    {
+      "id": "topstep-combine-150k@2026-10-08",
+      "firm": "Topstep",
+      "program": "Trading Combine $150K (futures)",
+      "slug": "topstep-combine-150k",
+      "daily": {
+        "pct": 2,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "America/Chicago",
+        "resetHour": 17,
+        "displayAmount": 3000
+      },
+      "max": {
+        "pct": 3,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize",
+        "displayAmount": 4500
+      },
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance",
+        "displayAmount": 9000
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "lockout",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter $150,000 as the account size and your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it flattens positions and locks trading until the next session, but does not fail the Combine.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://intercom.help/topstep-llc/en/articles/8284204",
+        "https://help.topstep.com/en/articles/10490293",
+        "https://help.topstep.com/en/articles/8284208"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $3,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $4,500 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $9,000. Topstep's consistency target (your single best day at or below 55% of the profit target; exceeding it raises the target rather than failing the account) is not yet modelled by the calculator — read it from your dashboard.",
+      "defaultInitialSize": 150000,
+      "verificationLog": [
+        "2026-10-08 CHANGED — Daily Loss Limit now PRIMARY (Topstep help centre article 10490293, updated 30 Jun 2026) and profit target now PRIMARY (article 8284208 'Consistency at Topstep'); the secondary-sourced '50% of total profit' consistency rule removed — Topstep's own rule is best day ≤55% of the profit target, a construct the engine does not model yet (E-14 queued). Floors unchanged: DLL 2% static from the session-start balance; MLL trailing end-of-day balance with lock at the starting balance."
+      ],
+      "supersedes": "topstep-combine-150k@2026-09-22"
+    },
+    {
+      "id": "the5ers-highstakes@2026-06-12",
+      "firm": "The5ers",
+      "program": "High Stakes (rules as of June 2026 — historical)",
+      "slug": null,
+      "daily": {
+        "pct": 5,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          8,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "verifiedAsOf": "2026-06-12",
+      "sources": [
+        "https://the5ers.com/faqs/what-are-the-general-rules-for-the-high-stakes-program/"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "notes": "Retained as a versioned historical preset (golden test #12). Accounts that pinned it can still prove what they were shown."
+    },
+    {
+      "id": "personal-rules@2026-09-22",
+      "firm": "Your own rules",
+      "program": "Self-funded account",
+      "slug": "your-own-rules",
+      "daily": {
+        "pct": 3,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 6,
+        "model": "static"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Your balance at the start of today (the moment your broker's day rolls over). Pepperstone MT5 server time rolls at 00:00 GMT+2/+3 (Europe/Athens).",
+      "verifiedAsOf": "2026-09-22",
+      "sources": [
+        "Rules you set yourself — nothing to verify against a firm; the arithmetic is the same engine that passes 198 independent vectors."
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "custom": true,
+      "notes": "For self-funded traders: set the daily loss you would stop at and the maximum drawdown you would pause at. Common choices: 2–3% daily, 5–6% maximum. The defaults below are examples, not recommendations.",
+      "verificationLog": [
+        "2026-10-08 n/a — rules you set yourself"
+      ]
+    },
+    {
+      "id": "ftmo-futures-growth-eval@2026-09-19",
+      "firm": "FTMO",
+      "program": "FTMO Futures — Growth Account (evaluation)",
+      "slug": null,
+      "daily": null,
+      "max": {
+        "pct": 4,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "n/a",
+        "max": "terminate"
+      },
+      "anchorHint": "No daily loss limit in this evaluation. Enter your highest END-OF-DAY balance — the max-drawdown floor trails it and locks once it reaches your starting capital.",
+      "verifiedAsOf": "2026-09-19",
+      "sources": [
+        "https://ftmo.com/en/futures/trading-objectives-and-rules/"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "notes": "Superseded 2026-10-08 by ftmo-futures-growth-50k@2026-10-08, ftmo-futures-growth-100k@2026-10-08, ftmo-futures-growth-150k@2026-10-08. Max-drawdown % varies by account size on FTMO's page (example: $6,000 on $150,000 = 4%); confirm the % for the chosen account size before relying on the number.",
+      "supersededBy": [
+        "ftmo-futures-growth-50k@2026-10-08",
+        "ftmo-futures-growth-100k@2026-10-08",
+        "ftmo-futures-growth-150k@2026-10-08"
+      ]
+    },
+    {
+      "id": "fundednext-stellar-2step@2026-09-19",
+      "firm": "FundedNext",
+      "program": "Stellar 2-Step",
+      "slug": null,
+      "daily": {
+        "pct": 5,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          8,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 5,
+      "breach": {
+        "daily": "pause",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter your BALANCE at the start of the trading day (00:00 server time).",
+      "verifiedAsOf": "2026-09-19",
+      "sources": [
+        "https://help.fundednext.com/en/articles/8019811-how-can-i-calculate-the-daily-loss-limit",
+        "https://help.fundednext.com/en/articles/8021076-what-rules-do-i-need-to-follow-in-the-stellar-2-step-challenge",
+        "https://fundednext.com/general-rules/cfds/trading-objectives"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "notes": "Superseded 2026-10-08 by fundednext-stellar-2step@2026-10-08. Server time = the broker server's clock (typically UTC+3 in summer, UTC+2 in winter); the reset tz here is the summer value — confirm against the dashboard. Max-loss wording is balance-based on FundedNext's page; the calculator uses equity (conservative).",
+      "supersededBy": [
+        "fundednext-stellar-2step@2026-10-08"
+      ]
+    },
+    {
+      "id": "fundednext-stellar-1step@2026-09-19",
+      "firm": "FundedNext",
+      "program": "Stellar 1-Step",
+      "slug": null,
+      "daily": {
+        "pct": 3,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 6,
+        "model": "static"
+      },
+      "minDays": 2,
+      "breach": {
+        "daily": "pause",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter your BALANCE at the start of the trading day (00:00 server time).",
+      "verifiedAsOf": "2026-09-19",
+      "sources": [
+        "https://help.fundednext.com/en/articles/8021061-what-are-the-rules-for-the-stellar-1-step-challenge-at-fundednext"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "supersededBy": [
+        "fundednext-stellar-1step@2026-10-08"
+      ],
+      "notes": "Superseded 2026-10-08 by fundednext-stellar-1step@2026-10-08."
+    },
+    {
+      "id": "fundednext-stellar-lite@2026-09-19",
+      "firm": "FundedNext",
+      "program": "Stellar Lite",
+      "slug": null,
+      "daily": {
+        "pct": 4,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 8,
+        "model": "static"
+      },
+      "minDays": 5,
+      "breach": {
+        "daily": "pause",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter your BALANCE at the start of the trading day (00:00 server time).",
+      "verifiedAsOf": "2026-09-19",
+      "sources": [
+        "https://help.fundednext.com/en/articles/9094072-what-rules-do-i-need-to-follow-in-the-stellar-lite-challenge"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "supersededBy": [
+        "fundednext-stellar-lite@2026-10-08"
+      ],
+      "notes": "Superseded 2026-10-08 by fundednext-stellar-lite@2026-10-08."
+    },
+    {
+      "id": "fundingpips-2step-standard@2026-09-21",
+      "firm": "FundingPips",
+      "program": "2-Step Standard",
+      "slug": null,
+      "daily": {
+        "pct": 5,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time (UTC+3).",
+      "verifiedAsOf": "2026-09-21",
+      "sources": [
+        "https://help.fundingpips.com/en/articles/34501809112081"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "disclosure": "Floors verified from FundingPips' own help centre (daily 5% of the higher of opening balance/equity; max 10% of starting size, static; breached if EQUITY OR BALANCE touches the level — Bulwark measures the lower of the two). Profit targets and minimum trading days are NOT encoded here: third-party sources disagree on them — read them from your dashboard.",
+      "supersededBy": [
+        "fundingpips-2step-standard@2026-10-08",
+        "fundingpips-2step-standard-3pct@2026-10-08"
+      ],
+      "notes": "Superseded 2026-10-08 by fundingpips-2step-standard@2026-10-08, fundingpips-2step-standard-3pct@2026-10-08."
+    },
+    {
+      "id": "fundingpips-2step-flex@2026-09-21",
+      "firm": "FundingPips",
+      "program": "2-Step Flex",
+      "slug": null,
+      "daily": {
+        "pct": 4,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 12,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time (UTC+3).",
+      "verifiedAsOf": "2026-09-21",
+      "sources": [
+        "https://help.fundingpips.com/en/articles/47835196271249"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "disclosure": "Floors verified from FundingPips' own help centre (daily 4%, max 12% static; breached if EQUITY OR BALANCE touches the level — Bulwark measures the lower of the two). Profit targets and minimum trading days are NOT encoded — read them from your dashboard.",
+      "supersededBy": [
+        "fundingpips-2step-flex@2026-10-08"
+      ],
+      "notes": "Superseded 2026-10-08 by fundingpips-2step-flex@2026-10-08."
+    },
+    {
+      "id": "fundingpips-2step-pro@2026-09-21",
+      "firm": "FundingPips",
+      "program": "2-Step Pro",
+      "slug": null,
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 6,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time (UTC+3).",
+      "verifiedAsOf": "2026-09-21",
+      "sources": [
+        "https://help.fundingpips.com/en/articles/34502027344017"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "disclosure": "Floors verified from FundingPips' own help centre (daily 3%, max 6% static; breached if EQUITY OR BALANCE touches the level — Bulwark measures the lower of the two). Profit targets, minimum days and any consistency rule are NOT encoded — third-party sources disagree; read them from your dashboard.",
+      "supersededBy": [
+        "fundingpips-2step-pro@2026-10-08"
+      ],
+      "notes": "Superseded 2026-10-08 by fundingpips-2step-pro@2026-10-08."
+    },
+    {
+      "id": "the5ers-2step-new@2026-09-07",
+      "firm": "The5ers",
+      "program": "2-Step Plan — New (standard plan)",
+      "slug": null,
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          10,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "profitableDays": {
+        "required": 3,
+        "minDayProfitPctOfInitial": 0.5
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of yesterday's closing balance or closing equity (taken at 00:00 server time, UTC+3).",
+      "verifiedAsOf": "2026-09-19",
+      "sources": [
+        "https://the5ers.com/faqs/2-step-plan-rules-specifications/",
+        "https://the5ers.com/high-stakes/"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "disclosure": "The5ers publishes 3% on its 2-Step Plan Rules page (updated 2026-09-07) and 5% on its High Stakes pages. The firm's live-chat assistant (2026-09-21) states the 3% applies to the standard/Summer 2-Step plan and 5% to the High Stakes program — this preset is the STANDARD 2-Step plan at 3%. Verify on your dashboard.",
+      "supersededBy": [
+        "the5ers-2step-new@2026-10-08"
+      ],
+      "notes": "Superseded 2026-10-08 by the5ers-2step-new@2026-10-08."
+    },
+    {
+      "id": "the5ers-2step-classic@2026-09-07",
+      "firm": "The5ers",
+      "program": "2-Step Plan — Classic (standard plan)",
+      "slug": null,
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          8,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "profitableDays": {
+        "required": 3,
+        "minDayProfitPctOfInitial": 0.5
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of yesterday's closing balance or closing equity (taken at 00:00 server time, UTC+3).",
+      "verifiedAsOf": "2026-09-19",
+      "sources": [
+        "https://the5ers.com/faqs/2-step-plan-rules-specifications/"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "disclosure": "Same two-product reading as the New variant: this is the STANDARD 2-Step plan at 3% (2-Step Plan Rules page, 2026-09-07); High Stakes is a separate 5% preset. Verify on your dashboard.",
+      "supersededBy": [
+        "the5ers-2step-classic@2026-10-08"
+      ],
+      "notes": "Superseded 2026-10-08 by the5ers-2step-classic@2026-10-08."
+    },
+    {
+      "id": "the5ers-highstakes-2step@2026-09-21",
+      "firm": "The5ers",
+      "program": "High Stakes 2-Step",
+      "slug": null,
+      "daily": {
+        "pct": 5,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          8,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your starting balance and starting equity for today, as recorded at 00:00 MT5 server time (GMT+2 winter / GMT+3 summer).",
+      "verifiedAsOf": "2026-09-21",
+      "sources": [
+        "https://the5ers.com/high-stakes/",
+        "https://the5ers.com/faqs/what-are-the-general-rules-for-the-high-stakes-program/",
+        "the5ers.com live-chat transcript 2026-09-21 (02_research/the5ers_livechat_transcript_2026-09-21.md)"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "disclosure": "High Stakes 2-Step: 5% daily of the higher of starting balance/equity (firm's High Stakes pages + live-chat assistant 2026-09-21). A separate 2-Step Plan Rules page states 3% — the firm's assistant says that applies to the standard plan, not High Stakes. Targets 8%/5% taken from the High Stakes FAQ (June); no human confirmation yet. Verify on your dashboard.",
+      "supersededBy": [
+        "the5ers-highstakes-2step@2026-10-08"
+      ],
+      "notes": "Superseded 2026-10-08 by the5ers-highstakes-2step@2026-10-08."
+    },
+    {
+      "id": "topstep-combine-50k@2026-09-22",
+      "firm": "Topstep",
+      "program": "Trading Combine $50K (futures)",
+      "slug": null,
+      "daily": {
+        "pct": 2,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "America/Chicago",
+        "resetHour": 17
+      },
+      "max": {
+        "pct": 4,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize"
+      },
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "consistency": {
+        "capPct": 50,
+        "denominator": "positiveDays"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "lockout",
+        "max": "terminate"
+      },
+      "anchorHint": "Your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it auto-liquidates for the session but does not fail the Combine.",
+      "verifiedAsOf": "2026-09-22",
+      "sources": [
+        "https://intercom.help/topstep-llc/en/articles/8284204",
+        "https://tradingfunder.com/topstep-rules",
+        "https://proptradingvibes.com/blog/topstep-trading-combine-rules"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "disclosure": "Maximum Loss Limit $2,000 (trails your highest end-of-day balance; locks at the starting balance) is PRIMARY — Topstep's own help centre, 2026-09-22. The Daily Loss Limit $1,000 and the $3,000 profit target are from secondary rule summaries dated 2026 and await Topstep's own page; the daily limit is an objective (session auto-liquidation), not a rule violation. Verify on your dashboard.",
+      "notes": "Superseded 2026-10-08 by topstep-combine-50k@2026-10-08. Amounts converted to percentages of the account size for the engine (MLL 3–4%, DLL 2%). Consistency objective: best day under 50% of total profit.",
+      "supersededBy": [
+        "topstep-combine-50k@2026-10-08"
+      ]
+    },
+    {
+      "id": "topstep-combine-100k@2026-09-22",
+      "firm": "Topstep",
+      "program": "Trading Combine $100K (futures)",
+      "slug": null,
+      "daily": {
+        "pct": 2,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "America/Chicago",
+        "resetHour": 17
+      },
+      "max": {
+        "pct": 3,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize"
+      },
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "consistency": {
+        "capPct": 50,
+        "denominator": "positiveDays"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "lockout",
+        "max": "terminate"
+      },
+      "anchorHint": "Your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it auto-liquidates for the session but does not fail the Combine.",
+      "verifiedAsOf": "2026-09-22",
+      "sources": [
+        "https://intercom.help/topstep-llc/en/articles/8284204",
+        "https://tradingfunder.com/topstep-rules",
+        "https://proptradingvibes.com/blog/topstep-trading-combine-rules"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "disclosure": "Maximum Loss Limit $3,000 (trails your highest end-of-day balance; locks at the starting balance) is PRIMARY — Topstep's own help centre, 2026-09-22. The Daily Loss Limit $2,000 and the $6,000 profit target are from secondary rule summaries dated 2026 and await Topstep's own page; the daily limit is an objective (session auto-liquidation), not a rule violation. Verify on your dashboard.",
+      "notes": "Superseded 2026-10-08 by topstep-combine-100k@2026-10-08. Amounts converted to percentages of the account size for the engine (MLL 3–4%, DLL 2%). Consistency objective: best day under 50% of total profit.",
+      "supersededBy": [
+        "topstep-combine-100k@2026-10-08"
+      ]
+    },
+    {
+      "id": "topstep-combine-150k@2026-09-22",
+      "firm": "Topstep",
+      "program": "Trading Combine $150K (futures)",
+      "slug": null,
+      "daily": {
+        "pct": 2,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "America/Chicago",
+        "resetHour": 17
+      },
+      "max": {
+        "pct": 3,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize"
+      },
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "consistency": {
+        "capPct": 50,
+        "denominator": "positiveDays"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "lockout",
+        "max": "terminate"
+      },
+      "anchorHint": "Your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it auto-liquidates for the session but does not fail the Combine.",
+      "verifiedAsOf": "2026-09-22",
+      "sources": [
+        "https://intercom.help/topstep-llc/en/articles/8284204",
+        "https://tradingfunder.com/topstep-rules",
+        "https://proptradingvibes.com/blog/topstep-trading-combine-rules"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "disclosure": "Maximum Loss Limit $4,500 (trails your highest end-of-day balance; locks at the starting balance) is PRIMARY — Topstep's own help centre, 2026-09-22. The Daily Loss Limit $3,000 and the $9,000 profit target are from secondary rule summaries dated 2026 and await Topstep's own page; the daily limit is an objective (session auto-liquidation), not a rule violation. Verify on your dashboard.",
+      "notes": "Superseded 2026-10-08 by topstep-combine-150k@2026-10-08. Amounts converted to percentages of the account size for the engine (MLL 3–4%, DLL 2%). Consistency objective: best day under 50% of total profit.",
+      "supersededBy": [
+        "topstep-combine-150k@2026-10-08"
+      ]
+    }
+  ],
+  "pendingPrimaryFetch": [
+    "Apex 50K EOD / Intraday (HELM corpus) — encode only from Apex's own page",
+    "FundingPips 1-Step Flex (2% or 3% daily, 12% static, 12% target) and Zero (3% daily, 5% trailing, 1% max open risk) — pages located 2026-10-08; encode next round",
+    "FTMO Futures Growth consistency objective — page lists 40% and 50% without stating which applies",
+    "Funded Trading Plus",
+    "Alpha Capital",
+    "E8 Markets"
+  ],
+  "engineBacklog": [
+    "E-13 dollar-defined limits: presets carry displayAmount (display only); the engine still computes from pct — add an amount field with a golden test and HELM vectors before relying on it",
+    "E-14 consistency denominator = profit target (Topstep: best day ≤55% of the target; exceeding raises the target) — new construct, needs a test on both engines"
+  ]
+}

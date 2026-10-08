@@ -1,0 +1,42 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Changelog and credits — Bulwark</title><meta name="description" content="Changelog and credits — Bulwark"><meta name="theme-color" content="#0D1422">
+<meta property="og:type" content="website"><meta property="og:title" content="Changelog and credits — Bulwark"><meta property="og:description" content="Changelog and credits — Bulwark"><meta property="og:site_name" content="Bulwark"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Changelog and credits — Bulwark"><meta name="twitter:description" content="Changelog and credits — Bulwark">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/cockpit.css"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D1422'/%3E%3Crect x='6' y='18' width='20' height='4' fill='%23F2B441'/%3E%3Crect x='6' y='10' width='20' height='2' fill='%232BD17E'/%3E%3C/svg%3E"></head><body><div class="wrap">
+<header><a class="mark" href="../index.html">BULWARK<span>prop challenge survival cockpit</span></a><nav><a href="../index.html#calculators">Calculators</a><a href="../compare.html">Compare firms</a><a href="../docs/verify.html">How we verify</a><a href="../docs/faq.html">FAQ</a><a href="../docs/changelog.html">Changelog</a><a href="../docs/quickstart.html">Quick-start</a><a href="../docs/manual.html">Manual</a><a href="../index.html#waitlist">Waitlist</a></nav></header><section style="border-top:0;padding-top:12px"><div class="doc"><h1>Changelog and credits</h1>
+<p>Every change to the rules, the engine or the pages is listed here as a dated entry, newest first. Presets never change in place: a rule change is a new dated version, so the record shows what the rule was on any given day. Findings from testers are credited by first name or handle, with permission.</p>
+<h2>2026-10-08 — v0.3.4 (weekly re-verification; presets v1.6)</h2>
+<p>Every preset was re-read on the firms&#39; own pages. Floors are unchanged for every program; the changes below are new dated preset versions (the old versions are retained as superseded).</p>
+<ul>
+<li><strong>FTMO 2-Step and 1-Step:</strong> unchanged (page modified 30 Sep 2026). <strong>FTMO Futures Growth</strong> is now three calculators — $50K, $100K, $150K — because FTMO defines the drawdown as $2,000 / $3,500 / $5,000; the single 4% preset was wrong for the larger sizes. Profit targets ($3,000 / $6,000 / $9,000) encoded from FTMO&#39;s page.</li>
+<li><strong>FundedNext Stellar 2-Step, 1-Step, Lite:</strong> floors unchanged. Reset timezone re-encoded from a fixed UTC+3 to the seasonal server time the firm states (GMT+3 summer / GMT+2 winter); profit targets and minimum days encoded from fundednext.com.</li>
+<li><strong>FundingPips:</strong> the firm&#39;s help centre moved (new URLs; same article numbers). Floors unchanged. Profit targets and minimum days are now encoded from the firm&#39;s own pages, so the amber &quot;targets not encoded&quot; banner is gone. The 2-Step Standard is sold with a 5% daily limit or a <strong>3% daily-loss add-on</strong> — the add-on now has its own calculator.</li>
+<li><strong>The5ers standard 2-Step (New, Classic):</strong> floors unchanged; the 3-profitable-days rule was removed because the 2-Step Plan Rules page (last update 7 Sep 2026) does not state it; seasonal reset timezone. <strong>High Stakes 2-Step:</strong> the firm&#39;s page now lists targets of 10% / 5% (previously 8% / 5% from the June FAQ); minimum 3 profitable days of 0.5% encoded from the page.</li>
+<li><strong>Topstep 50K / 100K / 150K:</strong> the Daily Loss Limit ($1,000 / $2,000 / $3,000) and profit targets ($3,000 / $6,000 / $9,000) are now read from Topstep&#39;s own help centre, so these calculators are fully primary-sourced. The secondary-sourced &quot;50% of total profit&quot; consistency rule was removed: Topstep&#39;s rule is best day ≤ 55% of the profit target, a construct queued for the engine (E-14).</li>
+<li>Engine backlog opened: E-13 dollar-defined limits; E-14 consistency measured against the profit target.</li>
+<li>Found by the treadmill, not by a tester: three of the sixteen presets were quietly imprecise (the Growth sizes, the seasonal zone, the High Stakes targets). This is what the weekly re-check is for.</li>
+</ul>
+<h2>2026-09-22 — v0.3.2</h2>
+<ul>
+<li><strong>Topstep Trading Combine calculators (50K, 100K, 150K)</strong> added. The Maximum Loss Limit is taken from Topstep&#39;s own help centre (trails the highest end-of-day balance; locks at the starting balance). The daily limit and profit targets are disclosed as secondary-sourced until Topstep&#39;s own page is read.</li>
+<li><strong>&quot;Your own rules&quot; calculator</strong> for self-funded traders: set your own daily-loss and maximum-drawdown percentages.</li>
+<li><strong>Compare firms</strong> page: every verified program in one table, with the floors a $100,000 account would have today, computed by the same engine.</li>
+<li><strong>Live demo</strong> on the homepage; <strong>How we verify</strong> and <strong>FAQ</strong> pages; per-page titles; light and dark themes.</li>
+<li>Manual v1.1: personal rules, The5ers&#39; two products, FundingPips&#39; lower-of breach basis, the exact-cent target note.</li>
+</ul>
+<h2>2026-09-22 — engine v0.2.1 (E-10, E-11, E-12)</h2>
+<ul>
+<li><strong>E-10:</strong> a profit target hit to the exact cent now reads <em>reached</em>; the level is computed exactly rather than from a floating-point product. Found by cross-checking against an independent engine&#39;s pinned test.</li>
+<li><strong>E-11:</strong> a breach basis of <em>lower of equity and balance</em> for firms that define it that way (FundingPips). Found the same way; fixed on both engines the same day.</li>
+<li><strong>E-12:</strong> daylight-saving resolution made explicit — a wall-clock time that occurs twice at the autumn change resolves to the earlier instant in every timezone; a time that does not exist at the spring change shifts forward. No shipped preset was affected (all reset at 00:00 or 17:00).</li>
+</ul>
+<h2>2026-09-21 — presets v1.2–v1.4</h2>
+<ul>
+<li><strong>The5ers:</strong> two products, not one conflict. The standard 2-Step Plan is 3% daily; High Stakes 2-Step is 5%, anchored to the higher of starting balance and equity — confirmed with the firm directly on 21 September. Both pages exist; pick the one that matches your account.</li>
+<li><strong>FundingPips</strong> Standard, Flex and Pro added from the firm&#39;s help centre (floors only; targets disclosed as not encoded).</li>
+<li><strong>FTMO</strong> and <strong>FundedNext</strong> re-verified against the firms&#39; pages.</li>
+</ul>
+<h2>Credits</h2>
+<p>The engine is audited continuously by a second, independent engineering desk; several of the defects above were found by that desk&#39;s tests and fixed on both sides. Beta testers who find a wrong number, a confusing label or a missing rule are credited here by first name or handle, with permission, from the first cohort onward.</p>
+<p><em>General information, not financial advice. Verify every rule against your firm&#39;s dashboard.</em></p>
+</div></section><footer><p><b>Bulwark shows rule mathematics — general information, not financial advice. It never recommends trades and makes no claims about trading outcomes. Rules change; always verify against your firm's dashboard.</b></p><p>Bulwark is not affiliated with, endorsed by, or acting for any proprietary-trading firm or broker, and receives no commissions from any. Firm names are used to identify their published rules. No account credentials are ever requested. Computation happens in your browser; no numbers leave your device. © 2026 Bulwark · <a href="../docs/legal.html">Terms · Privacy · Refunds</a></p></footer></div></body></html>

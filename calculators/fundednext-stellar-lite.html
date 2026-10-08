@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FundedNext Stellar Lite Daily Loss & Max Loss Calculator — Bulwark</title><meta name="description" content="Free FundedNext Stellar Lite calculator: daily loss floor, max-loss floor, buffered STOP line, limit used, and max safe position size — computed in your browser from the firm's published rules."><meta name="theme-color" content="#0D1422">
+<meta property="og:type" content="website"><meta property="og:title" content="FundedNext Stellar Lite Daily Loss & Max Loss Calculator — Bulwark"><meta property="og:description" content="Free FundedNext Stellar Lite calculator: daily loss floor, max-loss floor, buffered STOP line, limit used, and max safe position size — computed in your browser from the firm's published rules."><meta property="og:site_name" content="Bulwark"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="FundedNext Stellar Lite Daily Loss & Max Loss Calculator — Bulwark"><meta name="twitter:description" content="Free FundedNext Stellar Lite calculator: daily loss floor, max-loss floor, buffered STOP line, limit used, and max safe position size — computed in your browser from the firm's published rules.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/cockpit.css"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D1422'/%3E%3Crect x='6' y='18' width='20' height='4' fill='%23F2B441'/%3E%3Crect x='6' y='10' width='20' height='2' fill='%232BD17E'/%3E%3C/svg%3E"></head><body><div class="wrap">
+<header><a class="mark" href="../index.html">BULWARK<span>prop challenge survival cockpit</span></a><nav><a href="../index.html#calculators">Calculators</a><a href="../compare.html">Compare firms</a><a href="../docs/verify.html">How we verify</a><a href="../docs/faq.html">FAQ</a><a href="../docs/changelog.html">Changelog</a><a href="../docs/quickstart.html">Quick-start</a><a href="../docs/manual.html">Manual</a><a href="../index.html#waitlist">Waitlist</a></nav></header>
+<section style="border-top:0;padding-top:12px">
+<div class="eyebrow">FundedNext · Stellar Lite</div>
+<h1>FundedNext Stellar Lite <em>survival calculator</em></h1>
+<p class="lede">Your daily floor, max floor, buffered STOP line and the largest position a full stop can survive — computed from FundedNext's published rules: 4% daily (of initial size, anchored to balance); 8% max (static); target 8% / 4% on closed balance.</p>
+<p class="micro" style="margin-top:8px"><span class="ver">rules verified 2026-10-08</span> &nbsp; <details style="display:inline-block;margin:0"><summary style="display:inline">sources</summary><ul><li><a href="https://help.fundednext.com/en/articles/9094072-what-rules-do-i-need-to-follow-in-the-stellar-lite-challenge" rel="nofollow noopener" target="_blank">https://help.fundednext.com/en/articles/9094072-what-rules-do-i-need-to-follow-in-the-stellar-lite-challenge</a></li><li><a href="https://help.fundednext.com/en/articles/8019811-how-can-i-calculate-the-daily-loss-limit" rel="nofollow noopener" target="_blank">https://help.fundednext.com/en/articles/8019811-how-can-i-calculate-the-daily-loss-limit</a></li><li><a href="https://fundednext.com/general-rules/cfds/trading-objectives" rel="nofollow noopener" target="_blank">https://fundednext.com/general-rules/cfds/trading-objectives</a></li></ul></details></p>
+<p class="hint" style="margin-top:8px">Server time: FundedNext states GMT+3 during daylight-saving time and GMT+2 for the rest of the year (help-centre article 8019811, 8 Apr 2026); Bulwark uses the Europe/Athens zone for the countdown. In the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard. Max-loss wording on FundedNext's pages is balance-based ("must not drop below 90% of its initial balance"); the calculator measures equity, the conservative reading.</p>
+<div class="calc">
+<div class="card">
+<h3>Your numbers</h3>
+<label>Account size (initial capital)<input id="initialSize" type="text" inputmode="decimal" value="100000"></label>
+<label>Day-start balance<input id="dayStartBalance" type="text" inputmode="decimal" value="100000"><span class="hint">Enter your BALANCE at the start of the trading day — 00:00 server time (GMT+3 in summer, GMT+2 in winter).</span></label>
+<input id="dayStartAnchor" type="hidden" value="">
+<label>Today's closed trades (space-separated, e.g. <code>450 -520 300</code>)<input id="todayLog" type="text" value=""><span id="logEcho" class="hint">0 trades</span></label>
+<label>Floating P&amp;L of open positions (manual — update as it moves)<input id="openPnl" type="text" inputmode="decimal" value="0"></label>
+<input id="highestEod" type="hidden" value="">
+<label>Phase<select id="phase"><option value="0">Phase 1 — target 8%</option><option value="1">Phase 2 — target 4%</option></select></label>
+
+
+<h3 style="margin-top:14px">Next trade</h3>
+<label>Risk per trade, % of equity<input id="riskPct" type="text" inputmode="decimal" value="0.5"></label>
+<label>Stop distance (pips for FX; price units otherwise)<input id="stopDist" type="text" inputmode="decimal" value="20"></label>
+<label>Value of one stop unit per lot, in account currency<input id="valuePerUnit" type="text" inputmode="decimal" value="10"><span class="hint">EURUSD on a USD account: about 10 per pip per standard lot. Leave blank if unsure — Bulwark refuses to size rather than guess.</span></label>
+<label>Safety buffer — STOP at this % of the daily limit<input id="buffer" type="range" min="50" max="100" step="5" value="75" oninput="this.nextElementSibling.textContent=this.value+'%'"><span class="hint">75%</span></label>
+<p class="hint">Professionals stop before the firm stops them.</p>
+</div>
+<div class="card">
+<div id="status" class="status ok">—</div>
+<div id="tape" class="tape"></div>
+<div class="figs">
+<div class="fig"><div class="l">Live equity</div><div id="f-equity" class="v">—</div></div>
+<div class="fig"><div class="l">STOP line · room</div><div id="f-stop" class="v amber">—</div></div>
+<div class="fig"><div class="l">Daily floor</div><div id="f-daily" class="v red">—</div></div>
+<div class="fig"><div class="l">Max-loss floor</div><div id="f-max" class="v red">—</div></div>
+</div>
+<div class="bar"><i id="bar" style="width:0%"></i></div><div id="usedTxt" class="hint">—</div>
+<div style="margin-top:14px"><div class="l hint">Next trade — max safe size</div><div id="sizeOut" class="v">—</div></div>
+<div id="extra"></div>
+<div id="reset" class="hint" style="margin-top:10px"></div>
+<details><summary>Show working</summary><ul id="working"></ul></details>
+</div>
+</div>
+<p class="micro" style="margin-top:18px">Want this live on every trade, with your firm's preset and a receipts log? <a href="../index.html#waitlist">Bulwark cockpit — free for one account.</a></p>
+</section>
+<script type="module">import { mountCalculator } from "../js/calc.js"; mountCalculator({"id":"fundednext-stellar-lite@2026-10-08","firm":"FundedNext","program":"Stellar Lite","slug":"fundednext-stellar-lite","daily":{"pct":4,"basis":"initial","anchorSemantic":"balance","model":"static","resetTz":"Europe/Athens","resetHour":0},"max":{"pct":8,"model":"static"},"minDays":5,"breach":{"daily":"pause","max":"terminate"},"anchorHint":"Enter your BALANCE at the start of the trading day — 00:00 server time (GMT+3 in summer, GMT+2 in winter).","verifiedAsOf":"2026-10-08","sources":["https://help.fundednext.com/en/articles/9094072-what-rules-do-i-need-to-follow-in-the-stellar-lite-challenge","https://help.fundednext.com/en/articles/8019811-how-can-i-calculate-the-daily-loss-limit","https://fundednext.com/general-rules/cfds/trading-objectives"],"status":"verified","calculatorEligible":true,"target":{"pctByPhase":[8,4],"assessedOn":"closedBalance"},"notes":"Server time: FundedNext states GMT+3 during daylight-saving time and GMT+2 for the rest of the year (help-centre article 8019811, 8 Apr 2026); Bulwark uses the Europe/Athens zone for the countdown. In the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard. Max-loss wording on FundedNext's pages is balance-based (\"must not drop below 90% of its initial balance\"); the calculator measures equity, the conservative reading.","verificationLog":["2026-10-08 CHANGED — reset zone re-encoded from the fixed summer offset (Etc/GMT-3) to the seasonal zone the firm states (GMT+3 summer / GMT+2 winter → Europe/Athens); profit targets and minimum days encoded from fundednext.com's trading-objectives page (fetched 2026-10-08). Floors unchanged: 4% daily of initial, 8% static max."],"supersedes":"fundednext-stellar-lite@2026-09-19"});</script>
+<footer><p><b>Bulwark shows rule mathematics — general information, not financial advice. It never recommends trades and makes no claims about trading outcomes. Rules change; always verify against your firm's dashboard.</b></p><p>Bulwark is not affiliated with, endorsed by, or acting for any proprietary-trading firm or broker, and receives no commissions from any. Firm names are used to identify their published rules. No account credentials are ever requested. Computation happens in your browser; no numbers leave your device. © 2026 Bulwark · <a href="../docs/legal.html">Terms · Privacy · Refunds</a></p></footer></div></body></html>
