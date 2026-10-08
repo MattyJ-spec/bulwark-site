@@ -73,8 +73,12 @@ export function mountCalculator(preset) {
 
     // target / consistency / profitable days
     let extra = [];
-    if (o.target) extra.push(o.target.reachedBanked ? `Target ${fmt(o.target.targetEquity)}: reached — banked ✓` : o.target.floatingPastTarget ? `Target: floating past target — ${fmt(o.target.toTargetClosed)} not yet banked` : `Target ${fmt(o.target.targetEquity)}: ${fmt(o.target.toTargetClosed)} to go (closed balance)`);
-    if (o.consistency && o.consistency.pct !== null) extra.push(`Best-Day: ${o.consistency.pct.toFixed(1)}% of positive-days profit (cap ${o.consistency.capPct}%)${o.consistency.exceeded ? " — exceeded: not a breach, passing deferred" : ""}`);
+    if (o.target) { const raised = o.target.raisedByConsistency ? " (raised by the consistency rule)" : ""; extra.push(o.target.reachedBanked ? `Target ${fmt(o.target.targetEquity)}${raised}: reached — banked ✓` : o.target.floatingPastTarget ? `Target${raised}: floating past target — ${fmt(o.target.toTargetClosed)} not yet banked` : `Target ${fmt(o.target.targetEquity)}${raised}: ${fmt(o.target.toTargetClosed)} to go (closed balance)`); }
+    if (o.consistency && o.consistency.pct !== null) {
+      const den = o.consistency.denominatorType === "profitTarget" ? "the profit target" : o.consistency.denominatorType === "positiveDaysProfit" ? "positive-days profit" : "total closed profit";
+      const tail = !o.consistency.exceeded ? "" : o.consistency.breachConsequence === "raisesTarget" ? ` — exceeded: not a breach; the target rises to ${fmt(o.consistency.raisedTargetEquity)} until the best day is back under the cap` : o.consistency.breachConsequence === "defersPass" ? " — exceeded: not a breach, passing deferred" : " — exceeded: rule breach";
+      extra.push(`Best-Day: ${o.consistency.pct.toFixed(1)}% of ${den} (cap ${o.consistency.capPct}%)${tail}`);
+    }
     if (o.profitableDays) extra.push(`Profitable days: ${o.profitableDays.completedBeforeToday}/${o.profitableDays.required} before today; today ${o.profitableDays.todayQualifiesNow ? "would qualify if held to midnight" : "not yet qualifying"} (threshold ${fmt(o.profitableDays.thresholdAmount)})`);
     $("extra").innerHTML = extra.map(x => `<div class="hint" style="margin-top:6px">${x}</div>`).join("");
 

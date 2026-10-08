@@ -21,7 +21,7 @@
 <label>Highest end-of-day balance so far<input id="highestEod" type="text" inputmode="decimal" value="100000"><span class="hint">The max-loss floor trails this figure.</span></label>
 <input id="phase" type="hidden" value="0">
 
-<label>Best prior day's profit<input id="bestPrevDay" type="text" inputmode="decimal" value="0"></label><label>Total profit from positive days (incl. today)<input id="positiveDays" type="text" inputmode="decimal" value="0"></label>
+<label>Best prior day's profit<input id="bestPrevDay" type="text" inputmode="decimal" value="0"><span class="hint">The best day is compared with the profit from positive days (cap 50%).</span></label><label>Total profit from positive days (incl. today)<input id="positiveDays" type="text" inputmode="decimal" value="0"></label>
 <h3 style="margin-top:14px">Next trade</h3>
 <label>Risk per trade, % of equity<input id="riskPct" type="text" inputmode="decimal" value="0.5"></label>
 <label>Stop distance (pips for FX; price units otherwise)<input id="stopDist" type="text" inputmode="decimal" value="20"></label>

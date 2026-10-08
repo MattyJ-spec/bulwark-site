@@ -22,7 +22,7 @@ Indicators → Community scripts → search **Bulwark** → add to chart. If no 
 |---|---|---|---|
 | FTMO 2-Step / 1-Step | your **balance** at midnight Prague time | 5% / 3% of **initial** capital | Europe/Prague, hour 0 |
 | FundedNext Stellar 2-Step / 1-Step / Lite | your **balance** at 00:00 server time | 5% / 3% / 4% of **initial** balance | MT5 server time — GMT+3 summer / GMT+2 winter (Europe/Athens), hour 0 |
-| FundingPips 2-Step Standard / Flex / Pro | the **higher** of today's opening balance and opening equity | 5% (or 3% with the add-on) / 4% / 3% of the **day-start** value | Platform Time, fixed UTC+3 (Etc/GMT-3), hour 0 |
+| FundingPips 2-Step Standard / Flex / Pro · 1-Step Flex | the **higher** of today's opening balance and opening equity | 5% (or 3% with the add-on) / 4% / 3% · 2% or 3% of the **day-start** value | Platform Time, fixed UTC+3 (Etc/GMT-3), hour 0 |
 | The5ers 2-Step (New / Classic) · High Stakes 2-Step | the **higher** of yesterday's closing balance and closing equity | 3% (standard plan) · 5% (High Stakes) of the **day-start** value — two products, two pages | MT5 server time — GMT+2 winter / GMT+3 summer (Europe/Athens), hour 0 |
 | Topstep Trading Combine 50K / 100K / 150K | your balance at the start of the session | $1,000 / $2,000 / $3,000 (2% of the account size) — an objective, not a violation | America/Chicago, hour 17 |
 | FTMO Futures Growth 50K / 100K / 150K (eval) / FundedNext Instant | no daily rule — set daily % to the minimum and watch the max floor | trailing max ($2,000 / $3,500 / $5,000 at FTMO) that locks at initial | — |

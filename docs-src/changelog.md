@@ -2,6 +2,12 @@
 
 Every change to the rules, the engine or the pages is listed here as a dated entry, newest first. Presets never change in place: a rule change is a new dated version, so the record shows what the rule was on any given day. Findings from testers are credited by first name or handle, with permission.
 
+## 2026-10-08 — v0.3.5 (engine v0.2.2; presets v1.7)
+- **Engine E-14:** a consistency rule can now be measured against the **profit target** rather than profit earned, with the firm's "the target rises, the account does not fail" semantics. Topstep's Trading Combine rule (best day at or below 55% of the target, from Topstep's own help centre) is therefore modelled: the three Topstep calculators show the raised target when a single day is too large. Agreed with the second engineering desk the same day; vectors pinned on both sides.
+- **Engine E-15:** a day sitting *exactly* on a consistency cap, or exactly on a profitable-day threshold, now reads as meeting it. The old comparison could tip an exact 55% into "exceeded" by a floating-point hair (1,650 of 3,000 is 55.00000000000001 in binary). Found by reading the other desk's fix for the same class of defect.
+- **FundingPips 1-Step Flex** added, two calculators (2% and 3% daily-loss configurations), from the firm's own page: 12% target, 12% static max on the lower of equity and balance, no minimum trading days.
+- Topstep 50K/100K/150K re-issued as new dated presets carrying the consistency rule; the morning's versions are retained as superseded.
+
 ## 2026-10-08 — v0.3.4 (weekly re-verification; presets v1.6)
 Every preset was re-read on the firms' own pages. Floors are unchanged for every program; the changes below are new dated preset versions (the old versions are retained as superseded).
 - **FTMO 2-Step and 1-Step:** unchanged (page modified 30 Sep 2026). **FTMO Futures Growth** is now three calculators — $50K, $100K, $150K — because FTMO defines the drawdown as $2,000 / $3,500 / $5,000; the single 4% preset was wrong for the larger sizes. Profit targets ($3,000 / $6,000 / $9,000) encoded from FTMO's page.

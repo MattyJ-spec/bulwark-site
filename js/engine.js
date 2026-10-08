@@ -99,46 +99,66 @@ export function computeState(preset, s, opts = { bufferPct: 75 }) {
     const breachedDaily = dailyFloor !== null && dailyMeasure <= dailyFloor;
     const breachedMax = maxMeasure <= maxFloor;
     const pastStop = !breachedDaily && !breachedMax && liveEquity <= stopLine;
-    // ── Target (F4: closed balance) ──
-    let target;
-    if (preset.target && preset.target.pctByPhase.length > 0) {
-        const pct = preset.target.pctByPhase[Math.min(s.phaseIndex ?? 0, preset.target.pctByPhase.length - 1)];
-        if (pct > 0) {
-            // E-10 (HELM FA-15 class): initialSize * (1 + pct/100) is 110000.00000000001 in IEEE for a 10% target;
-            // compute additively (exact for money inputs) and compare with a sub-cent epsilon, so a target hit
-            // to the cent reads MET and a real cent-shortfall still does not.
-            const MONEY_EPS = 1e-6;
-            const targetEquity = s.initialSize + (s.initialSize * pct) / 100;
-            const toTargetClosed = targetEquity - closedBalance;
-            target = {
-                targetEquity,
-                toTargetClosed: r2(toTargetClosed),
-                reachedBanked: toTargetClosed <= MONEY_EPS,
-                floatingPastTarget: toTargetClosed > MONEY_EPS && liveEquity >= targetEquity - MONEY_EPS,
-            };
-            ex.push(`Target ${money(targetEquity)} assessed on CLOSED balance ${money(closedBalance)} — ` +
-                (target.reachedBanked ? `reached (banked).`
-                    : target.floatingPastTarget ? `floating equity is past target but ${money(toTargetClosed)} is not yet banked.`
-                        : `${money(toTargetClosed)} to go.`));
-        }
-    }
-    // ── Consistency / Best-Day ──
+    // ── Target (F4: closed balance) and Best-Day consistency ──
+    // E-14 (HELM FA-54, 2026-10-08): a consistency rule may be denominated by the PROFIT TARGET amount (Topstep: best day
+    // ≤ 55% of the target) and, when exceeded, RAISE the target instead of failing the account — so the target is assessed
+    // after the consistency check. E-15 (FA-13/15 class, 2026-10-08): cap comparisons absorb IEEE noise with a relative
+    // 1e-9 epsilon so a day sitting exactly ON the cap reads OK ("at or below"): 1650/3000×100 is 55.00000000000001 in float.
+    const REL_EPS = 1e-9;
+    const atOrBelow = (value, cap) => value <= cap + REL_EPS * Math.max(1, Math.abs(cap));
+    const targetPct = preset.target && preset.target.pctByPhase.length > 0
+        ? preset.target.pctByPhase[Math.min(s.phaseIndex ?? 0, preset.target.pctByPhase.length - 1)] : 0;
+    const targetAmountBase = targetPct > 0 ? (s.initialSize * targetPct) / 100 : 0;
     let consistency;
+    let raisedTargetAmount = null;
     if (preset.consistency) {
         const bestDayRef = Math.max(s.todayClosedPnl, s.bestPrevDayPnl ?? 0);
-        const denominatorValue = preset.consistency.denominator === "positiveDaysProfit"
-            ? (s.positiveDaysProfit ?? 0) : (s.totalClosedProfit ?? 0);
+        const den = preset.consistency.denominator;
+        const denominatorValue = den === "positiveDaysProfit" ? (s.positiveDaysProfit ?? 0)
+            : den === "profitTarget" ? targetAmountBase
+                : (s.totalClosedProfit ?? 0);
         const pct = denominatorValue > 0 && bestDayRef > 0 ? (bestDayRef / denominatorValue) * 100 : null;
+        const exceeded = pct !== null && !atOrBelow(pct, preset.consistency.capPct);
+        if (exceeded && preset.consistency.breachConsequence === "raisesTarget" && preset.consistency.capPct > 0) {
+            raisedTargetAmount = bestDayRef / (preset.consistency.capPct / 100);
+        }
         consistency = {
-            bestDayRef, denominatorValue, denominatorType: preset.consistency.denominator,
+            bestDayRef, denominatorValue, denominatorType: den,
             pct: pct === null ? null : r2(pct), capPct: preset.consistency.capPct,
-            exceeded: pct !== null && pct > preset.consistency.capPct,
+            exceeded,
             breachConsequence: preset.consistency.breachConsequence,
+            raisedTargetAmount: raisedTargetAmount === null ? null : r2(raisedTargetAmount),
+            raisedTargetEquity: raisedTargetAmount === null ? null : r2(s.initialSize + raisedTargetAmount),
         };
-        ex.push(`Best-Day check: best day ${money(bestDayRef)} vs ${preset.consistency.denominator} ${money(denominatorValue)}` +
+        const denLabel = den === "positiveDaysProfit" ? "positive-days profit" : den === "profitTarget" ? "the profit target" : "total closed profit";
+        ex.push(`Best-Day check: best day ${money(bestDayRef)} vs ${denLabel} ${money(denominatorValue)}` +
             (pct === null ? ` — meter inactive (denominator ≤ 0).`
-                : ` = ${pct.toFixed(1)}% (cap ${preset.consistency.capPct}%${consistency.exceeded
-                    ? `, EXCEEDED — ${preset.consistency.breachConsequence === "defersPass" ? "not a breach; defers passing" : "rule breach"}` : ""}).`));
+                : ` = ${pct.toFixed(1)}% (cap ${preset.consistency.capPct}%${exceeded
+                    ? `, EXCEEDED — ${preset.consistency.breachConsequence === "defersPass" ? "not a breach; defers passing"
+                        : preset.consistency.breachConsequence === "raisesTarget"
+                            ? `not a breach; the profit target rises to ${money(s.initialSize + (raisedTargetAmount ?? 0))} (${money(raisedTargetAmount ?? 0)} profit) so the best day is back at the cap`
+                            : "rule breach"}` : ""}).`));
+    }
+    let target;
+    if (targetPct > 0) {
+        // E-10 (HELM FA-15 class): initialSize * (1 + pct/100) is 110000.00000000001 in IEEE for a 10% target;
+        // compute additively (exact for money inputs) and compare with a sub-cent epsilon, so a target hit
+        // to the cent reads MET and a real cent-shortfall still does not.
+        const MONEY_EPS = 1e-6;
+        const raised = raisedTargetAmount !== null && raisedTargetAmount > targetAmountBase;
+        const targetEquity = s.initialSize + (raised ? raisedTargetAmount : targetAmountBase);
+        const toTargetClosed = targetEquity - closedBalance;
+        target = {
+            targetEquity,
+            toTargetClosed: r2(toTargetClosed),
+            reachedBanked: toTargetClosed <= MONEY_EPS,
+            floatingPastTarget: toTargetClosed > MONEY_EPS && liveEquity >= targetEquity - MONEY_EPS,
+            raisedByConsistency: raised,
+        };
+        ex.push(`Target ${money(targetEquity)}${raised ? " (RAISED by the consistency rule)" : ""} assessed on CLOSED balance ${money(closedBalance)} — ` +
+            (target.reachedBanked ? `reached (banked).`
+                : target.floatingPastTarget ? `floating equity is past target but ${money(toTargetClosed)} is not yet banked.`
+                    : `${money(toTargetClosed)} to go.`));
     }
     // ── Profitable-days requirement (E-3) ──
     let profitableDays;
@@ -153,7 +173,8 @@ export function computeState(preset, s, opts = { bufferPct: 75 }) {
             completedBeforeToday,
             thresholdAmount: r2(thresholdAmount),
             todayProfitNow: r2(todayProfitNow),
-            todayQualifiesNow: todayProfitNow >= thresholdAmount,
+            // FA-56 absorb (2026-10-08): a day sitting exactly on the firm's threshold qualifies; relative-1e-9 epsilon.
+            todayQualifiesNow: todayProfitNow + REL_EPS * Math.max(1, Math.abs(thresholdAmount)) >= thresholdAmount,
             met: completedBeforeToday >= preset.profitableDays.required,
         };
         ex.push(`Profitable days: ${completedBeforeToday}/${preset.profitableDays.required} completed before today; ` +

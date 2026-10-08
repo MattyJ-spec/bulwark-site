@@ -1,6 +1,6 @@
 {
-  "schema": "bulwark.presets.v1.6",
-  "generatedFrom": "engine v0.2.1 golden presets + Firm Rules Census v0.2 + weekly re-verification 2026-10-08 (all sources re-read on the firms' own pages)",
+  "schema": "bulwark.presets.v1.7",
+  "generatedFrom": "engine v0.2.1 golden presets + Firm Rules Census v0.2 + weekly re-verification 2026-10-08 (all sources re-read on the firms' own pages) + round 2 (engine v0.2.2: E-14/E-15; FundingPips 1-Step Flex)",
   "asOf": "2026-10-08",
   "rules": [
     "A preset ships to a calculator page only if status is 'verified' or 'verified-with-conflict' (the latter renders its disclosure banner).",
@@ -11,6 +11,10 @@
     {
       "date": "2026-10-08",
       "line": "Re-verification 2026-10-08 · FTMO 2/2 unchanged, Futures Growth CHANGED (split by size: $2,000 / $3,500 / $5,000 drawdown) · FundedNext 3/3 floors unchanged, reset zone CHANGED to seasonal (Europe/Athens), targets encoded · FundingPips 3/3 floors unchanged, help centre MOVED (Zendesk), targets encoded, 3% add-on added as a fourth calculator · The5ers 2/2 standard floors unchanged (profitable-days rule removed, seasonal reset zone), High Stakes targets CHANGED 8/5 → 10/5 · Topstep 3/3 floors unchanged, DLL and targets now PRIMARY, consistency construct queued (E-14) · Apex pending · your-own-rules n/a · pages unavailable: none (FundingPips old URLs 404 — relocated) · changes shipped: 16 new dated presets (13 superseded) · new conflicts: none"
+    },
+    {
+      "date": "2026-10-08",
+      "line": "Round 2 (same day) · engine v0.2.2 (E-14 target-denominated consistency with raise semantics; E-15 exact-at-cap epsilon; 37/37 goldens) · Topstep 50K/100K/150K re-issued with the 55%-of-target consistency rule encoded (r2 ids) · FundingPips 1-Step Flex (2% / 3% daily) added from the firm's page · site v0.3.5 built, not yet deployed"
     }
   ],
   "presets": [
@@ -555,6 +559,90 @@
       "supersedes": "fundingpips-2step-pro@2026-09-21"
     },
     {
+      "id": "fundingpips-1step-flex-2pct@2026-10-08",
+      "firm": "FundingPips",
+      "program": "1-Step Flex (2% daily)",
+      "slug": "fundingpips-1-step-flex",
+      "daily": {
+        "pct": 2,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 12,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "target": {
+        "pctByPhase": [
+          12
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time (UTC+3 — stated by the firm as a fixed offset).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://help.fundingpips.com/hc/en-us/articles/34501697434385-1-Step-Flex",
+        "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "Daily loss 2% of the higher of opening balance and opening equity; max loss 12% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Single evaluation phase with a 12% profit target and no minimum trading days. FundingPips sells the 1-Step Flex with a 2% or a 3% daily loss limit chosen at purchase — use the calculator that matches what you bought.",
+      "verificationLog": [
+        "2026-10-08 encoded from the firm's own page (help.fundingpips.com/hc, 1 Step Flex): single phase, 12% target, no minimum trading days; floors as stated."
+      ]
+    },
+    {
+      "id": "fundingpips-1step-flex-3pct@2026-10-08",
+      "firm": "FundingPips",
+      "program": "1-Step Flex (3% daily)",
+      "slug": "fundingpips-1-step-flex-3pct",
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Etc/GMT-3",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 12,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "target": {
+        "pctByPhase": [
+          12
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time (UTC+3 — stated by the firm as a fixed offset).",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://help.fundingpips.com/hc/en-us/articles/34501697434385-1-Step-Flex",
+        "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "Daily loss 3% of the higher of opening balance and opening equity; max loss 12% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Single evaluation phase with a 12% profit target and no minimum trading days. FundingPips sells the 1-Step Flex with a 2% or a 3% daily loss limit chosen at purchase — use the calculator that matches what you bought.",
+      "verificationLog": [
+        "2026-10-08 encoded from the firm's own page (help.fundingpips.com/hc, 1 Step Flex): single phase, 12% target, no minimum trading days; floors as stated."
+      ]
+    },
+    {
       "id": "the5ers-2step-new@2026-10-08",
       "firm": "The5ers",
       "program": "2-Step Plan — New (standard plan)",
@@ -692,7 +780,7 @@
       "supersedes": "the5ers-highstakes-2step@2026-09-21"
     },
     {
-      "id": "topstep-combine-50k@2026-10-08",
+      "id": "topstep-combine-50k@2026-10-08r2",
       "firm": "Topstep",
       "program": "Trading Combine $50K (futures)",
       "slug": "topstep-combine-50k",
@@ -732,15 +820,21 @@
       ],
       "status": "verified",
       "calculatorEligible": true,
-      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $1,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $2,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $3,000. Topstep's consistency target (your single best day at or below 55% of the profit target; exceeding it raises the target rather than failing the account) is not yet modelled by the calculator — read it from your dashboard.",
+      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $1,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $2,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $3,000. Consistency target (Topstep art. 8284208): your single best day must stay at or below 55% of the profit target; exceeding it is not a violation — the target rises until the best day is back under the cap. The calculator models this (engine v0.2.2, E-14) and shows the raised target when it applies.",
       "defaultInitialSize": 50000,
       "verificationLog": [
-        "2026-10-08 CHANGED — Daily Loss Limit now PRIMARY (Topstep help centre article 10490293, updated 30 Jun 2026) and profit target now PRIMARY (article 8284208 'Consistency at Topstep'); the secondary-sourced '50% of total profit' consistency rule removed — Topstep's own rule is best day ≤55% of the profit target, a construct the engine does not model yet (E-14 queued). Floors unchanged: DLL 2% static from the session-start balance; MLL trailing end-of-day balance with lock at the starting balance."
+        "2026-10-08 r2 — consistency rule encoded from Topstep's own page now that the engine models a target-denominated cap with raise semantics (E-14/E-15; HELM FA-54 agrees). Floors unchanged."
       ],
-      "supersedes": "topstep-combine-50k@2026-09-22"
+      "supersedes": "topstep-combine-50k@2026-10-08",
+      "consistency": {
+        "type": "bestDay",
+        "capPct": 55,
+        "denominator": "profitTarget",
+        "breachConsequence": "raisesTarget"
+      }
     },
     {
-      "id": "topstep-combine-100k@2026-10-08",
+      "id": "topstep-combine-100k@2026-10-08r2",
       "firm": "Topstep",
       "program": "Trading Combine $100K (futures)",
       "slug": "topstep-combine-100k",
@@ -780,15 +874,21 @@
       ],
       "status": "verified",
       "calculatorEligible": true,
-      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $2,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $3,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $6,000. Topstep's consistency target (your single best day at or below 55% of the profit target; exceeding it raises the target rather than failing the account) is not yet modelled by the calculator — read it from your dashboard.",
+      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $2,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $3,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $6,000. Consistency target (Topstep art. 8284208): your single best day must stay at or below 55% of the profit target; exceeding it is not a violation — the target rises until the best day is back under the cap. The calculator models this (engine v0.2.2, E-14) and shows the raised target when it applies.",
       "defaultInitialSize": 100000,
       "verificationLog": [
-        "2026-10-08 CHANGED — Daily Loss Limit now PRIMARY (Topstep help centre article 10490293, updated 30 Jun 2026) and profit target now PRIMARY (article 8284208 'Consistency at Topstep'); the secondary-sourced '50% of total profit' consistency rule removed — Topstep's own rule is best day ≤55% of the profit target, a construct the engine does not model yet (E-14 queued). Floors unchanged: DLL 2% static from the session-start balance; MLL trailing end-of-day balance with lock at the starting balance."
+        "2026-10-08 r2 — consistency rule encoded from Topstep's own page now that the engine models a target-denominated cap with raise semantics (E-14/E-15; HELM FA-54 agrees). Floors unchanged."
       ],
-      "supersedes": "topstep-combine-100k@2026-09-22"
+      "supersedes": "topstep-combine-100k@2026-10-08",
+      "consistency": {
+        "type": "bestDay",
+        "capPct": 55,
+        "denominator": "profitTarget",
+        "breachConsequence": "raisesTarget"
+      }
     },
     {
-      "id": "topstep-combine-150k@2026-10-08",
+      "id": "topstep-combine-150k@2026-10-08r2",
       "firm": "Topstep",
       "program": "Trading Combine $150K (futures)",
       "slug": "topstep-combine-150k",
@@ -828,12 +928,53 @@
       ],
       "status": "verified",
       "calculatorEligible": true,
-      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $3,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $4,500 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $9,000. Topstep's consistency target (your single best day at or below 55% of the profit target; exceeding it raises the target rather than failing the account) is not yet modelled by the calculator — read it from your dashboard.",
+      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $3,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $4,500 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $9,000. Consistency target (Topstep art. 8284208): your single best day must stay at or below 55% of the profit target; exceeding it is not a violation — the target rises until the best day is back under the cap. The calculator models this (engine v0.2.2, E-14) and shows the raised target when it applies.",
       "defaultInitialSize": 150000,
       "verificationLog": [
-        "2026-10-08 CHANGED — Daily Loss Limit now PRIMARY (Topstep help centre article 10490293, updated 30 Jun 2026) and profit target now PRIMARY (article 8284208 'Consistency at Topstep'); the secondary-sourced '50% of total profit' consistency rule removed — Topstep's own rule is best day ≤55% of the profit target, a construct the engine does not model yet (E-14 queued). Floors unchanged: DLL 2% static from the session-start balance; MLL trailing end-of-day balance with lock at the starting balance."
+        "2026-10-08 r2 — consistency rule encoded from Topstep's own page now that the engine models a target-denominated cap with raise semantics (E-14/E-15; HELM FA-54 agrees). Floors unchanged."
       ],
-      "supersedes": "topstep-combine-150k@2026-09-22"
+      "supersedes": "topstep-combine-150k@2026-10-08",
+      "consistency": {
+        "type": "bestDay",
+        "capPct": 55,
+        "denominator": "profitTarget",
+        "breachConsequence": "raisesTarget"
+      }
+    },
+    {
+      "id": "personal-rules@2026-09-22",
+      "firm": "Your own rules",
+      "program": "Self-funded account",
+      "slug": "your-own-rules",
+      "daily": {
+        "pct": 3,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 6,
+        "model": "static"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Your balance at the start of today (the moment your broker's day rolls over). Pepperstone MT5 server time rolls at 00:00 GMT+2/+3 (Europe/Athens).",
+      "verifiedAsOf": "2026-09-22",
+      "sources": [
+        "Rules you set yourself — nothing to verify against a firm; the arithmetic is the same engine that passes 198 independent vectors."
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "custom": true,
+      "notes": "For self-funded traders: set the daily loss you would stop at and the maximum drawdown you would pause at. Common choices: 2–3% daily, 5–6% maximum. The defaults below are examples, not recommendations.",
+      "verificationLog": [
+        "2026-10-08 n/a — rules you set yourself"
+      ]
     },
     {
       "id": "the5ers-highstakes@2026-06-12",
@@ -871,41 +1012,6 @@
       "status": "superseded",
       "calculatorEligible": false,
       "notes": "Retained as a versioned historical preset (golden test #12). Accounts that pinned it can still prove what they were shown."
-    },
-    {
-      "id": "personal-rules@2026-09-22",
-      "firm": "Your own rules",
-      "program": "Self-funded account",
-      "slug": "your-own-rules",
-      "daily": {
-        "pct": 3,
-        "basis": "initial",
-        "anchorSemantic": "balance",
-        "model": "static",
-        "resetTz": "Europe/Athens",
-        "resetHour": 0
-      },
-      "max": {
-        "pct": 6,
-        "model": "static"
-      },
-      "minDays": 0,
-      "breach": {
-        "daily": "terminate",
-        "max": "terminate"
-      },
-      "anchorHint": "Your balance at the start of today (the moment your broker's day rolls over). Pepperstone MT5 server time rolls at 00:00 GMT+2/+3 (Europe/Athens).",
-      "verifiedAsOf": "2026-09-22",
-      "sources": [
-        "Rules you set yourself — nothing to verify against a firm; the arithmetic is the same engine that passes 198 independent vectors."
-      ],
-      "status": "verified",
-      "calculatorEligible": true,
-      "custom": true,
-      "notes": "For self-funded traders: set the daily loss you would stop at and the maximum drawdown you would pause at. Common choices: 2–3% daily, 5–6% maximum. The defaults below are examples, not recommendations.",
-      "verificationLog": [
-        "2026-10-08 n/a — rules you set yourself"
-      ]
     },
     {
       "id": "ftmo-futures-growth-eval@2026-09-19",
@@ -1437,18 +1543,173 @@
       "supersededBy": [
         "topstep-combine-150k@2026-10-08"
       ]
+    },
+    {
+      "id": "topstep-combine-50k@2026-10-08",
+      "firm": "Topstep",
+      "program": "Trading Combine $50K (futures)",
+      "slug": null,
+      "daily": {
+        "pct": 2,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "America/Chicago",
+        "resetHour": 17,
+        "displayAmount": 1000
+      },
+      "max": {
+        "pct": 4,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize",
+        "displayAmount": 2000
+      },
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance",
+        "displayAmount": 3000
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "lockout",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter $50,000 as the account size and your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it flattens positions and locks trading until the next session, but does not fail the Combine.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://intercom.help/topstep-llc/en/articles/8284204",
+        "https://help.topstep.com/en/articles/10490293",
+        "https://help.topstep.com/en/articles/8284208"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "notes": "Superseded 2026-10-08 (r2) by topstep-combine-50k@2026-10-08r2 — consistency rule added once the engine could model it. Topstep defines its limits in dollars: Daily Loss Limit $1,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $2,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $3,000. Topstep's consistency target (your single best day at or below 55% of the profit target; exceeding it raises the target rather than failing the account) is not yet modelled by the calculator — read it from your dashboard.",
+      "defaultInitialSize": 50000,
+      "verificationLog": [
+        "2026-10-08 CHANGED — Daily Loss Limit now PRIMARY (Topstep help centre article 10490293, updated 30 Jun 2026) and profit target now PRIMARY (article 8284208 'Consistency at Topstep'); the secondary-sourced '50% of total profit' consistency rule removed — Topstep's own rule is best day ≤55% of the profit target, a construct the engine does not model yet (E-14 queued). Floors unchanged: DLL 2% static from the session-start balance; MLL trailing end-of-day balance with lock at the starting balance."
+      ],
+      "supersedes": "topstep-combine-50k@2026-09-22",
+      "supersededBy": [
+        "topstep-combine-50k@2026-10-08r2"
+      ]
+    },
+    {
+      "id": "topstep-combine-100k@2026-10-08",
+      "firm": "Topstep",
+      "program": "Trading Combine $100K (futures)",
+      "slug": null,
+      "daily": {
+        "pct": 2,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "America/Chicago",
+        "resetHour": 17,
+        "displayAmount": 2000
+      },
+      "max": {
+        "pct": 3,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize",
+        "displayAmount": 3000
+      },
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance",
+        "displayAmount": 6000
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "lockout",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter $100,000 as the account size and your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it flattens positions and locks trading until the next session, but does not fail the Combine.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://intercom.help/topstep-llc/en/articles/8284204",
+        "https://help.topstep.com/en/articles/10490293",
+        "https://help.topstep.com/en/articles/8284208"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "notes": "Superseded 2026-10-08 (r2) by topstep-combine-100k@2026-10-08r2 — consistency rule added once the engine could model it. Topstep defines its limits in dollars: Daily Loss Limit $2,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $3,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $6,000. Topstep's consistency target (your single best day at or below 55% of the profit target; exceeding it raises the target rather than failing the account) is not yet modelled by the calculator — read it from your dashboard.",
+      "defaultInitialSize": 100000,
+      "verificationLog": [
+        "2026-10-08 CHANGED — Daily Loss Limit now PRIMARY (Topstep help centre article 10490293, updated 30 Jun 2026) and profit target now PRIMARY (article 8284208 'Consistency at Topstep'); the secondary-sourced '50% of total profit' consistency rule removed — Topstep's own rule is best day ≤55% of the profit target, a construct the engine does not model yet (E-14 queued). Floors unchanged: DLL 2% static from the session-start balance; MLL trailing end-of-day balance with lock at the starting balance."
+      ],
+      "supersedes": "topstep-combine-100k@2026-09-22",
+      "supersededBy": [
+        "topstep-combine-100k@2026-10-08r2"
+      ]
+    },
+    {
+      "id": "topstep-combine-150k@2026-10-08",
+      "firm": "Topstep",
+      "program": "Trading Combine $150K (futures)",
+      "slug": null,
+      "daily": {
+        "pct": 2,
+        "basis": "initial",
+        "anchorSemantic": "balance",
+        "model": "static",
+        "resetTz": "America/Chicago",
+        "resetHour": 17,
+        "displayAmount": 3000
+      },
+      "max": {
+        "pct": 3,
+        "model": "trailingWithLock",
+        "lockAt": "initialSize",
+        "displayAmount": 4500
+      },
+      "target": {
+        "pctByPhase": [
+          6
+        ],
+        "assessedOn": "closedBalance",
+        "displayAmount": 9000
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "lockout",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter $150,000 as the account size and your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it flattens positions and locks trading until the next session, but does not fail the Combine.",
+      "verifiedAsOf": "2026-10-08",
+      "sources": [
+        "https://intercom.help/topstep-llc/en/articles/8284204",
+        "https://help.topstep.com/en/articles/10490293",
+        "https://help.topstep.com/en/articles/8284208"
+      ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "notes": "Superseded 2026-10-08 (r2) by topstep-combine-150k@2026-10-08r2 — consistency rule added once the engine could model it. Topstep defines its limits in dollars: Daily Loss Limit $3,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $4,500 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $9,000. Topstep's consistency target (your single best day at or below 55% of the profit target; exceeding it raises the target rather than failing the account) is not yet modelled by the calculator — read it from your dashboard.",
+      "defaultInitialSize": 150000,
+      "verificationLog": [
+        "2026-10-08 CHANGED — Daily Loss Limit now PRIMARY (Topstep help centre article 10490293, updated 30 Jun 2026) and profit target now PRIMARY (article 8284208 'Consistency at Topstep'); the secondary-sourced '50% of total profit' consistency rule removed — Topstep's own rule is best day ≤55% of the profit target, a construct the engine does not model yet (E-14 queued). Floors unchanged: DLL 2% static from the session-start balance; MLL trailing end-of-day balance with lock at the starting balance."
+      ],
+      "supersedes": "topstep-combine-150k@2026-09-22",
+      "supersededBy": [
+        "topstep-combine-150k@2026-10-08r2"
+      ]
     }
   ],
   "pendingPrimaryFetch": [
     "Apex 50K EOD / Intraday (HELM corpus) — encode only from Apex's own page",
-    "FundingPips 1-Step Flex (2% or 3% daily, 12% static, 12% target) and Zero (3% daily, 5% trailing, 1% max open risk) — pages located 2026-10-08; encode next round",
     "FTMO Futures Growth consistency objective — page lists 40% and 50% without stating which applies",
     "Funded Trading Plus",
     "Alpha Capital",
-    "E8 Markets"
+    "E8 Markets",
+    "FundingPips Zero (3% daily, 5% trailing, 1% max open risk) — needs E-16 (max open risk) before a calculator"
   ],
   "engineBacklog": [
     "E-13 dollar-defined limits: presets carry displayAmount (display only); the engine still computes from pct — add an amount field with a golden test and HELM vectors before relying on it",
-    "E-14 consistency denominator = profit target (Topstep: best day ≤55% of the target; exceeding raises the target) — new construct, needs a test on both engines"
+    "E-14 DONE 2026-10-08 (engine v0.2.2): consistency denominator = profit target with raise semantics (Topstep); HELM FA-54 parity — vectors pinned on both desks",
+    "E-15 DONE 2026-10-08 (engine v0.2.2): exact-at-cap relative epsilon on the Best-Day cap and the profitable-day threshold (FA-13/15 class; HELM FA-56 absorb)",
+    "E-16 max open risk limit (FundingPips Zero: 1% of balance across open positions) — new rule type; sizing must cap at the limit"
   ]
 }

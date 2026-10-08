@@ -18,7 +18,7 @@
 
 **FundingPips — 5% or 3% daily?** The 2-Step Standard is sold with a 5% daily loss limit by default or a 3% daily-loss add-on chosen at purchase (which also removes the minimum trading days). There is a calculator for each; use the one that matches what you bought.
 
-**Topstep — why no consistency meter?** Topstep's consistency target is your best day at or below 55% of the profit target, and exceeding it raises the target rather than failing the account. That is a different construct from the FTMO Best-Day rule and the calculator does not model it yet; the page says so and the limit is in the engine backlog.
+**Topstep — how does the consistency rule show?** Topstep's consistency target is your best day at or below 55% of the profit target; exceeding it raises the target rather than failing the account. The Topstep calculators model exactly that: enter your best prior day and the page shows the share of the target it represents and, if the cap is exceeded, the raised target you now need to bank.
 
 **Can a tool stop me from breaching?** No tool can. A tool can only show the floor correctly and size honestly. Anyone promising more is selling something.
 
