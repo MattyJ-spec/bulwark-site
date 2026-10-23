@@ -22,6 +22,11 @@ export function mountCalculator(preset) {
     profitableDaysCompleted: P.profitableDays ? num("profitableDays", 0) : undefined,
     bestPrevDayPnl: P.consistency ? num("bestPrevDay", 0) : undefined,
     positiveDaysProfit: P.consistency ? num("positiveDays", 0) : undefined,
+    // v0.3.6: a total-profit consistency rule (FTMO 1-Step, orders from 12 Oct 2026) is measured on the cumulative closed
+    // profit of the account = (day-start balance + today's closed P&L) − account size; derived, never typed, so the meter
+    // can never disagree with the floors it sits beside. Floating P&L is excluded — the firm counts closed trades.
+    totalClosedProfit: P.consistency && P.consistency.denominator === "totalProfit"
+      ? num("dayStartBalance", 100000) + parseLog($("todayLog").value).total - num("initialSize", 100000) : undefined,
   });
 
   function parseLog(raw) {
@@ -77,7 +82,10 @@ export function mountCalculator(preset) {
     if (o.consistency && o.consistency.pct !== null) {
       const den = o.consistency.denominatorType === "profitTarget" ? "the profit target" : o.consistency.denominatorType === "positiveDaysProfit" ? "positive-days profit" : "total closed profit";
       const tail = !o.consistency.exceeded ? "" : o.consistency.breachConsequence === "raisesTarget" ? ` — exceeded: not a breach; the target rises to ${fmt(o.consistency.raisedTargetEquity)} until the best day is back under the cap` : o.consistency.breachConsequence === "defersPass" ? " — exceeded: not a breach, passing deferred" : " — exceeded: rule breach";
-      extra.push(`Best-Day: ${o.consistency.pct.toFixed(1)}% of ${den} (cap ${o.consistency.capPct}%)${tail}`);
+      // Display: two decimals; when the share is within 0.01 of the cap AND exceeded, show four decimals from the raw ratio so a hair over the cap never prints as "50.00% … exceeded".
+      const raw = o.consistency.denominatorValue > 0 ? (o.consistency.bestDayRef / o.consistency.denominatorValue) * 100 : o.consistency.pct;
+      const pctTxt = (o.consistency.exceeded && Math.abs(raw - o.consistency.capPct) < 0.01) ? raw.toFixed(4) : o.consistency.pct.toFixed(2);
+      extra.push(`Best-Day: ${pctTxt}% of ${den} (cap ${o.consistency.capPct}%)${tail}`);
     }
     if (o.profitableDays) extra.push(`Profitable days: ${o.profitableDays.completedBeforeToday}/${o.profitableDays.required} before today; today ${o.profitableDays.todayQualifiesNow ? "would qualify if held to midnight" : "not yet qualifying"} (threshold ${fmt(o.profitableDays.thresholdAmount)})`);
     $("extra").innerHTML = extra.map(x => `<div class="hint" style="margin-top:6px">${x}</div>`).join("");

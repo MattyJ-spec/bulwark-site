@@ -53,7 +53,7 @@ Bulwark is built to refuse rather than guess, and to say what it can't see. Size
 
 ## 7 · Limitations, plainly
 
-Bulwark cannot see trades or positions your platform doesn't show it — anything on other symbols is manual. It cannot see peaks between your updates unless the chart is open. Non-FX contract sizes follow the chart symbol's specification; verify against your broker. Firm rules are re-verified weekly against the firms' own pages, and every preset carries the date it was last checked — but the firm's dashboard, not Bulwark, is the authority on your account.
+Bulwark cannot see trades or positions your platform doesn't show it — anything on other symbols is manual. It cannot see peaks between your updates unless the chart is open. Non-FX contract sizes follow the chart symbol's specification; verify against your broker. Firm rules are re-verified weekly by procedure against the firms' own pages (every run, and any missed run, is recorded in the changelog), and every preset carries the date it was last checked — but the firm's dashboard, not Bulwark, is the authority on your account.
 
 ## 8 · Editions and privacy
 

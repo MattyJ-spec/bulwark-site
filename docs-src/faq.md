@@ -12,6 +12,8 @@
 
 **Trailing drawdown — does it ever stop trailing?** At FTMO Futures and FundedNext Instant it locks once it reaches your starting capital; at FTMO 1-Step it trails end-of-day balance without locking. Read your program's page; the calculator encodes each.
 
+**FTMO 1-Step — which calculator, "orders from" or "orders before" 12 October 2026?** The date of the order that created your account decides it (FTMO's trading-objectives page: accounts initiated from orders created on or after 12 October 2026 — 9:00 platform time, GMT+3, per FTMO's 8 October trading update — or merged on or after that date, are on the Consistency rule — best day at most 50% of total profit, losing days included; earlier orders keep the Best Day Rule on positive days' profit). The floors are identical; only the consistency objective differs; each page links to the other. FTMO's update says the result shows in your Account MetriX.
+
 **Is a 75% buffer too conservative?** It is a default, not a law. The question is whether your execution variance — slippage, spread at news, a requote on the exit — fits inside the last 25%. Adjust the slider.
 
 **The5ers — 3% or 5%?** Two products: the standard 2-Step Plan is 3%; High Stakes 2-Step is 5%, anchored to the higher of starting balance and equity. The firm's live-chat assistant stated this on 21 September 2026; use the page that matches your account and verify on your dashboard. High Stakes also requires three profitable days of at least 0.5% of the initial balance, and its page now lists 10% / 5% targets.

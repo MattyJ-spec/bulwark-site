@@ -9,7 +9,7 @@ A preset ships only after we have read the rule on the firm's own website or hel
 Most rule differences hide in five words: *balance* or *equity*; *initial* or *day-start*; *higher of*; *trailing*; *locks*. Each preset records which apply, and the calculator page prints the definition beside the input so you can check it against your own dashboard.
 
 ## Weekly re-verification
-Presets are re-checked against the firms' pages every week. When a rule changes, the preset changes as a **new dated version**, never an edit, so anyone can see what the rule was on any given day.
+Presets are re-checked against the firms' pages weekly, by a written procedure; every run — and any missed run — is recorded in the changelog. When a rule changes, the preset changes as a **new dated version**, never an edit, so anyone can see what the rule was on any given day.
 
 ## Two engines, one answer
 The arithmetic runs through an engine verified against 198 rule vectors written by an independent implementation, and the two are audited against each other continuously. When either finds a defect, both are fixed and the finding is recorded. Nothing you see here is a number one person typed once.
