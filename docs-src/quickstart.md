@@ -17,15 +17,15 @@ Indicators → Community scripts → search **Bulwark** → add to chart. If no 
 **5 · Next trade sizing.** Your risk % and the stop distance (pips on FX; price units on gold, indices, crypto). The cockpit shows the largest size a full stop can survive — floored, never rounded up — or refuses ("size n/a") when it can't convert the currency, rather than guessing.
 **6 · Panel.** Position and text size.
 
-## Day-start anchor by firm (verified against each firm's own documentation, 2026-10-23)
+## Day-start anchor by firm (verified against each firm's own documentation, 2026-11-15)
 | Firm / program | Enter as day-start | Daily limit is | Reset |
 |---|---|---|---|
 | FTMO 2-Step / 1-Step (two calculators: orders from / before 12 Oct 2026) | your **balance** at midnight Prague time | 5% / 3% of **initial** capital | Europe/Prague, hour 0 |
 | FundedNext Stellar 2-Step / 1-Step / Lite | your **balance** at 00:00 server time | 5% / 3% / 4% of **initial** balance | MT5 server time — GMT+3 summer / GMT+2 winter (Europe/Athens), hour 0 |
-| FundingPips 2-Step Standard / Flex / Pro · 1-Step Flex | the **higher** of today's opening balance and opening equity | 5% (or 3% with the add-on) / 4% / 3% · 2% or 3% of the **day-start** value | Platform Time, fixed UTC+3 (Etc/GMT-3), hour 0 |
+| FundingPips 2-Step Standard / Flex / Pro · 1-Step Flex | the **higher** of today's opening balance and opening equity | 5% (or 3% with the add-on) / 4% / 3% · 2% or 3% of the **day-start** value | 00:00 Platform Time (UTC+3 summer / UTC+2 winter): set America/New_York, hour 17 — an hour late for one week in March |
 | The5ers 2-Step (New / Classic) · High Stakes 2-Step | the **higher** of yesterday's closing balance and closing equity | 3% (standard plan) · 5% (High Stakes) of the **day-start** value — two products, two pages | MT5 server time — GMT+2 winter / GMT+3 summer (Europe/Athens), hour 0 |
 | Topstep Trading Combine 50K / 100K / 150K | your balance at the start of the session | $1,000 / $2,000 / $3,000 (2% of the account size) — an objective, not a violation | America/Chicago, hour 17 |
-| FTMO Futures Growth 50K / 100K / 150K (eval) / FundedNext Instant | no daily rule — set daily % to the minimum and watch the max floor | trailing max ($2,000 / $3,500 / $5,000 at FTMO) that locks at initial | — |
+| FTMO Futures Growth 50K / 100K / 150K (eval) / FundedNext Instant | no daily rule — set daily % to the minimum and watch the max floor | trailing max that locks at initial — at FTMO $2,000 / $3,000 / $4,500 for evaluations created from 5 Nov 2026 (4:30 a.m. ET); $3,500 / $5,000 on the two larger sizes for earlier evaluations | — |
 
 ## Read the panel like an instrument
 STATUS is the headline (OK → warnings → STOP FOR TODAY → BREACHED). **STOP line** is where professionals stop — 75% of the daily limit by default, leaving the last quarter for slippage and spread. **Daily limit used** is measured from the anchor your firm actually uses, so on a trailing model a give-back day shows the real number, not zero. **Distance to target** is on closed balance — floating profit past the target reads "not yet banked".

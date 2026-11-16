@@ -19,13 +19,15 @@ A prop-firm challenge is lost at a **floor**, not at a target. Every firm publis
 | **Limit used** | How far you've travelled from the anchor toward the floor, as a percentage of the limit. |
 | **Max safe size** | The smaller of the risk you *want* and the room you *have*, divided by what one lot loses at your stop. Always rounded **down**. |
 
-## 3 · The calculators (bulwarktrader.com)
+## 3 · The calculators (this site)
 
 **No prop firm? Use "Your own rules."** Self-funded traders set the daily loss they will stop at and the maximum drawdown they will pause at; the same engine computes the floors, the STOP line and the max safe size from your own numbers. The defaults are examples, not recommendations.
 
 **Three firms need a note.** The5ers publishes two products: the standard 2-Step Plan (3% daily) and High Stakes 2-Step (5% daily, anchored to the higher of starting balance and equity) — pick the page that matches your account. FundingPips measures a max-loss breach on the **lower** of equity and balance; the calculator does the same, so a balance sitting on the floor reads BREACHED even while equity floats above it; FundingPips also sells its 2-Step Standard with an optional 3% daily-loss add-on, which has its own calculator. Topstep and FTMO Futures define their limits in **dollars** per account size — the calculator shows the dollar figure and its percentage, and each account size has its own page, so pick the size you trade.
 
-**Seasonal reset times.** FundedNext and The5ers reset at 00:00 MT5 server time, which the firms state as GMT+3 in summer and GMT+2 in winter; the countdown uses the Europe/Athens zone. In the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.
+**Seasonal reset times.** FundedNext and The5ers reset at 00:00 MT5 server time, which the firms state as GMT+3 in summer and GMT+2 in winter; the countdown uses the Europe/Athens zone. FundingPips resets at 00:00 Platform Time, which it states as UTC+3 in summer and UTC+2 in winter with winter time from the first Sunday of November; the countdown uses 5:00 p.m. New York time. In the few weeks each year when European and US daylight-saving dates differ (and, for FundingPips, the week between the first and second Sundays of March, when its stated reset comes an hour before the countdown reaches zero), confirm the reset moment on your dashboard.
+
+**Cohort pages.** When a firm changes a rule for new accounts only, the program gets two calculators, each linking to the other: FTMO 1-Step (orders from / before 12 October 2026) and FTMO Futures Growth $100K and $150K (evaluations created from / before 5 November 2026). The cut-over stated on each page decides which is yours; where the firm does not say — a Reset, a re-issued account — the pages default to the tighter figure.
 
 One page per firm program, computed entirely in your browser — no signup, no account, nothing sent anywhere.
 
@@ -53,7 +55,7 @@ Bulwark is built to refuse rather than guess, and to say what it can't see. Size
 
 ## 7 · Limitations, plainly
 
-Bulwark cannot see trades or positions your platform doesn't show it — anything on other symbols is manual. It cannot see peaks between your updates unless the chart is open. Non-FX contract sizes follow the chart symbol's specification; verify against your broker. Firm rules are re-verified weekly by procedure against the firms' own pages (every run, and any missed run, is recorded in the changelog), and every preset carries the date it was last checked — but the firm's dashboard, not Bulwark, is the authority on your account.
+Bulwark cannot see trades or positions your platform doesn't show it — anything on other symbols is manual. It cannot see peaks between your updates unless the chart is open. Non-FX contract sizes follow the chart symbol's specification; verify against your broker. Every preset carries the date its rules were last read in full on the firm's own pages; full re-reads are made before a release that changes rule data and recorded in the changelog, and a firm can change a rule between them — the firm's dashboard, not Bulwark, is the authority on your account.
 
 ## 8 · Editions and privacy
 

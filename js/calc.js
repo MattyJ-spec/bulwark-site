@@ -3,21 +3,34 @@ import { nextReset } from "./reset.js";
 
 const $ = (id) => document.getElementById(id);
 const fmt = (v, d = 0) => (v < 0 ? "−" : "") + Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: Math.max(d, 2) });
-const num = (id, dflt = 0) => { const v = parseFloat(($(id)?.value ?? "").toString().replace(/,/g, "")); return Number.isFinite(v) ? v : dflt; };
+const num = (id, dflt = 0) => {
+  let t = ($(id)?.value ?? "").toString().replace(/\u2212/g, "-").replace(/[\u00a0\u2009\u202f]/g, " ").trim().replace(/^(-?)\s*\$\s*/, "$1");
+  t = t.replace(/ (?=\d{3}(?!\d))/g, "");
+  if (/^[^,]*,\d{1,2}$/.test(t)) t = t.replace(",", ".");
+  const v = parseFloat(t.replace(/,/g, "")); return Number.isFinite(v) ? v : dflt;
+};
 
 export function mountCalculator(preset) {
   const P = preset;
   const hasDaily = P.daily !== null && P.daily !== undefined;
   const trails = P.max.model !== "static";
 
+  // v0.3.7 input guards — definitions, not guesses. Fallbacks use the program's own size, never a generic 100,000. The day-start
+  // anchor is the HIGHER of balance and equity, so it is never below the day-start balance; the day-start balance is itself an
+  // end-of-day balance, so the highest end-of-day balance (or peak) is never below it. A box left stale can therefore only make
+  // a floor tighter, never looser.
+  const SIZE0 = P.defaultInitialSize ?? 100000;
+  const size = () => (P.max.displayAmount != null ? SIZE0 : num("initialSize", SIZE0)); // a fixed-size page takes its size from the preset, never from the box
+  const bal = () => num("dayStartBalance", size());
+  const high = () => Math.max(num("highestEod", size()), bal());
   const state = () => ({
-    initialSize: num("initialSize", 100000),
-    dayStartBalance: num("dayStartBalance", 100000),
-    dayStartAnchorValue: num("dayStartAnchor", num("dayStartBalance", 100000)),
+    initialSize: size(),
+    dayStartBalance: bal(),
+    dayStartAnchorValue: Math.max(num("dayStartAnchor", bal()), bal()),
     todayClosedPnl: parseLog($("todayLog").value).total,
     openPnl: num("openPnl", 0),
-    highestEodBalance: trails ? num("highestEod", num("initialSize", 100000)) : undefined,
-    hwmLiveEquity: trails ? num("highestEod", num("initialSize", 100000)) : undefined,
+    highestEodBalance: trails ? high() : undefined,
+    hwmLiveEquity: trails ? high() : undefined,
     phaseIndex: parseInt($("phase")?.value ?? "0", 10) || 0,
     profitableDaysCompleted: P.profitableDays ? num("profitableDays", 0) : undefined,
     bestPrevDayPnl: P.consistency ? num("bestPrevDay", 0) : undefined,
@@ -26,7 +39,7 @@ export function mountCalculator(preset) {
     // profit of the account = (day-start balance + today's closed P&L) − account size; derived, never typed, so the meter
     // can never disagree with the floors it sits beside. Floating P&L is excluded — the firm counts closed trades.
     totalClosedProfit: P.consistency && P.consistency.denominator === "totalProfit"
-      ? num("dayStartBalance", 100000) + parseLog($("todayLog").value).total - num("initialSize", 100000) : undefined,
+      ? bal() + parseLog($("todayLog").value).total - size() : undefined,
   });
 
   function parseLog(raw) {
@@ -94,15 +107,16 @@ export function mountCalculator(preset) {
     const vpu = num("valuePerUnit", 0);
     const sz = computeMaxSize(o, { riskPct: num("riskPct", 0.5), stopDistance: num("stopDist", 20), valuePerUnitPerLot: vpu > 0 ? vpu : null, unitLabel: "lots" });
     const szEl = $("sizeOut");
-    if (sz.maxSize === null) { szEl.className = "v refuse"; szEl.textContent = "⛔ " + sz.refusalReason; }
+    if (o.breachedDaily || o.breachedMax) { szEl.className = "v orange"; szEl.textContent = "0 — limit breached, no size"; }
+    else if (sz.maxSize === null) { szEl.className = "v refuse"; szEl.textContent = "⛔ " + sz.refusalReason; }
     else if (sz.maxSize === 0) { szEl.className = "v orange"; szEl.textContent = "0 — past STOP, no size today"; }
     else { szEl.className = "v green"; szEl.textContent = sz.maxSize.toFixed(2) + " lots  · risk allowed " + fmt(sz.riskAllowed, 2); }
 
     // reset countdown
-    try { if (hasDaily) { const r = nextReset(P.daily.resetTz, P.daily.resetHour, Date.now()); $("reset").textContent = `Next reset in ${Math.floor(r.minutesUntil / 60)}h ${String(r.minutesUntil % 60).padStart(2, "0")}m (${P.daily.resetTz})`; } else $("reset").textContent = ""; } catch { $("reset").textContent = "Reset timezone unavailable"; }
+    try { if (hasDaily) { const r = nextReset(P.daily.resetTz, P.daily.resetHour, Date.now()); $("reset").textContent = `Next reset in ${Math.floor(r.minutesUntil / 60)}h ${String(r.minutesUntil % 60).padStart(2, "0")}m${P.resetLabel ? " — " + P.resetLabel : " (" + P.daily.resetTz + ")"}`; } else $("reset").textContent = ""; } catch { $("reset").textContent = "Reset timezone unavailable"; }
 
     // working
-    $("working").innerHTML = [...o.explanations, ...sz.explanations].map(e => `<li>${e}</li>`).join("");
+    $("working").innerHTML = [...o.explanations, ...(o.breachedDaily || o.breachedMax ? [] : sz.explanations)].map(e => `<li>${e}</li>`).join("");
   }
 
   function drawTape(o) {
@@ -117,4 +131,5 @@ export function mountCalculator(preset) {
   document.querySelectorAll("input,select").forEach(e => e.addEventListener("input", render));
   render();
   setInterval(render, 30000);
+  addEventListener("pageshow", render);
 }

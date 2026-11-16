@@ -19,7 +19,7 @@
 <strong>4 · Today&#39;s trading.</strong> After each closed trade, type its P&amp;L into the log — <strong>separate trades with spaces</strong> (<code>450 -520 300</code>). Then read the <strong>&quot;Today (verify count!)&quot;</strong> row: if the count isn&#39;t what you typed, fix the entry. Commas are read as thousands or decimals (<code>1,250</code> = 1250; <code>450,50</code> = 450.50), so an all-positive comma list like <code>450,520</code> would merge into one number — the count row exists to catch exactly that. (The calculators on this site are stricter: an ambiguous comma is refused rather than guessed.)
 <strong>5 · Next trade sizing.</strong> Your risk % and the stop distance (pips on FX; price units on gold, indices, crypto). The cockpit shows the largest size a full stop can survive — floored, never rounded up — or refuses (&quot;size n/a&quot;) when it can&#39;t convert the currency, rather than guessing.
 <strong>6 · Panel.</strong> Position and text size.</p>
-<h2>Day-start anchor by firm (verified against each firm&#39;s own documentation, 2026-10-23)</h2>
+<h2>Day-start anchor by firm (verified against each firm&#39;s own documentation, 2026-11-15)</h2>
 <table>
 <thead>
 <tr>
@@ -45,7 +45,7 @@
 <td>FundingPips 2-Step Standard / Flex / Pro · 1-Step Flex</td>
 <td>the <strong>higher</strong> of today&#39;s opening balance and opening equity</td>
 <td>5% (or 3% with the add-on) / 4% / 3% · 2% or 3% of the <strong>day-start</strong> value</td>
-<td>Platform Time, fixed UTC+3 (Etc/GMT-3), hour 0</td>
+<td>00:00 Platform Time (UTC+3 summer / UTC+2 winter): set America/New_York, hour 17 — an hour late for one week in March</td>
 </tr>
 <tr>
 <td>The5ers 2-Step (New / Classic) · High Stakes 2-Step</td>
@@ -62,7 +62,7 @@
 <tr>
 <td>FTMO Futures Growth 50K / 100K / 150K (eval) / FundedNext Instant</td>
 <td>no daily rule — set daily % to the minimum and watch the max floor</td>
-<td>trailing max ($2,000 / $3,500 / $5,000 at FTMO) that locks at initial</td>
+<td>trailing max that locks at initial — at FTMO $2,000 / $3,000 / $4,500 for evaluations created from 5 Nov 2026 (4:30 a.m. ET); $3,500 / $5,000 on the two larger sizes for earlier evaluations</td>
 <td>—</td>
 </tr>
 </tbody></table>
