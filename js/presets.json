@@ -1,13 +1,14 @@
 {
-  "schema": "bulwark.presets.v1.9",
-  "generatedFrom": "engine v0.2.1 golden presets + Firm Rules Census v0.2 + weekly re-verification 2026-10-08 (all sources re-read on the firms' own pages) + round 2 (engine v0.2.2: E-14/E-15; FundingPips 1-Step Flex) + weekly re-verification 2026-10-23 (treadmill run 2: FTMO 1-Step split into the 12 Oct 2026 consistency cohort and a legacy cohort; Apex primary fetch completed; independent pre-deploy audit applied) + desk re-verification 2026-11-15 (FTMO Futures Growth $100K/$150K drawdown cut for Evaluations created from 5 Nov 2026 → new-cohort + earlier-evaluations presets, Growth 40% Consistency Rule modelled; FundedNext Stellar ×3 re-issued (max loss tested on balance or equity; a daily-loss breach closes the account); The5ers 2-Step ×2 re-issued for the banner's page date; FundedNext Stellar Lite minimum days 5 → 2 from 12 Oct 2026; FundingPips reset time re-encoded as seasonal)",
-  "asOf": "2026-11-15",
+  "schema": "bulwark.presets.v1.10",
+  "generatedFrom": "engine v0.2.1 golden presets + Firm Rules Census v0.2 + weekly re-verification 2026-10-08 (all sources re-read on the firms' own pages) + round 2 (engine v0.2.2: E-14/E-15; FundingPips 1-Step Flex) + weekly re-verification 2026-10-23 (treadmill run 2: FTMO 1-Step split into the 12 Oct 2026 consistency cohort and a legacy cohort; Apex primary fetch completed; independent pre-deploy audit applied) + desk re-verification 2026-11-15 (FTMO Futures Growth $100K/$150K drawdown cut for Evaluations created from 5 Nov 2026 → new-cohort + earlier-evaluations presets, Growth 40% Consistency Rule modelled; FundedNext Stellar ×3 re-issued (max loss tested on balance or equity; a daily-loss breach closes the account); The5ers 2-Step ×2 re-issued for the banner's page date; FundedNext Stellar Lite minimum days 5 → 2 from 12 Oct 2026; FundingPips reset time re-encoded as seasonal) + desk read 2026-11-21 (CORRECTION: The5ers High Stakes split by account size — the Program Rules table gives $50K and $100K accounts 4% daily and 8% maximum, where the preset gave every size 5% and 10%; The5ers 2-Step Plan ×2 re-issued as the 2-Step plan of the Summer Plan, whose page was read for every option; FundingPips 2-Step Flex and 2-Step Pro re-issued with the Legacy Rules page; FundingPips ×6 note on single-trade-idea rules)",
+  "asOf": "2026-11-21",
   "rules": [
     "A preset ships to a calculator page only if status is 'verified' or 'verified-with-conflict' (the latter renders its disclosure banner).",
     "Any rule change creates a NEW preset id with a new verifiedAsOf; existing ids are never edited in place (Founding Rule 7).",
-    "Every source is re-read in full, page by page, before a release that changes rule data; verifiedAsOf moves only on a real read. A read-only automated check runs weekly on the pages it can open and does not replace the full re-read. (Until v1.9 this line read 'Re-fetch every source weekly; record the check even when nothing changed' — a promise the record did not keep; see the v0.3.7 changelog entry.)",
+    "Every page the presets cite is read again at a desk, in a browser, before a release that changes rule data: in full where the page has changed since the last read; for its own modified date and for every figure a preset uses where it has not. verifiedAsOf moves only on such a read. A read-only automated check runs weekly on the pages it can open and does not replace the desk read. (Until v1.10 this line read 'Every source is re-read in full, page by page, before a release that changes rule data'; until v1.9, 'Re-fetch every source weekly; record the check even when nothing changed' — see the v0.3.7 and v0.3.8 changelog entries.)",
     "v1.8 adds the optional preset field `related` {slug, label}: a cross-link rendered under the notes when one program is sold to two cohorts (FTMO 1-Step from/before 12 Oct 2026). Display only; the engine never reads it.",
-    "v1.9 adds the optional preset field `resetLabel`: the firm's own name for its reset moment (FundingPips: '00:00 platform time'), shown beside the countdown and in the Compare table instead of the zone id. Display only; the engine reads daily.resetTz / daily.resetHour. v1.9 also adds the optional preset field `notice`: a short banner shown above the notes on a page that needs a caution before use (the two FTMO Futures earlier-evaluations pages). Display only."
+    "v1.9 adds the optional preset field `resetLabel`: the firm's own name for its reset moment (FundingPips: '00:00 platform time'), shown beside the countdown and in the Compare table instead of the zone id. Display only; the engine reads daily.resetTz / daily.resetHour. v1.9 also adds the optional preset field `notice`: a short banner shown above the notes on a page that needs a caution before use (the two FTMO Futures earlier-evaluations pages). Display only.",
+    "v1.10: a firm's rules table is read for every account size and every plan or option it offers, and the table is recorded for each (added after The5ers' High Stakes table was found to give $50K and $100K accounts tighter limits than the size the page opens on; see the v0.3.8 changelog entry). The optional preset field `defaultInitialSize` sets the account size a page opens with; `related` may be one link or a list of links."
   ],
   "reverification": [
     {
@@ -25,6 +26,10 @@
     {
       "date": "2026-11-15",
       "line": "Re-verification 2026-11-15 (full desk re-read; a scheduled weekly automated check was running and no correction followed FTMO's 5 Nov update; its runs were not recorded in the changelog at the time) · FTMO 2-Step unchanged, 1-Step ×2 unchanged, Futures Growth CHANGED (maximum drawdown $3,500 → $3,000 on the $100K and $5,000 → $4,500 on the $150K for Evaluations created from 5 Nov 2026, 4:30 a.m. ET → new-cohort + earlier-evaluations presets; Consistency Rule — listed by FTMO per plan, Growth 40% of total profit; our earlier reads did not attribute it — now modelled on all three sizes) · FundedNext 2-Step and 1-Step floors, targets and minimum days unchanged; all three Stellar presets re-issued with two corrections — the max-loss level is now tested on the LOWER of balance and equity (the Lite article says 'balance or equity'; equity-only was not the conservative reading), and a daily-loss breach is recorded as closing the account, Stellar Lite CHANGED (minimum trading days 5 → 2 per phase for Challenges purchased or reset from 12 Oct 2026; floors unchanged), Instant still withheld · FundingPips 6/6 floors unchanged, reset time CHANGED on the firm's pages (seasonal: UTC+3 summer / UTC+2 winter → re-encoded as 17:00 New York; the fixed UTC+3 was an hour early in winter) · The5ers 3/3 rules unchanged (2-Step rules page re-dated 2 Nov 2026 — the two 2-Step presets re-issued so their banner cites that date) · Topstep 3/3 unchanged · Apex re-read, unchanged — calculators next · your-own-rules n/a · pages unavailable: none from the desk (FundingPips and Apex refuse the automated reader and were read in a browser) · changes shipped: 16 new dated presets (14 superseded) · new conflicts: none · engine unchanged (v0.2.2; +6 tests — 5 goldens and 1 reset-boundary test — 46/46) · independent pre-deploy audit in two passes, with the final corrections re-checked: no blocker; three major findings closed before deploy (the caution on the earlier-evaluations pages; the weekly-check statements; a restored browser tab putting typed values into the wrong boxes after this release's layout change — every calculator control now carries a name and autocomplete off); the minor findings addressed, one in part — an entry a number box cannot read at all still falls back to the box's default (a visible refusal is in the next release)"
+    },
+    {
+      "date": "2026-11-21",
+      "line": "Re-verification 2026-11-21 (desk re-read, in a browser, of every page the presets cite: pages whose own modified date was unchanged since 15 Nov were checked for that date and for every figure a preset uses, with every account size and plan selected; pages changed since, and every FundingPips and The5ers page, were read in full) · The5ers High Stakes CORRECTED: the Program Rules table gives $50K and $100K accounts 4% daily and 8% maximum (smaller sizes 5% and 10%); the preset gave every size 5% and 10% and its page opened at $100,000 → two presets by account size; the reads of 8 and 23 Oct and 15 Nov recorded the first size only; the day the table first showed these figures is not known (the page record that holds it was last modified on 8 Oct 2026, after that day's read); the firm rewrote its two FAQ articles on these limits on 16 Nov · The5ers 2-Step Plan ×2 re-issued as the 2-Step plan of the Summer Plan (rules unchanged: 3% daily, 10% maximum; the Summer Plan page, not cited before, read with each of its six 2-Step options selected — $50K, $100K and $200K, each 10/5 and 8/5 — the same two limits throughout; the firm's FAQ has also called the $200K option the 'High Stakes Summer Plan', so both High Stakes pages now say they are not for Summer Plan accounts and link to these two) · FundingPips Legacy Rules page read in full, every tab: loss limits the same as the current articles for every model on this site; 2-Step Flex and 2-Step Pro re-issued with notes for accounts bought before 28 Sep 2026 (rule fields unchanged); the four current model articles and the Compare page unchanged for the six presets; one sentence added to all six notes on single-trade-idea rules · FTMO 2-Step unchanged, 1-Step ×2 unchanged, Futures Growth ×5 unchanged (read for every plan and size) · FundedNext Stellar ×3 unchanged, Instant still withheld · Topstep ×3 unchanged (Maximum Loss Limit and Consistency articles re-dated 19 Nov, figures unchanged; a Static Trading Combine now described there — a sentence added to the notes) · every firm's pages checked for limits that depend on the account size: none found beyond The5ers High Stakes · Apex: the seven help-centre pages carry the dates recorded on 15 Nov; the two evaluation pages re-read, figures unchanged — calculators still to come · your-own-rules n/a · pages unavailable: none from the desk · changes shipped: 6 new dated presets (5 superseded) · new conflicts: The5ers High Stakes $50K / $100K (the FAQ's worked example at 5% against the Program Rules table at 4%) · engine unchanged (v0.2.2)"
     }
   ],
   "presets": [
@@ -58,7 +63,7 @@
         "max": "terminate"
       },
       "anchorHint": "Enter your account BALANCE at midnight Prague time (CE(S)T), as shown on your FTMO dashboard.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://ftmo.com/en/trading-objectives/",
         "https://academy.ftmo.com/lesson/maximum-daily-loss/",
@@ -70,7 +75,8 @@
         "2026-09-19 verified",
         "2026-10-08 unchanged — ftmo.com trading-objectives page (modified 2026-09-30): 5% daily of initial from balance at 00:00 CE(S)T, 10% static max, targets 10%/5%, min 4 days",
         "2026-10-23 unchanged — ftmo.com trading-objectives page (modified 2026-10-20): 5% daily of initial from the 00:00 CE(S)T balance, 10% static max, targets 10%/5%, minimum 4 trading days (stated for the 2-Step phases). The 8 Oct 2026 trading update changes the 1-Step only.",
-        "2026-11-15 unchanged — ftmo.com trading-objectives page (modified 2026-11-02): 5% daily of initial from the 00:00 CE(S)T balance, 10% static max, targets 10%/5%, minimum 4 trading days (stated for the 2-Step phases). FTMO Academy lessons re-read (maximum daily loss, modified 2026-03-07; maximum loss, modified 2025-07-09). FTMO trading updates of 15, 22 and 29 Oct and 2, 5 and 12 Nov 2026 read: no rule change for the Challenge (clock-change notices — the Max Daily Loss is monitored on Prague time and resets at midnight; maintenance; holidays)."
+        "2026-11-15 unchanged — ftmo.com trading-objectives page (modified 2026-11-02): 5% daily of initial from the 00:00 CE(S)T balance, 10% static max, targets 10%/5%, minimum 4 trading days (stated for the 2-Step phases). FTMO Academy lessons re-read (maximum daily loss, modified 2026-03-07; maximum loss, modified 2025-07-09). FTMO trading updates of 15, 22 and 29 Oct and 2, 5 and 12 Nov 2026 read: no rule change for the Challenge (clock-change notices — the Max Daily Loss is monitored on Prague time and resets at midnight; maintenance; holidays).",
+        "2026-11-21 unchanged — ftmo.com trading-objectives page (modified 2026-11-02, the date recorded on 2026-11-15), 2-Step objectives re-read in a browser: 'the Maximum Daily Loss Amount, which is 5% of the Initial Simulated Capital', taken from 'the account balance recorded at 00:00 CE(S)T of the current day'; 'the Maximum Loss Amount, which is 10% of the Initial Simulated Capital', static; 'at least 4 Trading Days'; targets 10% / 5%. One statement for every account size — the page has no size selector. FTMO Academy lessons (maximum daily loss, modified 2026-03-07; maximum loss, modified 2025-07-09): dates unchanged, texts as recorded. FTMO's trading updates of 19 Nov 2026 (CFD and Futures) read in a browser: maintenance windows, Thanksgiving trading hours, the sanctions notice; Futures payouts in crypto, 'Other payout conditions are unchanged' — no rule, limit or objective changed."
       ]
     },
     {
@@ -161,7 +167,7 @@
         "max": "terminate"
       },
       "anchorHint": "Enter your BALANCE at midnight Prague time (00:00 CE(S)T). Also enter your highest end-of-day balance — the max-loss floor trails it and never moves down.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://ftmo.com/en/trading-objectives/",
         "https://ftmo.com/au/blog/trading-updates/trading-update-8-oct-2026/",
@@ -177,7 +183,8 @@
       "notes": "For accounts initiated from orders created on or after 12 October 2026 (FTMO's 8 October trading update gives the cut-over as Monday 12 October 2026, 9:00 platform time, GMT+3), or accounts merged on or after that date. FTMO's Consistency rule: your Best Day — the single day with the highest profit from closed trades — may not represent more than 50% of your total profit, which FTMO defines as 'the cumulative sum of closed profits and losses across all trading days', so losing days count against you. Exceeding the limit is not a rule breach; you continue trading until the best day is 50% or less of total profit. The calculator derives total profit from the account size, your day-start balance and today's closed trades — which assumes no deposits or withdrawals on the account, as on a Challenge account. Accounts from orders created before 12 October 2026 keep the Best Day Rule on Positive Days' Profit — use the '1-Step (orders before 12 Oct 2026)' calculator. FTMO's pages list no minimum-trading-days objective for the 1-Step (the 4-day rule is stated for the 2-Step phases).",
       "verificationLog": [
         "2026-10-23 encoded — CHANGED vs ftmo-1step@2026-09-19: (1) Consistency replaces the Best Day Rule for accounts from orders created on or after 12 Oct 2026 — best day ≤ 50% of total profit (closed profits and losses across all trading days), 'not treated as a rule breach' when exceeded (ftmo.com trading-objectives page, modified 2026-10-20; FTMO trading update 8 Oct 2026); (2) no minimum-trading-days objective is stated for the 1-Step on the trading-objectives page (the rule's section names the 2-Step phases) or on the 1-Step product page (read 2026-10-23: Trading Period Unlimited, no minimum-days row) — the 4-day minimum carried since 2026-09-19 is removed. Floors unchanged: 3% daily of initial from the 00:00 CE(S)T balance; 10% max trailing the highest 00:00 CE(S)T balance (or initial if higher), never decreasing; target 10%.",
-        "2026-11-15 unchanged — ftmo.com trading-objectives page (modified 2026-11-02) and the 1-Step product page (read 2026-11-15: Max Loss 10%, Max Daily Loss 3%, Profit Target 10%, Trading Period Unlimited, Best Day Rule 50%, no minimum-days row): 3% daily of initial from the 00:00 CE(S)T balance; 10% max trailing the end-of-day balance; target 10%; Consistency 50% of total profit for accounts from orders created on or after 12 Oct 2026, the legacy Best Day Rule (50% of Positive Days' Profit) for earlier orders; no minimum-trading-days objective. FTMO's 8 Oct 2026 trading update re-read (cut-over Monday 12 October 2026, 9:00 platform time, GMT+3; merged accounts move to the Consistency rule). FTMO trading updates of 15, 22 and 29 Oct and 2, 5 and 12 Nov 2026 read: no rule change for the Challenge (clock-change notices — the Max Daily Loss is monitored on Prague time and resets at midnight; maintenance; holidays)."
+        "2026-11-15 unchanged — ftmo.com trading-objectives page (modified 2026-11-02) and the 1-Step product page (read 2026-11-15: Max Loss 10%, Max Daily Loss 3%, Profit Target 10%, Trading Period Unlimited, Best Day Rule 50%, no minimum-days row): 3% daily of initial from the 00:00 CE(S)T balance; 10% max trailing the end-of-day balance; target 10%; Consistency 50% of total profit for accounts from orders created on or after 12 Oct 2026, the legacy Best Day Rule (50% of Positive Days' Profit) for earlier orders; no minimum-trading-days objective. FTMO's 8 Oct 2026 trading update re-read (cut-over Monday 12 October 2026, 9:00 platform time, GMT+3; merged accounts move to the Consistency rule). FTMO trading updates of 15, 22 and 29 Oct and 2, 5 and 12 Nov 2026 read: no rule change for the Challenge (clock-change notices — the Max Daily Loss is monitored on Prague time and resets at midnight; maintenance; holidays).",
+        "2026-11-21 unchanged — ftmo.com trading-objectives page (modified 2026-11-02, unchanged), 1-Step objectives re-read in a browser: daily '3% of the Initial Simulated Capital' from the balance at 00:00 CE(S)T; maximum loss 'an end-of-day trailing limit', 10% of the Initial Simulated Capital below the highest 00:00 CE(S)T balance; 'Consistency — Applicable to accounts initiated from orders created on or after 12 Oct 2026, or any accounts merged on or after this date' (Best Day not more than 50% of total profit; 'not treated as a rule breach'); 'Best Day Rule Legacy — Applicable to accounts directly initiated from orders created before 12 Oct 2026' (50% of Positive Days' Profit). 1-Step product page (modified 2026-10-22) and the trading update of 8 Oct 2026 (modified 2026-10-08): dates unchanged. FTMO's trading updates of 19 Nov 2026 (CFD and Futures) read in a browser: maintenance windows, Thanksgiving trading hours, the sanctions notice; Futures payouts in crypto, 'Other payout conditions are unchanged' — no rule, limit or objective changed."
       ]
     },
     {
@@ -215,7 +222,7 @@
         "max": "terminate"
       },
       "anchorHint": "Enter your BALANCE at midnight Prague time (00:00 CE(S)T). Also enter your highest end-of-day balance — the max-loss floor trails it and never moves down.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://ftmo.com/en/trading-objectives/",
         "https://ftmo.com/au/blog/trading-updates/trading-update-8-oct-2026/",
@@ -231,7 +238,8 @@
       "notes": "For accounts directly initiated from orders created before 12 October 2026 (FTMO's trading update: before Monday 12 October 2026, 9:00 platform time, GMT+3) and not merged since — an account merged on or after 12 October 2026 moves to the Consistency rule: use the '1-Step (orders from 12 Oct 2026)' calculator. FTMO's Best Day Rule (legacy) — your Best Day may not represent more than 50% of your Positive Days' Profit, 'the sum of closed profits and losses from all profitable trading days'. Exceeding the limit is not a rule breach; you continue trading until the best day is 50% or less of that figure. Enter the total profit from your positive days, including today if it is positive. Accounts from orders created on or after 12 October 2026 are measured on total profit instead — use the '1-Step (orders from 12 Oct 2026)' calculator. FTMO's pages list no minimum-trading-days objective for the 1-Step (the 4-day rule is stated for the 2-Step phases).",
       "verificationLog": [
         "2026-10-23 encoded — same floors, target and Best Day Rule as ftmo-1step@2026-09-19 (Positive Days' Profit basis, legacy cohort per the ftmo.com trading-objectives page, modified 2026-10-20); the minimum-trading-days objective is removed because FTMO states none for the 1-Step. Issued as the legacy-cohort calculator alongside ftmo-1step@2026-10-23.",
-        "2026-11-15 unchanged — ftmo.com trading-objectives page (modified 2026-11-02) and the 1-Step product page (read 2026-11-15: Max Loss 10%, Max Daily Loss 3%, Profit Target 10%, Trading Period Unlimited, Best Day Rule 50%, no minimum-days row): 3% daily of initial from the 00:00 CE(S)T balance; 10% max trailing the end-of-day balance; target 10%; Consistency 50% of total profit for accounts from orders created on or after 12 Oct 2026, the legacy Best Day Rule (50% of Positive Days' Profit) for earlier orders; no minimum-trading-days objective. FTMO's 8 Oct 2026 trading update re-read (cut-over Monday 12 October 2026, 9:00 platform time, GMT+3; merged accounts move to the Consistency rule). FTMO trading updates of 15, 22 and 29 Oct and 2, 5 and 12 Nov 2026 read: no rule change for the Challenge (clock-change notices — the Max Daily Loss is monitored on Prague time and resets at midnight; maintenance; holidays)."
+        "2026-11-15 unchanged — ftmo.com trading-objectives page (modified 2026-11-02) and the 1-Step product page (read 2026-11-15: Max Loss 10%, Max Daily Loss 3%, Profit Target 10%, Trading Period Unlimited, Best Day Rule 50%, no minimum-days row): 3% daily of initial from the 00:00 CE(S)T balance; 10% max trailing the end-of-day balance; target 10%; Consistency 50% of total profit for accounts from orders created on or after 12 Oct 2026, the legacy Best Day Rule (50% of Positive Days' Profit) for earlier orders; no minimum-trading-days objective. FTMO's 8 Oct 2026 trading update re-read (cut-over Monday 12 October 2026, 9:00 platform time, GMT+3; merged accounts move to the Consistency rule). FTMO trading updates of 15, 22 and 29 Oct and 2, 5 and 12 Nov 2026 read: no rule change for the Challenge (clock-change notices — the Max Daily Loss is monitored on Prague time and resets at midnight; maintenance; holidays).",
+        "2026-11-21 unchanged — ftmo.com trading-objectives page (modified 2026-11-02, unchanged), 1-Step objectives re-read in a browser: daily '3% of the Initial Simulated Capital' from the balance at 00:00 CE(S)T; maximum loss 'an end-of-day trailing limit', 10% of the Initial Simulated Capital below the highest 00:00 CE(S)T balance; 'Consistency — Applicable to accounts initiated from orders created on or after 12 Oct 2026, or any accounts merged on or after this date' (Best Day not more than 50% of total profit; 'not treated as a rule breach'); 'Best Day Rule Legacy — Applicable to accounts directly initiated from orders created before 12 Oct 2026' (50% of Positive Days' Profit). 1-Step product page (modified 2026-10-22) and the trading update of 8 Oct 2026 (modified 2026-10-08): dates unchanged. FTMO's trading updates of 19 Nov 2026 (CFD and Futures) read in a browser: maintenance windows, Thanksgiving trading hours, the sanctions notice; Futures payouts in crypto, 'Other payout conditions are unchanged' — no rule, limit or objective changed."
       ]
     },
     {
@@ -301,7 +309,7 @@
         "max": "terminate"
       },
       "anchorHint": "No daily loss limit in this evaluation. Enter your balance at the start of today's session as the day-start balance, and your highest END-OF-DAY balance — the max-drawdown floor trails it and locks once it reaches your starting capital. The account size on this page is fixed at $50,000.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://ftmo.com/en/futures/trading-objectives-and-rules/",
         "https://ftmo.com/en/futures/blog/trading-updates/futures-trading-update-5-nov-2026/"
@@ -319,7 +327,8 @@
       "defaultInitialSize": 50000,
       "supersedes": "ftmo-futures-growth-50k@2026-10-08",
       "verificationLog": [
-        "2026-11-15 encoded — CHANGED vs ftmo-futures-growth-50k@2026-10-08 in one respect: the Consistency Rule is now modelled. The ftmo.com futures trading-objectives page (modified 2026-11-05) lists it per plan and size — Growth 40%, Pro 50% (our reads of 2026-10-08 and 2026-10-23 recorded both percentages without the plan each belongs to): 'your single most profitable trading day (the Best Day) does not represent more than 40% of your total profit … Exceeding the Consistency Rule limit is not treated as a rule breach'; FTMO's example: $2,000 then $1,000 → 66.7% of $3,000 → total profit must reach at least $5,000. Floors unchanged: maximum drawdown $2,000 end-of-day trailing, locks at the Initial Simulated Capital (the 5 Nov 2026 Futures Trading Update changes the $100K and $150K only: 'all other Growth Trading Objectives remain unchanged'); no daily loss limit; profit target $3,000."
+        "2026-11-15 encoded — CHANGED vs ftmo-futures-growth-50k@2026-10-08 in one respect: the Consistency Rule is now modelled. The ftmo.com futures trading-objectives page (modified 2026-11-05) lists it per plan and size — Growth 40%, Pro 50% (our reads of 2026-10-08 and 2026-10-23 recorded both percentages without the plan each belongs to): 'your single most profitable trading day (the Best Day) does not represent more than 40% of your total profit … Exceeding the Consistency Rule limit is not treated as a rule breach'; FTMO's example: $2,000 then $1,000 → 66.7% of $3,000 → total profit must reach at least $5,000. Floors unchanged: maximum drawdown $2,000 end-of-day trailing, locks at the Initial Simulated Capital (the 5 Nov 2026 Futures Trading Update changes the $100K and $150K only: 'all other Growth Trading Objectives remain unchanged'); no daily loss limit; profit target $3,000.",
+        "2026-11-21 unchanged — ftmo.com futures trading-objectives page (modified 2026-11-05, unchanged) read in a browser with EVERY account type and size selected: Growth 50K — Profit Target $3,000, Max Drawdown EOD Trailing $2,000, Daily Loss Limit None, Consistency Rule 40%, Max Contracts 5; Growth 100K — $6,000, 'Updated' $3,000, None, 40%, 10; Growth 150K — $9,000, 'Updated' $4,500, None, 40%, 15; Pro 50K / 100K / 150K — Max Drawdown $3,000 / $4,500 / $6,000, Daily Loss Limit $1,000 / $1,500 / $2,000, Consistency Rule 50%. Futures Trading Update of 5 Nov 2026 (modified 2026-11-05): unchanged. FTMO's trading updates of 19 Nov 2026 (CFD and Futures) read in a browser: maintenance windows, Thanksgiving trading hours, the sanctions notice; Futures payouts in crypto, 'Other payout conditions are unchanged' — no rule, limit or objective changed."
       ]
     },
     {
@@ -390,7 +399,7 @@
         "max": "terminate"
       },
       "anchorHint": "No daily loss limit in this evaluation. Enter your balance at the start of today's session as the day-start balance, and your highest END-OF-DAY balance — the max-drawdown floor trails it and locks once it reaches your starting capital. The account size on this page is fixed at $100,000.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://ftmo.com/en/futures/trading-objectives-and-rules/",
         "https://ftmo.com/en/futures/blog/trading-updates/futures-trading-update-5-nov-2026/"
@@ -412,7 +421,8 @@
         "label": "Evaluation created before 5 November 2026 (4:30 a.m. ET) and not Reset or re-issued since? It keeps the $3,500 drawdown — use the $100K calculator for earlier evaluations →"
       },
       "verificationLog": [
-        "2026-11-15 encoded — CHANGED vs ftmo-futures-growth-100k@2026-10-08: (1) maximum drawdown $3,500 → $3,000 'for all new Evaluations created on or after' Thursday 5 November 2026, 4:30 a.m. Eastern Time (FTMO Futures Trading Update, 5 Nov 2026: 'Growth 100K — Maximum Drawdown (EOD Trailing): $3,500 → $3,000'; the futures trading-objectives page, modified 2026-11-05, shows $3,000 with an 'Updated' badge whose tooltip reads 'Max Drawdown is $3,500 for Evaluations purchased before 5 Nov 2026, 4:30 a.m. ET'). FTMO's example on the page: $100,000 → $97,000; highest close $102,500 → $99,500; close $104,000 → the limit locks at $100,000. (2) Consistency Rule now modelled: FTMO lists Growth 40% (Pro 50%) of total profit, 'not treated as a rule breach' (not attributed in our earlier reads). No daily loss limit; profit target $6,000 — 'The Daily Loss Limit and all other Growth Trading Objectives remain unchanged'. Evaluation Max Contracts 10 (ten micros count as one). Not stated by FTMO: which drawdown the account issued after a Reset ('you will be issued a new account on the trading platform after the Reset'), or 'on the next billing date' after a breach, carries — the notes default such accounts to the new figure."
+        "2026-11-15 encoded — CHANGED vs ftmo-futures-growth-100k@2026-10-08: (1) maximum drawdown $3,500 → $3,000 'for all new Evaluations created on or after' Thursday 5 November 2026, 4:30 a.m. Eastern Time (FTMO Futures Trading Update, 5 Nov 2026: 'Growth 100K — Maximum Drawdown (EOD Trailing): $3,500 → $3,000'; the futures trading-objectives page, modified 2026-11-05, shows $3,000 with an 'Updated' badge whose tooltip reads 'Max Drawdown is $3,500 for Evaluations purchased before 5 Nov 2026, 4:30 a.m. ET'). FTMO's example on the page: $100,000 → $97,000; highest close $102,500 → $99,500; close $104,000 → the limit locks at $100,000. (2) Consistency Rule now modelled: FTMO lists Growth 40% (Pro 50%) of total profit, 'not treated as a rule breach' (not attributed in our earlier reads). No daily loss limit; profit target $6,000 — 'The Daily Loss Limit and all other Growth Trading Objectives remain unchanged'. Evaluation Max Contracts 10 (ten micros count as one). Not stated by FTMO: which drawdown the account issued after a Reset ('you will be issued a new account on the trading platform after the Reset'), or 'on the next billing date' after a breach, carries — the notes default such accounts to the new figure.",
+        "2026-11-21 unchanged — ftmo.com futures trading-objectives page (modified 2026-11-05, unchanged) read in a browser with EVERY account type and size selected: Growth 50K — Profit Target $3,000, Max Drawdown EOD Trailing $2,000, Daily Loss Limit None, Consistency Rule 40%, Max Contracts 5; Growth 100K — $6,000, 'Updated' $3,000, None, 40%, 10; Growth 150K — $9,000, 'Updated' $4,500, None, 40%, 15; Pro 50K / 100K / 150K — Max Drawdown $3,000 / $4,500 / $6,000, Daily Loss Limit $1,000 / $1,500 / $2,000, Consistency Rule 50%. Futures Trading Update of 5 Nov 2026 (modified 2026-11-05): unchanged. FTMO's trading updates of 19 Nov 2026 (CFD and Futures) read in a browser: maintenance windows, Thanksgiving trading hours, the sanctions notice; Futures payouts in crypto, 'Other payout conditions are unchanged' — no rule, limit or objective changed."
       ]
     },
     {
@@ -439,7 +449,7 @@
         "max": "terminate"
       },
       "anchorHint": "No daily loss limit in this evaluation. Enter your balance at the start of today's session as the day-start balance, and your highest END-OF-DAY balance — the max-drawdown floor trails it and locks once it reaches your starting capital. The account size on this page is fixed at $100,000.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://ftmo.com/en/futures/trading-objectives-and-rules/",
         "https://ftmo.com/en/futures/blog/trading-updates/futures-trading-update-5-nov-2026/"
@@ -462,7 +472,8 @@
       },
       "notice": "This page uses the larger, earlier drawdown ($3,500). It is yours only if your Evaluation was created before Thursday 5 November 2026, 4:30 a.m. Eastern Time and has not been Reset or re-issued since — or Account MetriX shows $3,500. FTMO does not say which figure applies to the new account it issues after a Reset, or on the next billing date after a breach: use the $3,000 calculator for such an account until Account MetriX shows $3,500.",
       "verificationLog": [
-        "2026-11-15 encoded — same maximum drawdown as ftmo-futures-growth-100k@2026-10-08 ($3,500 end-of-day trailing, locks at the starting capital), which FTMO keeps for Evaluations created before Thursday 5 November 2026, 4:30 a.m. Eastern Time, 'including the Sim-Funded and Live Accounts they lead to' (FTMO Futures Trading Update, 5 Nov 2026). Consistency Rule now modelled (Growth 40% of total profit, not a breach). Issued as the earlier-evaluations calculator alongside ftmo-futures-growth-100k@2026-11-15."
+        "2026-11-15 encoded — same maximum drawdown as ftmo-futures-growth-100k@2026-10-08 ($3,500 end-of-day trailing, locks at the starting capital), which FTMO keeps for Evaluations created before Thursday 5 November 2026, 4:30 a.m. Eastern Time, 'including the Sim-Funded and Live Accounts they lead to' (FTMO Futures Trading Update, 5 Nov 2026). Consistency Rule now modelled (Growth 40% of total profit, not a breach). Issued as the earlier-evaluations calculator alongside ftmo-futures-growth-100k@2026-11-15.",
+        "2026-11-21 unchanged — ftmo.com futures trading-objectives page (modified 2026-11-05, unchanged) read in a browser with EVERY account type and size selected: Growth 50K — Profit Target $3,000, Max Drawdown EOD Trailing $2,000, Daily Loss Limit None, Consistency Rule 40%, Max Contracts 5; Growth 100K — $6,000, 'Updated' $3,000, None, 40%, 10; Growth 150K — $9,000, 'Updated' $4,500, None, 40%, 15; Pro 50K / 100K / 150K — Max Drawdown $3,000 / $4,500 / $6,000, Daily Loss Limit $1,000 / $1,500 / $2,000, Consistency Rule 50%. Futures Trading Update of 5 Nov 2026 (modified 2026-11-05): unchanged. The figure for Evaluations created before 5 Nov 2026 rests on that update ('Evaluations created before … stay under the current values'); the objectives page shows the new figure with an 'Updated' badge. FTMO's trading updates of 19 Nov 2026 (CFD and Futures) read in a browser: maintenance windows, Thanksgiving trading hours, the sanctions notice; Futures payouts in crypto, 'Other payout conditions are unchanged' — no rule, limit or objective changed."
       ]
     },
     {
@@ -533,7 +544,7 @@
         "max": "terminate"
       },
       "anchorHint": "No daily loss limit in this evaluation. Enter your balance at the start of today's session as the day-start balance, and your highest END-OF-DAY balance — the max-drawdown floor trails it and locks once it reaches your starting capital. The account size on this page is fixed at $150,000.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://ftmo.com/en/futures/trading-objectives-and-rules/",
         "https://ftmo.com/en/futures/blog/trading-updates/futures-trading-update-5-nov-2026/"
@@ -555,7 +566,8 @@
         "label": "Evaluation created before 5 November 2026 (4:30 a.m. ET) and not Reset or re-issued since? It keeps the $5,000 drawdown — use the $150K calculator for earlier evaluations →"
       },
       "verificationLog": [
-        "2026-11-15 encoded — CHANGED vs ftmo-futures-growth-150k@2026-10-08: (1) maximum drawdown $5,000 → $4,500 'for all new Evaluations created on or after' Thursday 5 November 2026, 4:30 a.m. Eastern Time (FTMO Futures Trading Update, 5 Nov 2026: 'Growth 150K — Maximum Drawdown (EOD Trailing): $5,000 → $4,500'; the futures trading-objectives page, modified 2026-11-05, shows $4,500 with an 'Updated' badge whose tooltip reads 'Max Drawdown is $5,000 for Evaluations purchased before 5 Nov 2026, 4:30 a.m. ET'). FTMO's example on the page: $150,000 → $145,500; highest close $154,000 → $149,500; close $155,500 → the limit locks at $150,000. (2) Consistency Rule now modelled: FTMO lists Growth 40% (Pro 50%) of total profit, 'not treated as a rule breach' (not attributed in our earlier reads). No daily loss limit; profit target $9,000 — 'The Daily Loss Limit and all other Growth Trading Objectives remain unchanged'. Evaluation Max Contracts 15 (ten micros count as one). Not stated by FTMO: which drawdown the account issued after a Reset ('you will be issued a new account on the trading platform after the Reset'), or 'on the next billing date' after a breach, carries — the notes default such accounts to the new figure."
+        "2026-11-15 encoded — CHANGED vs ftmo-futures-growth-150k@2026-10-08: (1) maximum drawdown $5,000 → $4,500 'for all new Evaluations created on or after' Thursday 5 November 2026, 4:30 a.m. Eastern Time (FTMO Futures Trading Update, 5 Nov 2026: 'Growth 150K — Maximum Drawdown (EOD Trailing): $5,000 → $4,500'; the futures trading-objectives page, modified 2026-11-05, shows $4,500 with an 'Updated' badge whose tooltip reads 'Max Drawdown is $5,000 for Evaluations purchased before 5 Nov 2026, 4:30 a.m. ET'). FTMO's example on the page: $150,000 → $145,500; highest close $154,000 → $149,500; close $155,500 → the limit locks at $150,000. (2) Consistency Rule now modelled: FTMO lists Growth 40% (Pro 50%) of total profit, 'not treated as a rule breach' (not attributed in our earlier reads). No daily loss limit; profit target $9,000 — 'The Daily Loss Limit and all other Growth Trading Objectives remain unchanged'. Evaluation Max Contracts 15 (ten micros count as one). Not stated by FTMO: which drawdown the account issued after a Reset ('you will be issued a new account on the trading platform after the Reset'), or 'on the next billing date' after a breach, carries — the notes default such accounts to the new figure.",
+        "2026-11-21 unchanged — ftmo.com futures trading-objectives page (modified 2026-11-05, unchanged) read in a browser with EVERY account type and size selected: Growth 50K — Profit Target $3,000, Max Drawdown EOD Trailing $2,000, Daily Loss Limit None, Consistency Rule 40%, Max Contracts 5; Growth 100K — $6,000, 'Updated' $3,000, None, 40%, 10; Growth 150K — $9,000, 'Updated' $4,500, None, 40%, 15; Pro 50K / 100K / 150K — Max Drawdown $3,000 / $4,500 / $6,000, Daily Loss Limit $1,000 / $1,500 / $2,000, Consistency Rule 50%. Futures Trading Update of 5 Nov 2026 (modified 2026-11-05): unchanged. FTMO's trading updates of 19 Nov 2026 (CFD and Futures) read in a browser: maintenance windows, Thanksgiving trading hours, the sanctions notice; Futures payouts in crypto, 'Other payout conditions are unchanged' — no rule, limit or objective changed."
       ]
     },
     {
@@ -582,7 +594,7 @@
         "max": "terminate"
       },
       "anchorHint": "No daily loss limit in this evaluation. Enter your balance at the start of today's session as the day-start balance, and your highest END-OF-DAY balance — the max-drawdown floor trails it and locks once it reaches your starting capital. The account size on this page is fixed at $150,000.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://ftmo.com/en/futures/trading-objectives-and-rules/",
         "https://ftmo.com/en/futures/blog/trading-updates/futures-trading-update-5-nov-2026/"
@@ -605,7 +617,8 @@
       },
       "notice": "This page uses the larger, earlier drawdown ($5,000). It is yours only if your Evaluation was created before Thursday 5 November 2026, 4:30 a.m. Eastern Time and has not been Reset or re-issued since — or Account MetriX shows $5,000. FTMO does not say which figure applies to the new account it issues after a Reset, or on the next billing date after a breach: use the $4,500 calculator for such an account until Account MetriX shows $5,000.",
       "verificationLog": [
-        "2026-11-15 encoded — same maximum drawdown as ftmo-futures-growth-150k@2026-10-08 ($5,000 end-of-day trailing, locks at the starting capital), which FTMO keeps for Evaluations created before Thursday 5 November 2026, 4:30 a.m. Eastern Time, 'including the Sim-Funded and Live Accounts they lead to' (FTMO Futures Trading Update, 5 Nov 2026). Consistency Rule now modelled (Growth 40% of total profit, not a breach). Issued as the earlier-evaluations calculator alongside ftmo-futures-growth-150k@2026-11-15."
+        "2026-11-15 encoded — same maximum drawdown as ftmo-futures-growth-150k@2026-10-08 ($5,000 end-of-day trailing, locks at the starting capital), which FTMO keeps for Evaluations created before Thursday 5 November 2026, 4:30 a.m. Eastern Time, 'including the Sim-Funded and Live Accounts they lead to' (FTMO Futures Trading Update, 5 Nov 2026). Consistency Rule now modelled (Growth 40% of total profit, not a breach). Issued as the earlier-evaluations calculator alongside ftmo-futures-growth-150k@2026-11-15.",
+        "2026-11-21 unchanged — ftmo.com futures trading-objectives page (modified 2026-11-05, unchanged) read in a browser with EVERY account type and size selected: Growth 50K — Profit Target $3,000, Max Drawdown EOD Trailing $2,000, Daily Loss Limit None, Consistency Rule 40%, Max Contracts 5; Growth 100K — $6,000, 'Updated' $3,000, None, 40%, 10; Growth 150K — $9,000, 'Updated' $4,500, None, 40%, 15; Pro 50K / 100K / 150K — Max Drawdown $3,000 / $4,500 / $6,000, Daily Loss Limit $1,000 / $1,500 / $2,000, Consistency Rule 50%. Futures Trading Update of 5 Nov 2026 (modified 2026-11-05): unchanged. The figure for Evaluations created before 5 Nov 2026 rests on that update ('Evaluations created before … stay under the current values'); the objectives page shows the new figure with an 'Updated' badge. FTMO's trading updates of 19 Nov 2026 (CFD and Futures) read in a browser: maintenance windows, Thanksgiving trading hours, the sanctions notice; Futures payouts in crypto, 'Other payout conditions are unchanged' — no rule, limit or objective changed."
       ]
     },
     {
@@ -688,7 +701,7 @@
         "max": "terminate"
       },
       "anchorHint": "Enter your BALANCE at the start of the trading day — 00:00 server time (GMT+3 in summer, GMT+2 in winter).",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://help.fundednext.com/en/articles/8019811-how-can-i-calculate-the-daily-loss-limit",
         "https://help.fundednext.com/en/articles/8021076-what-rules-do-i-need-to-follow-in-the-stellar-2-step-challenge",
@@ -701,7 +714,8 @@
       "notes": "Server time: FundedNext states GMT+3 during daylight-saving time and GMT+2 for the rest of the year (help-centre article 8019811, 8 Apr 2026); Bulwark uses the Europe/Athens zone for the countdown. In the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard. Max loss: FundedNext's Stellar 2-Step article reads 'Your account must not drop below 90% of its initial balance', and its Stellar Lite article says 'balance or equity' for the same rule; the calculator flags a breach when EITHER your closed balance or your equity touches the level — the tighter of the two readings. A daily-loss breach closes the account (General Rules: 'Breaching it closes the account').",
       "supersedes": "fundednext-stellar-2step@2026-10-08",
       "verificationLog": [
-        "2026-11-15 encoded — CORRECTION vs fundednext-stellar-2step@2026-10-08: (1) the daily-loss consequence was recorded as 'pause'. fundednext.com General Rules › Trading Objectives states for the Daily Loss Limit: 'Breaching it closes the account' (the same sentence it uses for the Maximum Loss Limit), and help-centre art. 8019914 (21 Sep 2026) calls exceeding it 'a Daily Loss rule violation' — recorded as 'terminate'. Neither the engine nor the pages read this field (the status has always read DAILY LIMIT BREACHED), so no displayed figure or wording changes. (2) the max-loss test was equity only, described as 'the conservative reading' — false when the closed balance is below the equity. The Stellar Lite article reads 'Your account balance or equity cannot fall below 92% of your initial balance'; the 2-Step and 1-Step articles read 'Your account must not drop below 90% / 94% of its initial balance'; and FundedNext's Maximum Loss Limit article (8019915, 21 Sep 2026) words the level on balance — 2-Step 'you cannot let your balance fall below $90,000', 1-Step 'trader's balance cannot drop below $94,000' — while the General Rules count floating P&L toward the daily limit. Lower-of is the only test that is not looser than any of these. Now breachBasis lowerOf on all three: a closed balance under the level reads breached even while floating profit holds equity above it. Rules re-read and unchanged — General Rules page and help-centre articles 8021076 (Stellar 2-Step rules, 8 Sep 2026), 8019914 / 8019915 (daily and maximum loss limit, 21 Sep 2026) and 8019803 (minimum trading days): 5% daily of the initial balance, 10% static max, targets 8%/5%, minimum 5 trading days per phase. Reset at 00:00 server time — GMT+3 during daylight-saving time, GMT+2 otherwise (art. 8019811, 8 Apr 2026; Europe/Athens)."
+        "2026-11-15 encoded — CORRECTION vs fundednext-stellar-2step@2026-10-08: (1) the daily-loss consequence was recorded as 'pause'. fundednext.com General Rules › Trading Objectives states for the Daily Loss Limit: 'Breaching it closes the account' (the same sentence it uses for the Maximum Loss Limit), and help-centre art. 8019914 (21 Sep 2026) calls exceeding it 'a Daily Loss rule violation' — recorded as 'terminate'. Neither the engine nor the pages read this field (the status has always read DAILY LIMIT BREACHED), so no displayed figure or wording changes. (2) the max-loss test was equity only, described as 'the conservative reading' — false when the closed balance is below the equity. The Stellar Lite article reads 'Your account balance or equity cannot fall below 92% of your initial balance'; the 2-Step and 1-Step articles read 'Your account must not drop below 90% / 94% of its initial balance'; and FundedNext's Maximum Loss Limit article (8019915, 21 Sep 2026) words the level on balance — 2-Step 'you cannot let your balance fall below $90,000', 1-Step 'trader's balance cannot drop below $94,000' — while the General Rules count floating P&L toward the daily limit. Lower-of is the only test that is not looser than any of these. Now breachBasis lowerOf on all three: a closed balance under the level reads breached even while floating profit holds equity above it. Rules re-read and unchanged — General Rules page and help-centre articles 8021076 (Stellar 2-Step rules, 8 Sep 2026), 8019914 / 8019915 (daily and maximum loss limit, 21 Sep 2026) and 8019803 (minimum trading days): 5% daily of the initial balance, 10% static max, targets 8%/5%, minimum 5 trading days per phase. Reset at 00:00 server time — GMT+3 during daylight-saving time, GMT+2 otherwise (art. 8019811, 8 Apr 2026; Europe/Athens).",
+        "2026-11-21 unchanged — fundednext.com General Rules › Trading Objectives read in full in a browser ('Same rules for every trader'; no size selector): Stellar 1-Step 10% / 3% of initial balance / 6% (Static) / 2 trading days; Stellar 2-Step 8% → 5% / 5% / 10% (Static) / 5 trading days; Stellar Lite 8% → 4% / 4% / 8% (Static) / 2 trading days; 'Resets daily at 0:00 server time'; 'Breaching it closes the account'. Help-centre articles re-read: 8019811 (modified 2026-04-08), 8019914 and 8019915 (2026-09-21), 8021076, 8021061 and 9094072 — texts as recorded; 8019803 minimum trading days (modified 2026-11-05): Stellar 2-Step 5 per phase; Stellar Lite 2 if 'purchased or reset on or after October 12, 2026', 5 before."
       ]
     },
     {
@@ -776,7 +790,7 @@
         "max": "terminate"
       },
       "anchorHint": "Enter your BALANCE at the start of the trading day — 00:00 server time (GMT+3 in summer, GMT+2 in winter).",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://help.fundednext.com/en/articles/8021061-what-are-the-rules-for-the-stellar-1-step-challenge-at-fundednext",
         "https://help.fundednext.com/en/articles/8019811-how-can-i-calculate-the-daily-loss-limit",
@@ -795,7 +809,8 @@
       "notes": "Server time: FundedNext states GMT+3 during daylight-saving time and GMT+2 for the rest of the year (help-centre article 8019811, 8 Apr 2026); Bulwark uses the Europe/Athens zone for the countdown. In the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard. Max loss: FundedNext's Stellar 1-Step article reads 'Your account must not drop below 94% of its initial balance', and its Stellar Lite article says 'balance or equity' for the same rule; the calculator flags a breach when EITHER your closed balance or your equity touches the level — the tighter of the two readings. A daily-loss breach closes the account (General Rules: 'Breaching it closes the account').",
       "supersedes": "fundednext-stellar-1step@2026-10-08",
       "verificationLog": [
-        "2026-11-15 encoded — CORRECTION vs fundednext-stellar-1step@2026-10-08: (1) the daily-loss consequence was recorded as 'pause'. fundednext.com General Rules › Trading Objectives states for the Daily Loss Limit: 'Breaching it closes the account' (the same sentence it uses for the Maximum Loss Limit), and help-centre art. 8019914 (21 Sep 2026) calls exceeding it 'a Daily Loss rule violation' — recorded as 'terminate'. Neither the engine nor the pages read this field (the status has always read DAILY LIMIT BREACHED), so no displayed figure or wording changes. (2) the max-loss test was equity only, described as 'the conservative reading' — false when the closed balance is below the equity. The Stellar Lite article reads 'Your account balance or equity cannot fall below 92% of your initial balance'; the 2-Step and 1-Step articles read 'Your account must not drop below 90% / 94% of its initial balance'; and FundedNext's Maximum Loss Limit article (8019915, 21 Sep 2026) words the level on balance — 2-Step 'you cannot let your balance fall below $90,000', 1-Step 'trader's balance cannot drop below $94,000' — while the General Rules count floating P&L toward the daily limit. Lower-of is the only test that is not looser than any of these. Now breachBasis lowerOf on all three: a closed balance under the level reads breached even while floating profit holds equity above it. Rules re-read and unchanged — General Rules page and help-centre articles 8021061 (Stellar 1-Step rules, 8 Sep 2026), 8019914 / 8019915 (21 Sep 2026): 3% daily of the initial balance, 6% static max, target 10%, minimum 2 trading days. Reset at 00:00 server time — GMT+3 during daylight-saving time, GMT+2 otherwise (art. 8019811, 8 Apr 2026; Europe/Athens)."
+        "2026-11-15 encoded — CORRECTION vs fundednext-stellar-1step@2026-10-08: (1) the daily-loss consequence was recorded as 'pause'. fundednext.com General Rules › Trading Objectives states for the Daily Loss Limit: 'Breaching it closes the account' (the same sentence it uses for the Maximum Loss Limit), and help-centre art. 8019914 (21 Sep 2026) calls exceeding it 'a Daily Loss rule violation' — recorded as 'terminate'. Neither the engine nor the pages read this field (the status has always read DAILY LIMIT BREACHED), so no displayed figure or wording changes. (2) the max-loss test was equity only, described as 'the conservative reading' — false when the closed balance is below the equity. The Stellar Lite article reads 'Your account balance or equity cannot fall below 92% of your initial balance'; the 2-Step and 1-Step articles read 'Your account must not drop below 90% / 94% of its initial balance'; and FundedNext's Maximum Loss Limit article (8019915, 21 Sep 2026) words the level on balance — 2-Step 'you cannot let your balance fall below $90,000', 1-Step 'trader's balance cannot drop below $94,000' — while the General Rules count floating P&L toward the daily limit. Lower-of is the only test that is not looser than any of these. Now breachBasis lowerOf on all three: a closed balance under the level reads breached even while floating profit holds equity above it. Rules re-read and unchanged — General Rules page and help-centre articles 8021061 (Stellar 1-Step rules, 8 Sep 2026), 8019914 / 8019915 (21 Sep 2026): 3% daily of the initial balance, 6% static max, target 10%, minimum 2 trading days. Reset at 00:00 server time — GMT+3 during daylight-saving time, GMT+2 otherwise (art. 8019811, 8 Apr 2026; Europe/Athens).",
+        "2026-11-21 unchanged — fundednext.com General Rules › Trading Objectives read in full in a browser ('Same rules for every trader'; no size selector): Stellar 1-Step 10% / 3% of initial balance / 6% (Static) / 2 trading days; Stellar 2-Step 8% → 5% / 5% / 10% (Static) / 5 trading days; Stellar Lite 8% → 4% / 4% / 8% (Static) / 2 trading days; 'Resets daily at 0:00 server time'; 'Breaching it closes the account'. Help-centre articles re-read: 8019811 (modified 2026-04-08), 8019914 and 8019915 (2026-09-21), 8021076, 8021061 and 9094072 — texts as recorded; 8019803 minimum trading days (modified 2026-11-05): Stellar 2-Step 5 per phase; Stellar Lite 2 if 'purchased or reset on or after October 12, 2026', 5 before."
       ]
     },
     {
@@ -871,7 +886,7 @@
         "max": "terminate"
       },
       "anchorHint": "Enter your BALANCE at the start of the trading day — 00:00 server time (GMT+3 in summer, GMT+2 in winter).",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://help.fundednext.com/en/articles/8019803-what-are-the-minimum-trading-days-in-fundednext-challenges",
         "https://help.fundednext.com/en/articles/9094072-what-rules-do-i-need-to-follow-in-the-stellar-lite-challenge",
@@ -891,7 +906,8 @@
       "notes": "Minimum trading days: 2 per phase for Challenges purchased or reset on or after 12 October 2026; 5 per phase for Challenges purchased or last reset before that date (FundedNext help-centre article 8019803; the General Rules page lists 2). FundedNext's older Stellar Lite rules article (9094072, dated 3 July 2026) still says 5 without naming the date — the dated article governs. Floors and targets are the same for both groups. Server time: FundedNext states GMT+3 during daylight-saving time and GMT+2 for the rest of the year (help-centre article 8019811, 8 Apr 2026); Bulwark uses the Europe/Athens zone for the countdown. In the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard. Max loss: FundedNext's Stellar Lite article reads 'Your account balance or equity cannot fall below 92% of your initial balance'; the calculator flags a breach when EITHER your closed balance or your equity touches the level — the tighter of the two readings. A daily-loss breach closes the account (General Rules: 'Breaching it closes the account').",
       "supersedes": "fundednext-stellar-lite@2026-10-08",
       "verificationLog": [
-        "2026-11-15 encoded — CHANGED vs fundednext-stellar-lite@2026-10-08: minimum trading days 5 → 2 per phase for a 'Stellar Lite Challenge (purchased or reset on or after October 12, 2026)'; 'purchased or reset before October 12, 2026' keeps 5 (help-centre article 8019803); fundednext.com General Rules › Trading Objectives lists 'Stellar Lite: 2 trading days'. The change predates the 2026-10-23 run, which recorded 5 days and did not catch it (its log line cites the trading-objectives page, which lists 2 today; what that page showed on 23 October was not kept; the older rules article 9094072, 3 Jul 2026, still says 'at least 5 separate trading days'). Also corrected: (1) the daily-loss consequence was recorded as 'pause'. fundednext.com General Rules › Trading Objectives states for the Daily Loss Limit: 'Breaching it closes the account' (the same sentence it uses for the Maximum Loss Limit), and help-centre art. 8019914 (21 Sep 2026) calls exceeding it 'a Daily Loss rule violation' — recorded as 'terminate'. Neither the engine nor the pages read this field (the status has always read DAILY LIMIT BREACHED), so no displayed figure or wording changes. (2) the max-loss test was equity only, described as 'the conservative reading' — false when the closed balance is below the equity. The Stellar Lite article reads 'Your account balance or equity cannot fall below 92% of your initial balance'; the 2-Step and 1-Step articles read 'Your account must not drop below 90% / 94% of its initial balance'; and FundedNext's Maximum Loss Limit article (8019915, 21 Sep 2026) words the level on balance — 2-Step 'you cannot let your balance fall below $90,000', 1-Step 'trader's balance cannot drop below $94,000' — while the General Rules count floating P&L toward the daily limit. Lower-of is the only test that is not looser than any of these. Now breachBasis lowerOf on all three: a closed balance under the level reads breached even while floating profit holds equity above it. Floors unchanged: 4% daily of the initial balance (art. 8019914, 21 Sep 2026), 8% static max (art. 8019915, 21 Sep 2026); targets 8%/4%; reset at 00:00 server time, GMT+3 during daylight-saving time / GMT+2 otherwise (art. 8019811, 8 Apr 2026; Europe/Athens)."
+        "2026-11-15 encoded — CHANGED vs fundednext-stellar-lite@2026-10-08: minimum trading days 5 → 2 per phase for a 'Stellar Lite Challenge (purchased or reset on or after October 12, 2026)'; 'purchased or reset before October 12, 2026' keeps 5 (help-centre article 8019803); fundednext.com General Rules › Trading Objectives lists 'Stellar Lite: 2 trading days'. The change predates the 2026-10-23 run, which recorded 5 days and did not catch it (its log line cites the trading-objectives page, which lists 2 today; what that page showed on 23 October was not kept; the older rules article 9094072, 3 Jul 2026, still says 'at least 5 separate trading days'). Also corrected: (1) the daily-loss consequence was recorded as 'pause'. fundednext.com General Rules › Trading Objectives states for the Daily Loss Limit: 'Breaching it closes the account' (the same sentence it uses for the Maximum Loss Limit), and help-centre art. 8019914 (21 Sep 2026) calls exceeding it 'a Daily Loss rule violation' — recorded as 'terminate'. Neither the engine nor the pages read this field (the status has always read DAILY LIMIT BREACHED), so no displayed figure or wording changes. (2) the max-loss test was equity only, described as 'the conservative reading' — false when the closed balance is below the equity. The Stellar Lite article reads 'Your account balance or equity cannot fall below 92% of your initial balance'; the 2-Step and 1-Step articles read 'Your account must not drop below 90% / 94% of its initial balance'; and FundedNext's Maximum Loss Limit article (8019915, 21 Sep 2026) words the level on balance — 2-Step 'you cannot let your balance fall below $90,000', 1-Step 'trader's balance cannot drop below $94,000' — while the General Rules count floating P&L toward the daily limit. Lower-of is the only test that is not looser than any of these. Now breachBasis lowerOf on all three: a closed balance under the level reads breached even while floating profit holds equity above it. Floors unchanged: 4% daily of the initial balance (art. 8019914, 21 Sep 2026), 8% static max (art. 8019915, 21 Sep 2026); targets 8%/4%; reset at 00:00 server time, GMT+3 during daylight-saving time / GMT+2 otherwise (art. 8019811, 8 Apr 2026; Europe/Athens).",
+        "2026-11-21 unchanged — fundednext.com General Rules › Trading Objectives read in full in a browser ('Same rules for every trader'; no size selector): Stellar 1-Step 10% / 3% of initial balance / 6% (Static) / 2 trading days; Stellar 2-Step 8% → 5% / 5% / 10% (Static) / 5 trading days; Stellar Lite 8% → 4% / 4% / 8% (Static) / 2 trading days; 'Resets daily at 0:00 server time'; 'Breaching it closes the account'. Help-centre articles re-read: 8019811 (modified 2026-04-08), 8019914 and 8019915 (2026-09-21), 8021076, 8021061 and 9094072 — texts as recorded; 8019803 minimum trading days (modified 2026-11-05): Stellar 2-Step 5 per phase; Stellar Lite 2 if 'purchased or reset on or after October 12, 2026', 5 before."
       ]
     },
     {
@@ -911,7 +927,7 @@
         "max": "terminate"
       },
       "anchorHint": "No daily loss limit. Enter your highest balance to date — the max-loss floor rises with profit and stops at your initial balance.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://help.fundednext.com/en/articles/11641163-what-are-the-daily-loss-limit-and-the-maximum-loss-limit-for-the-stellar-instant-accounts"
       ],
@@ -922,7 +938,8 @@
         "2026-09-19 verified",
         "2026-10-08 unchanged — fundednext.com trading-objectives page: no daily limit; 6% trailing max that stops rising at the initial balance; balance-vs-equity trail still unresolved (RV-4) — calculator still withheld",
         "2026-10-23 unchanged — fundednext.com trading-objectives page: no daily limit; 6% trailing max that stops at the initial balance; balance-vs-equity trail still unresolved (RV-4) — calculator still withheld",
-        "2026-11-15 unchanged — fundednext.com General Rules › Trading Objectives page: no daily loss limit; 6% trailing max that 'rises with your profits, does not decrease during losses, and stops once it reaches your initial balance'; balance-vs-equity trail still unresolved (RV-4) — calculator still withheld"
+        "2026-11-15 unchanged — fundednext.com General Rules › Trading Objectives page: no daily loss limit; 6% trailing max that 'rises with your profits, does not decrease during losses, and stops once it reaches your initial balance'; balance-vs-equity trail still unresolved (RV-4) — calculator still withheld",
+        "2026-11-21 unchanged — fundednext.com General Rules › Trading Objectives: 'Stellar Instant: No daily loss limit'; 'Stellar Instant: 6% (Trailing)' — 'the loss limit rises with your profits, does not decrease during losses, and stops once it reaches your initial balance'. help.fundednext.com art. 11641163, the page this preset cites (page data: lastUpdatedDate 2026-04-15T07:22:22Z), read in full in a browser on 2026-11-21: 'Stellar Instant Accounts have no daily loss limit but use a trailing maximum loss limit of 6%. This starts from your initial balance and moves up only when you make profits, never exceeding your starting balance. Losses do not reduce it. If your equity falls below this limit, your account is breached.'; its worked example moves the limit after each closed trade ('New balance: $10,200 … MLL level = $10,200 - $600 = $9600') and caps it at the initial balance; 'If at any stage the client's dropped or floating loss went below their MLL, their account will be hard breached.' Balance-vs-equity trail still unresolved (RV-4) — calculator still withheld"
       ]
     },
     {
@@ -999,7 +1016,7 @@
       },
       "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time — UTC+3 in summer, UTC+2 in winter (FundingPips' 'Seasonal Reset Time'); that is 5:00 p.m. New York time.",
       "resetLabel": "00:00 platform time (UTC+3 summer / UTC+2 winter)",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://help.fundingpips.com/hc/en-us/articles/34501809112081-2-Step-Standard",
         "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
@@ -1013,10 +1030,11 @@
         ],
         "assessedOn": "closedBalance"
       },
-      "notes": "Daily loss 5% of the higher of opening balance and opening equity; max loss 10% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Profit targets 8% / 5%; minimum 3 trading days per phase. FundingPips also sells this model with a 3% daily-loss add-on chosen at purchase — if you bought it, use the '2-Step Standard (3% daily add-on)' calculator. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard.",
+      "notes": "Daily loss 5% of the higher of opening balance and opening equity; max loss 10% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Profit targets 8% / 5%; minimum 3 trading days per phase. FundingPips also sells this model with a 3% daily-loss add-on chosen at purchase — if you bought it, use the '2-Step Standard (3% daily add-on)' calculator. On a Master account FundingPips also has rules on the loss from a single trade idea: on its on-demand 100% split, the Striking System — a warning when that loss reaches 1% of the account, the fourth warning closing the account; and for accounts under its Legacy Rules (bought before 28 September 2026), a Risk Per Trade Idea limit on Master accounts with the 10% target and a Striking System trigger of 1.2% on Master accounts above $25K with the 8% target. This page does not model them, and the size it shows does not apply them. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard.",
       "supersedes": "fundingpips-2step-standard@2026-10-08",
       "verificationLog": [
-        "2026-11-15 encoded — CHANGED vs fundingpips-2step-standard@2026-10-08: reset time. help.fundingpips.com art. 34501809112081 (2-Step Standard) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors, targets and minimum days unchanged: daily 3% or 5% (configuration purchased) of the higher of opening balance/equity; max 10% of the starting size, static, 'Equity or balance cannot hit 10% below the starting account size at any time'; targets 8%/5%; 3 trading days per phase. Floating P&L counts toward the daily loss; the articles carry no last-updated date."
+        "2026-11-15 encoded — CHANGED vs fundingpips-2step-standard@2026-10-08: reset time. help.fundingpips.com art. 34501809112081 (2-Step Standard) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors, targets and minimum days unchanged: daily 3% or 5% (configuration purchased) of the higher of opening balance/equity; max 10% of the starting size, static, 'Equity or balance cannot hit 10% below the starting account size at any time'; targets 8%/5%; 3 trading days per phase. Floating P&L counts toward the daily loss; the articles carry no last-updated date.",
+        "2026-11-21 unchanged — read in a browser on help.fundingpips.com. 2 Step Standard article (art. 34501809112081) read in full: Phase 1 8% + Phase 2 5%; 'Complete a minimum of 3 trading days to pass. No minimum trading days when the 3% daily loss add-on is selected.'; Max Loss Limit 10%; 'Daily Loss Limit 3% or 5% (based on the configuration you purchased)'; seasonal reset time. Legacy Rules page, 2 Step Standard tab: 8% / 5%, 3 trading days, Daily Loss Limit 5%, Max Loss Limit 10% — the figures of this preset. One sentence added to the notes: FundingPips' rules on the loss from a single trade idea (Master accounts) are not modelled. Dates from FundingPips' help-centre data (its articles show none): 2 Step Flex edited 2026-11-02, 2 Step Pro Model 2026-11-02, 2 Step Standard 2026-11-02, 1 Step Flex 2026-11-11, Compare Account Models 2026-11-19 (a '1 Step Labs' model added; the figures of the models on this site unchanged), FundingPips Legacy Rules created 2026-09-27 and edited 2026-10-21."
       ]
     },
     {
@@ -1093,7 +1111,7 @@
       },
       "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time — UTC+3 in summer, UTC+2 in winter (FundingPips' 'Seasonal Reset Time'); that is 5:00 p.m. New York time.",
       "resetLabel": "00:00 platform time (UTC+3 summer / UTC+2 winter)",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://help.fundingpips.com/hc/en-us/articles/34501809112081-2-Step-Standard",
         "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
@@ -1107,10 +1125,11 @@
         ],
         "assessedOn": "closedBalance"
       },
-      "notes": "The 2-Step Standard bought with the 3% daily-loss add-on: daily loss 3% of the higher of opening balance and opening equity; max loss 10% static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Profit targets 8% / 5%; no minimum trading days with the add-on. If you did not buy the add-on, use the standard 5% calculator. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard.",
+      "notes": "The 2-Step Standard bought with the 3% daily-loss add-on: daily loss 3% of the higher of opening balance and opening equity; max loss 10% static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Profit targets 8% / 5%; no minimum trading days with the add-on. If you did not buy the add-on, use the standard 5% calculator. On a Master account FundingPips also has rules on the loss from a single trade idea: on its on-demand 100% split, the Striking System — a warning when that loss reaches 1% of the account, the fourth warning closing the account. This page does not model them, and the size it shows does not apply them. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard.",
       "supersedes": "fundingpips-2step-standard-3pct@2026-10-08",
       "verificationLog": [
-        "2026-11-15 encoded — CHANGED vs fundingpips-2step-standard-3pct@2026-10-08: reset time. help.fundingpips.com art. 34501809112081 (2-Step Standard, 3% daily-loss add-on) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors and targets unchanged: daily 3% of the higher of opening balance/equity; max 10% static; targets 8%/5%; 'No minimum trading days when the 3% daily loss add-on is selected'. Floating P&L counts toward the daily loss; the articles carry no last-updated date."
+        "2026-11-15 encoded — CHANGED vs fundingpips-2step-standard-3pct@2026-10-08: reset time. help.fundingpips.com art. 34501809112081 (2-Step Standard, 3% daily-loss add-on) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors and targets unchanged: daily 3% of the higher of opening balance/equity; max 10% static; targets 8%/5%; 'No minimum trading days when the 3% daily loss add-on is selected'. Floating P&L counts toward the daily loss; the articles carry no last-updated date.",
+        "2026-11-21 unchanged — read in a browser on help.fundingpips.com. 2 Step Standard article (art. 34501809112081) read in full: 'Complete a minimum of 3 trading days to pass. No minimum trading days when the 3% daily loss add-on is selected.'; 'Daily Loss Limit 3% or 5% (based on the configuration you purchased)'; Max Loss Limit 10%; seasonal reset time. The Legacy Rules page's 2 Step Standard tab lists a 5% daily loss limit only. One sentence added to the notes: FundingPips' rules on the loss from a single trade idea (Master accounts) are not modelled. Dates from FundingPips' help-centre data (its articles show none): 2 Step Flex edited 2026-11-02, 2 Step Pro Model 2026-11-02, 2 Step Standard 2026-11-02, 1 Step Flex 2026-11-11, Compare Account Models 2026-11-19 (a '1 Step Labs' model added; the figures of the models on this site unchanged), FundingPips Legacy Rules created 2026-09-27 and edited 2026-10-21."
       ]
     },
     {
@@ -1166,7 +1185,7 @@
       "id": "fundingpips-2step-flex@2026-11-15",
       "firm": "FundingPips",
       "program": "2-Step Flex",
-      "slug": "fundingpips-2-step-flex",
+      "slug": null,
       "daily": {
         "pct": 4,
         "basis": "dayStart",
@@ -1192,6 +1211,56 @@
         "https://help.fundingpips.com/hc/en-us/articles/47835196271249-2-Step-Flex",
         "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
       ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "target": {
+        "pctByPhase": [
+          10,
+          8
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "notes": "Superseded 2026-11-21 by fundingpips-2step-flex@2026-11-21 — same rules; the successor's notes say what FundingPips' Legacy Rules page gives accounts bought before 28 September 2026 (85% split, profit targets 10% / 6%), and its sources include that page. Retained as a versioned historical preset.",
+      "supersedes": "fundingpips-2step-flex@2026-10-08",
+      "verificationLog": [
+        "2026-11-15 encoded — CHANGED vs fundingpips-2step-flex@2026-10-08: reset time. help.fundingpips.com art. 47835196271249 (2-Step Flex) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors, targets and minimum days unchanged: daily 4% of the higher of opening balance/equity; max 12% static; targets 10%/8%; 80% split: 1 minimum trading day for reset and new accounts purchased on or after 26 Aug 2026 (earlier accounts keep 0 — the preset encodes 1, the tighter value); 95% split: 3 profitable days of ≥0.5% (not modelled). Floating P&L counts toward the daily loss; the articles carry no last-updated date.",
+        "2026-11-21 superseded — no rule field changed; re-issued for the notes and the sources (see fundingpips-2step-flex@2026-11-21). This preset's note calls the split of accounts bought before 26 August 2026 80%; the Legacy Rules page gives 85%."
+      ],
+      "supersededBy": [
+        "fundingpips-2step-flex@2026-11-21"
+      ]
+    },
+    {
+      "id": "fundingpips-2step-flex@2026-11-21",
+      "firm": "FundingPips",
+      "program": "2-Step Flex",
+      "slug": "fundingpips-2-step-flex",
+      "daily": {
+        "pct": 4,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "America/New_York",
+        "resetHour": 17
+      },
+      "max": {
+        "pct": 12,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "minDays": 1,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time — UTC+3 in summer, UTC+2 in winter (FundingPips' 'Seasonal Reset Time'); that is 5:00 p.m. New York time.",
+      "resetLabel": "00:00 platform time (UTC+3 summer / UTC+2 winter)",
+      "verifiedAsOf": "2026-11-21",
+      "sources": [
+        "https://help.fundingpips.com/hc/en-us/articles/47835196271249-2-Step-Flex",
+        "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models",
+        "https://help.fundingpips.com/hc/en-us/articles/51307058233361-FundingPips-Legacy-Rules"
+      ],
       "status": "verified",
       "calculatorEligible": true,
       "target": {
@@ -1201,10 +1270,10 @@
         ],
         "assessedOn": "closedBalance"
       },
-      "notes": "Daily loss 4% of the higher of opening balance and opening equity; max loss 12% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). 80%-split path: profit targets 10% / 8% with 1 minimum trading day per phase. The 95%-split path instead requires 3 profitable days (≥0.5% each) per phase — not modelled here; read it from your dashboard. Accounts purchased before 26 August 2026 keep 0 minimum trading days on the 80% split until they are reset; reset and new accounts need 1. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard.",
-      "supersedes": "fundingpips-2step-flex@2026-10-08",
+      "notes": "Daily loss 4% of the higher of opening balance and opening equity; max loss 12% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). 80%-split path: profit targets 10% / 8% with 1 minimum trading day per phase. The 95%-split path instead requires 3 profitable days (≥0.5% each) per phase — not modelled here; read it from your dashboard. These are FundingPips' rules for accounts bought from 28 September 2026 or reset since then. An account bought before that date and not reset since follows its Legacy Rules page: the same loss limits, but an 85% split with profit targets 10% / 6% — the Phase 2 target shown here is higher than yours — and 1 minimum trading day per phase (0 if bought before 26 August 2026 and never reset). On a Master account FundingPips also has rules on the loss from a single trade idea: on its on-demand 100% split, the Striking System — a warning when that loss reaches 1% of the account, the fourth warning closing the account; and for accounts under its Legacy Rules, a Risk Per Trade Idea limit on Master accounts (3% of the account at $25K, 2% above $25K). This page does not model them, and the size it shows does not apply them. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard. The Legacy Rules page still gives the reset as 00:00 Platform Time (UTC+3), with no seasonal note; if the countdown on your dashboard and this one differ, go by the dashboard.",
+      "supersedes": "fundingpips-2step-flex@2026-11-15",
       "verificationLog": [
-        "2026-11-15 encoded — CHANGED vs fundingpips-2step-flex@2026-10-08: reset time. help.fundingpips.com art. 47835196271249 (2-Step Flex) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors, targets and minimum days unchanged: daily 4% of the higher of opening balance/equity; max 12% static; targets 10%/8%; 80% split: 1 minimum trading day for reset and new accounts purchased on or after 26 Aug 2026 (earlier accounts keep 0 — the preset encodes 1, the tighter value); 95% split: 3 profitable days of ≥0.5% (not modelled). Floating P&L counts toward the daily loss; the articles carry no last-updated date."
+        "2026-11-21 encoded — re-issue of fundingpips-2step-flex@2026-11-15: no rule field changed (daily 4% of the higher of opening balance and equity; max 12% static, equity or balance; targets 10%/8%; 1 minimum trading day; reset 17:00 New York). Re-issued to add the Legacy Rules page to the sources and to say in the notes what it gives older accounts. FundingPips Legacy Rules (art. 51307058233361), every tab read in full on 2026-11-21: 'These rules apply to all purchases made before the 28th of September 2026. For all new purchases and account resets after this date, please click here.' 2 Step Flex tab: 'Phase 1 (10%) + Phase 2 (6%) with an 85% split with 1 minimum trading day, or a 95% split with 3 profitable days (≥ 0.5% each)'; 'Existing Phase 1 accounts and accounts purchased before 26 August 2026 will retain the 0 minimum trading day requirement for the 85% split. Reset and new accounts will require 1 minimum trading day.'; Max Loss Limit 12% ('Equity or balance cannot hit 12% below the starting account size at any time'); Daily Loss Limit 4% ('from the higher of opening balance or equity'); 'Risk Per Trade Idea Limit 3% / 2% — Master Account only. 3% at $25K, 2% above $25K'; 'The limit resets at 00:00 Platform Time (UTC+3).' Current 2 Step Flex article (art. 47835196271249), read in full the same day: 'Phase 1 (10%) + Phase 2 (8%) with an 80% split with 1 minimum trading day'; Max Loss Limit 12%; Daily Loss Limit 4%; 'Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)'; on the On Demand 100% split 'The account is subject to the Striking System, with a warning trigger set at 1% of the account size'. Dates from FundingPips' help-centre data (its articles show none): 2 Step Flex edited 2026-11-02, 2 Step Pro Model 2026-11-02, 2 Step Standard 2026-11-02, 1 Step Flex 2026-11-11, Compare Account Models 2026-11-19 (a '1 Step Labs' model added; the figures of the models on this site unchanged), FundingPips Legacy Rules created 2026-09-27 and edited 2026-10-21."
       ]
     },
     {
@@ -1260,7 +1329,7 @@
       "id": "fundingpips-2step-pro@2026-11-15",
       "firm": "FundingPips",
       "program": "2-Step Pro",
-      "slug": "fundingpips-2-step-pro",
+      "slug": null,
       "daily": {
         "pct": 3,
         "basis": "dayStart",
@@ -1286,6 +1355,56 @@
         "https://help.fundingpips.com/hc/en-us/articles/34502027344017-2-Step-Pro-Model",
         "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
       ],
+      "status": "superseded",
+      "calculatorEligible": false,
+      "target": {
+        "pctByPhase": [
+          6,
+          6
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "notes": "Superseded 2026-11-21 by fundingpips-2step-pro@2026-11-21 — same rules; the successor's notes say what FundingPips' Legacy Rules page gives accounts bought before 28 September 2026 (2 minimum trading days per phase), and its sources include that page. Retained as a versioned historical preset.",
+      "supersedes": "fundingpips-2step-pro@2026-10-08",
+      "verificationLog": [
+        "2026-11-15 encoded — CHANGED vs fundingpips-2step-pro@2026-10-08: reset time. help.fundingpips.com art. 34502027344017 (2-Step Pro) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors, targets and minimum days unchanged: daily 3% of the higher of opening balance/equity; max 6% static, 'cannot touch this level at any point across all phases'; targets 6%/6%; 0 minimum trading days for reset and new accounts purchased on or after 26 Aug 2026 (existing accounts keep 1 day). Floating P&L counts toward the daily loss; the articles carry no last-updated date.",
+        "2026-11-21 superseded — no rule field changed; re-issued for the notes and the sources (see fundingpips-2step-pro@2026-11-21). This preset's note says no minimum trading days for accounts bought from 26 August 2026; the Legacy Rules page gives 2 for accounts bought before 28 September 2026."
+      ],
+      "supersededBy": [
+        "fundingpips-2step-pro@2026-11-21"
+      ]
+    },
+    {
+      "id": "fundingpips-2step-pro@2026-11-21",
+      "firm": "FundingPips",
+      "program": "2-Step Pro",
+      "slug": "fundingpips-2-step-pro",
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "America/New_York",
+        "resetHour": 17
+      },
+      "max": {
+        "pct": 6,
+        "model": "static",
+        "breachBasis": "lowerOf"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time — UTC+3 in summer, UTC+2 in winter (FundingPips' 'Seasonal Reset Time'); that is 5:00 p.m. New York time.",
+      "resetLabel": "00:00 platform time (UTC+3 summer / UTC+2 winter)",
+      "verifiedAsOf": "2026-11-21",
+      "sources": [
+        "https://help.fundingpips.com/hc/en-us/articles/34502027344017-2-Step-Pro-Model",
+        "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models",
+        "https://help.fundingpips.com/hc/en-us/articles/51307058233361-FundingPips-Legacy-Rules"
+      ],
       "status": "verified",
       "calculatorEligible": true,
       "target": {
@@ -1295,10 +1414,10 @@
         ],
         "assessedOn": "closedBalance"
       },
-      "notes": "Daily loss 3% of the higher of opening balance and opening equity; max loss 6% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Profit target 6% in each phase; no minimum trading days for accounts bought from 26 August 2026 (earlier accounts keep 1 day). Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard.",
-      "supersedes": "fundingpips-2step-pro@2026-10-08",
+      "notes": "Daily loss 3% of the higher of opening balance and opening equity; max loss 6% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Profit target 6% in each phase; no minimum trading days on accounts bought from 28 September 2026 or reset since then. An account bought before that date and not reset since follows FundingPips' Legacy Rules page: the same loss limits and targets, but 2 minimum trading days per phase (1 if bought before 26 August 2026 and never reset). FundingPips' current 2-Step Pro article reads as no minimum days for accounts bought from 26 August, so for an account bought from 26 August to 27 September 2026 its two pages differ — read the figure from your dashboard; the stricter of the two is 2. On a Master account FundingPips also has rules on the loss from a single trade idea: on its on-demand 100% split, the Striking System — a warning when that loss reaches 1% of the account, the fourth warning closing the account. This page does not model them, and the size it shows does not apply them. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard. The Legacy Rules page still gives the reset as 00:00 Platform Time (UTC+3), with no seasonal note; if the countdown on your dashboard and this one differ, go by the dashboard.",
+      "supersedes": "fundingpips-2step-pro@2026-11-15",
       "verificationLog": [
-        "2026-11-15 encoded — CHANGED vs fundingpips-2step-pro@2026-10-08: reset time. help.fundingpips.com art. 34502027344017 (2-Step Pro) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors, targets and minimum days unchanged: daily 3% of the higher of opening balance/equity; max 6% static, 'cannot touch this level at any point across all phases'; targets 6%/6%; 0 minimum trading days for reset and new accounts purchased on or after 26 Aug 2026 (existing accounts keep 1 day). Floating P&L counts toward the daily loss; the articles carry no last-updated date."
+        "2026-11-21 encoded — re-issue of fundingpips-2step-pro@2026-11-15: no rule field changed (daily 3% of the higher of opening balance and equity; max 6% static, equity or balance; targets 6%/6%; minimum trading days 0; reset 17:00 New York). Re-issued to add the Legacy Rules page to the sources and to say in the notes what it gives older accounts. FundingPips Legacy Rules (art. 51307058233361), every tab read in full on 2026-11-21: 'These rules apply to all purchases made before the 28th of September 2026. For all new purchases and account resets after this date, please click here.' 2 Step Pro tab: 'Minimum 2 trading day per phase to the Master Account'; 'Existing Phase 1 accounts and accounts purchased before 26 August 2026 will retain the 1 minimum trading day requirement. Reset and new accounts will require 2 minimum trading days.'; Max Loss Limit 6%; Daily Loss Limit 3%; 'Risk Per Trade Idea — Removed'; 'The limit resets at 00:00 Platform Time (UTC+3).' Current 2 Step Pro Model article (art. 34502027344017), read in full the same day: 'Zero minimum trading day to pass.'; 'Existing Phase 1 accounts and accounts purchased before 26 August 2026 will retain the 1 minimum trading day requirement. Reset and new accounts will require 0 minimum trading days.'; Max Loss Limit 6%; Daily Loss Limit 3%; seasonal reset time as on the other articles. The two pages differ for accounts bought from 26 August to 27 September 2026. Dates from FundingPips' help-centre data (its articles show none): 2 Step Flex edited 2026-11-02, 2 Step Pro Model 2026-11-02, 2 Step Standard 2026-11-02, 1 Step Flex 2026-11-11, Compare Account Models 2026-11-19 (a '1 Step Labs' model added; the figures of the models on this site unchanged), FundingPips Legacy Rules created 2026-09-27 and edited 2026-10-21."
       ]
     },
     {
@@ -1379,17 +1498,18 @@
       },
       "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time — UTC+3 in summer, UTC+2 in winter (FundingPips' 'Seasonal Reset Time'); that is 5:00 p.m. New York time.",
       "resetLabel": "00:00 platform time (UTC+3 summer / UTC+2 winter)",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://help.fundingpips.com/hc/en-us/articles/34501697434385-1-Step-Flex",
         "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
       ],
       "status": "verified",
       "calculatorEligible": true,
-      "notes": "Daily loss 2% of the higher of opening balance and opening equity; max loss 12% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Single evaluation phase with a 12% profit target and no minimum trading days. FundingPips sells the 1-Step Flex with a 2% or a 3% daily loss limit chosen at purchase — use the calculator that matches what you bought. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard.",
+      "notes": "Daily loss 2% of the higher of opening balance and opening equity; max loss 12% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Single evaluation phase with a 12% profit target and no minimum trading days. FundingPips sells the 1-Step Flex with a 2% or a 3% daily loss limit chosen at purchase — use the calculator that matches what you bought. On a Master account FundingPips also has rules on the loss from a single trade idea: on its on-demand 100% split, the Striking System — a warning when that loss reaches 1% of the account, the fourth warning closing the account. This page does not model them, and the size it shows does not apply them. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard.",
       "supersedes": "fundingpips-1step-flex-2pct@2026-10-08",
       "verificationLog": [
-        "2026-11-15 encoded — CHANGED vs fundingpips-1step-flex-2pct@2026-10-08: reset time. help.fundingpips.com art. 34501697434385 (1-Step Flex) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors and target unchanged: daily 2% or 3% (configuration purchased) of the higher of opening balance/equity; max 12% of the starting size, 'Equity or balance cannot fall 12% below the starting account size'; target 12%; no minimum trading days and no time limit. Floating P&L counts toward the daily loss; the articles carry no last-updated date."
+        "2026-11-15 encoded — CHANGED vs fundingpips-1step-flex-2pct@2026-10-08: reset time. help.fundingpips.com art. 34501697434385 (1-Step Flex) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors and target unchanged: daily 2% or 3% (configuration purchased) of the higher of opening balance/equity; max 12% of the starting size, 'Equity or balance cannot fall 12% below the starting account size'; target 12%; no minimum trading days and no time limit. Floating P&L counts toward the daily loss; the articles carry no last-updated date.",
+        "2026-11-21 unchanged — read in a browser on help.fundingpips.com. 1 Step Flex article (art. 34501697434385) read in full: 12% profit target; 'No minimum trading days and no time limit to pass.'; Max Loss Limit 12%; 'Daily Loss Limit 2% or 3% (based on the configuration you purchased)'; seasonal reset time. The Legacy Rules page's 1 Step Flex tab lists a 3% daily loss limit only. One sentence added to the notes: FundingPips' rules on the loss from a single trade idea (Master accounts) are not modelled. Dates from FundingPips' help-centre data (its articles show none): 2 Step Flex edited 2026-11-02, 2 Step Pro Model 2026-11-02, 2 Step Standard 2026-11-02, 1 Step Flex 2026-11-11, Compare Account Models 2026-11-19 (a '1 Step Labs' model added; the figures of the models on this site unchanged), FundingPips Legacy Rules created 2026-09-27 and edited 2026-10-21."
       ]
     },
     {
@@ -1470,17 +1590,18 @@
       },
       "anchorHint": "Enter the HIGHER of your opening balance and opening equity for today, as recorded at 00:00 Platform Time — UTC+3 in summer, UTC+2 in winter (FundingPips' 'Seasonal Reset Time'); that is 5:00 p.m. New York time.",
       "resetLabel": "00:00 platform time (UTC+3 summer / UTC+2 winter)",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://help.fundingpips.com/hc/en-us/articles/34501697434385-1-Step-Flex",
         "https://help.fundingpips.com/hc/en-us/articles/48368490585105-Compare-Account-Models"
       ],
       "status": "verified",
       "calculatorEligible": true,
-      "notes": "Daily loss 3% of the higher of opening balance and opening equity; max loss 12% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Single evaluation phase with a 12% profit target and no minimum trading days. FundingPips sells the 1-Step Flex with a 2% or a 3% daily loss limit chosen at purchase — use the calculator that matches what you bought. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard.",
+      "notes": "Daily loss 3% of the higher of opening balance and opening equity; max loss 12% of the starting size, static, breached if equity OR balance touches the level (Bulwark measures the lower of the two). Single evaluation phase with a 12% profit target and no minimum trading days. FundingPips sells the 1-Step Flex with a 2% or a 3% daily loss limit chosen at purchase — use the calculator that matches what you bought. On a Master account FundingPips also has rules on the loss from a single trade idea: on its on-demand 100% split, the Striking System — a warning when that loss reaches 1% of the account, the fourth warning closing the account; and for accounts under its Legacy Rules (bought before 28 September 2026), the Striking System on every Master account, not only on the 100% split. This page does not model them, and the size it shows does not apply them. Reset time: FundingPips states 00:00 Platform Time with a seasonal offset — UTC+3 in summer (21:00 UTC) and UTC+2 in winter (22:00 UTC), winter time starting the first Sunday of November. Bulwark counts down to 5:00 p.m. New York time, which is the same moment all year except the week between the first and second Sundays of March (FundingPips gives the first Sunday of March for summer time; New York changes on the second): in that week FundingPips' stated reset comes one hour BEFORE this countdown reaches zero — confirm the reset on your dashboard.",
       "supersedes": "fundingpips-1step-flex-3pct@2026-10-08",
       "verificationLog": [
-        "2026-11-15 encoded — CHANGED vs fundingpips-1step-flex-3pct@2026-10-08: reset time. help.fundingpips.com art. 34501697434385 (1-Step Flex, 3% configuration) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors and target unchanged: daily 3% of the higher of opening balance/equity; max 12% static; target 12%; no minimum trading days. Floating P&L counts toward the daily loss; the articles carry no last-updated date."
+        "2026-11-15 encoded — CHANGED vs fundingpips-1step-flex-3pct@2026-10-08: reset time. help.fundingpips.com art. 34501697434385 (1-Step Flex, 3% configuration) (read 2026-11-15) now states 'The daily loss limit resets at 00:00 Platform Time. Seasonal Reset Time: Summer Time: UTC+3 (21:00 UTC) / Winter Time: UTC+2 (22:00 UTC)', and its Master-account auto-close table gives summer time from the 'First Sunday of March' and winter time from the 'First Sunday of November'; the 2026-10-23 read recorded 'resets at 00:00 Platform Time (UTC+3)'. Re-encoded from Etc/GMT-3 00:00 to America/New_York 17:00 — the same instants except the seven resets between the first and second Sundays of March, when this encoding is one hour later than the firm's table (disclosed in the notes; no IANA zone matches 'first Sunday of March'). The 2-Step Standard article also labels a July 2026 time 'Server Time (UTC+2)', which does not fit its own summer offset — noted, not relied on. Floors and target unchanged: daily 3% of the higher of opening balance/equity; max 12% static; target 12%; no minimum trading days. Floating P&L counts toward the daily loss; the articles carry no last-updated date.",
+        "2026-11-21 unchanged — read in a browser on help.fundingpips.com. 1 Step Flex article (art. 34501697434385) read in full: 12% profit target; 'No minimum trading days and no time limit to pass.'; Max Loss Limit 12%; 'Daily Loss Limit 2% or 3% (based on the configuration you purchased)'; seasonal reset time. Legacy Rules page, 1 Step Flex tab: 12% target, no minimum days, Daily Loss Limit 3%, Max Loss Limit 12% — the figures of this preset; 'Striking System 1% — All Master Account sizes'. One sentence added to the notes: FundingPips' rules on the loss from a single trade idea (Master accounts) are not modelled. Dates from FundingPips' help-centre data (its articles show none): 2 Step Flex edited 2026-11-02, 2 Step Pro Model 2026-11-02, 2 Step Standard 2026-11-02, 1 Step Flex 2026-11-11, Compare Account Models 2026-11-19 (a '1 Step Labs' model added; the figures of the models on this site unchanged), FundingPips Legacy Rules created 2026-09-27 and edited 2026-10-21."
       ]
     },
     {
@@ -1536,7 +1657,7 @@
       "id": "the5ers-2step-new@2026-11-15",
       "firm": "The5ers",
       "program": "2-Step Plan — New (standard plan)",
-      "slug": "the5ers-2-step-new",
+      "slug": null,
       "daily": {
         "pct": 3,
         "basis": "dayStart",
@@ -1567,13 +1688,78 @@
         "https://the5ers.com/faqs/2-step-plan-rules-specifications/",
         "The5ers live-chat transcript, 21 Sep 2026 (kept on file)"
       ],
-      "status": "verified-with-conflict",
-      "calculatorEligible": true,
+      "status": "superseded",
+      "calculatorEligible": false,
       "disclosure": "The5ers publishes 3% daily on its 2-Step Plan Rules page (last update 2 Nov 2026) and 5% on its High Stakes pages. The firm's live-chat assistant (21 Sep 2026) states the 3% applies to the standard 2-Step plans and 5% to High Stakes — this preset is the STANDARD 2-Step plan (New: targets 10% / 5%) at 3%. The 2-Step Plan Rules page states no minimum profitable-days requirement; the earlier preset's 3-day rule came from the High Stakes page and has been removed here. Verify on your dashboard.",
-      "notes": "Reset: the firm's assistant states MT5 server time, GMT+2 in winter and GMT+3 in summer; Bulwark uses the Europe/Athens zone for the countdown — in the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.",
+      "notes": "Superseded 2026-11-21 by the5ers-2step-new@2026-11-21 — same rules; the successor names the product as the firm's pages do (the 2-Step plan of the Summer Plan) and no longer describes High Stakes as 5% for every size. Retained as a versioned historical preset.",
       "supersedes": "the5ers-2step-new@2026-10-08",
       "verificationLog": [
-        "2026-11-15 encoded — re-issued vs the5ers-2step-new@2026-10-08 for one reason: the disclosure banner cited the 2-Step Plan Rules page as 'last update 7 Sep 2026'; the page now reads 'last update: November 2, 2026' with the same rule text, and an existing id's banner cannot be edited in place. Rules re-read and unchanged: 'Maximum Loss: 10% of your initial balance'; 'Daily Loss Limit: 3% of the previous day's closing balance or equity balance, whichever is higher'; targets 10%/5%; 'There is no consistency rule during the evaluation phases'. Conflict with the High Stakes pages (5%) unchanged — disclosure stands."
+        "2026-11-15 encoded — re-issued vs the5ers-2step-new@2026-10-08 for one reason: the disclosure banner cited the 2-Step Plan Rules page as 'last update 7 Sep 2026'; the page now reads 'last update: November 2, 2026' with the same rule text, and an existing id's banner cannot be edited in place. Rules re-read and unchanged: 'Maximum Loss: 10% of your initial balance'; 'Daily Loss Limit: 3% of the previous day's closing balance or equity balance, whichever is higher'; targets 10%/5%; 'There is no consistency rule during the evaluation phases'. Conflict with the High Stakes pages (5%) unchanged — disclosure stands.",
+        "2026-11-21 superseded — rules unchanged; re-issued for the program name and the caution (see the5ers-2step-new@2026-11-21). This preset's banner says The5ers publishes '5% on its High Stakes pages'; the Program Rules table gives 5% up to $25K and 4% at $50K and $100K."
+      ],
+      "supersededBy": [
+        "the5ers-2step-new@2026-11-21"
+      ]
+    },
+    {
+      "id": "the5ers-2step-new@2026-11-21",
+      "firm": "The5ers",
+      "program": "2-Step Plan — New 10/5 (Summer Plan)",
+      "slug": "the5ers-2-step-new",
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          10,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of yesterday's closing balance and closing equity, taken at 00:00 MT5 server time (GMT+2 in winter, GMT+3 in summer).",
+      "verifiedAsOf": "2026-11-21",
+      "sources": [
+        "https://the5ers.com/summer-plan/",
+        "https://the5ers.com/faqs/2-step-plan-rules-specifications/",
+        "https://the5ers.com/faqs/what-is-the-summer-plan-and-what-are-my-options/",
+        "https://the5ers.com/faqs/how-does-the-daily-loss-limit-work-2/",
+        "The5ers live-chat transcript, 21 Sep 2026 (kept on file)"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "Daily loss 3% of the higher of the previous day's closing balance and closing equity; maximum loss 10% of the initial balance; profit targets 10% / 5% (New, which The5ers also sells as '10/5'). The Summer Plan page's table gives 3% daily and 10% maximum for each of its six 2-Step options — $50K, $100K and $200K, 10/5 and 8/5 (read on 21 November 2026 with each option selected). The5ers' 2-Step Plan Rules FAQ (last update 2 Nov 2026) states the same two limits for the $100,000 account. The5ers' FAQ page for the $50K Summer Plan words this option as \"10%/5% Max Loss\"; its Summer Plan table gives a 10% maximum loss. On the Pro account the Summer Plan adds a 50% consistency requirement, which this page does not model. Reset: the plan's own pages give no reset time; the firm's assistant (21 Sep 2026) states MT5 server time, GMT+2 in winter and GMT+3 in summer. Bulwark uses the Europe/Athens zone for the countdown — in the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.",
+      "supersedes": "the5ers-2step-new@2026-11-15",
+      "notice": "For the 2-Step option of The5ers' Summer Plan only — 3% daily, 10% maximum, the same on its $50K, $100K and $200K options. Not for the Summer Plan 1-Step: its maximum loss is 6%, and this page would show it more room than it has. An account bought on The5ers' High Stakes page has other limits — 4% daily and 8% maximum at $50K and $100K, 5% and 10% up to $25K: use the calculators linked below. The5ers' FAQ has also used the name \"High Stakes Summer Plan\" for a Summer Plan option, so go by the limits your dashboard shows, not by the name.",
+      "related": [
+        {
+          "slug": "the5ers-high-stakes-2-step",
+          "label": "Bought on the High Stakes page, $50K or $100K? 4% daily, 8% maximum — use this calculator →"
+        },
+        {
+          "slug": "the5ers-high-stakes-2-step-up-to-25k",
+          "label": "Bought on the High Stakes page, $2.5K to $25K? 5% daily, 10% maximum — use this calculator →"
+        },
+        {
+          "slug": "the5ers-2-step-classic",
+          "label": "The Classic option (8/5 — targets 8% / 5%) has its own calculator →"
+        }
+      ],
+      "verificationLog": [
+        "2026-11-21 encoded — re-issue of the5ers-2step-new@2026-11-15: rules unchanged (3% daily of the higher of the previous day's closing balance and equity; 10% maximum, static; targets 10%/5%). Re-issued because the program name and the banner were wrong for what the firm's pages now show: this is the 2-Step plan of the Summer Plan, not a 'standard plan' beside a 5% High Stakes — High Stakes is 5% / 10% up to $25K and 4% / 8% at $50K and $100K (Program Rules table, read 2026-11-21). The conflict status is dropped: the 3% and the High Stakes figures belong to two program pages, each with its own table. the5ers.com/summer-plan (the site's own data gives its last modification as 2026-11-03T07:26:47Z), read on 2026-11-21 as displayed, with every option selected, and in the data the page is built from. Parameters table, '2 Steps', columns 1 Step / 2 Steps / Pro: '$50K 10/5' ($99) and '$50K 8/5' ($119), '$100k-10/5' ($149) and '$100k- 8/5' ($179), '$200k- 10/5' ($249) and '$200k- 8/5' ($279) — for every one of the six: Maximum Loss 10% | 10% | 10%, Maximum Daily Loss 3% | 3% | 3%, Min. Trades 1 | 1 | -, Consistency- Per Day - | - | 50%; Target 10% (10/5) or 8% (8/5) | 5%. '1 Step' ($50K $179, $100K $249): Maximum Loss 6%, Maximum Daily Loss 3%, Target 10%, Consistency- Per Day 50%. Risk Management tab, 2 Steps: 'Maximum Loss: 10% of your initial balance'; 'Daily Loss Limit: calculated at the end of each trading day based on 3% of your account's EOD equity OR balance—whichever of the two is higher.'; 'Consistency Requirement: 50% on the pro account'. FAQ articles in the Summer Plan category (last update: August 11, 2026): 'What Are The New $200K High Stakes Summer Plan Options?' — '200K (10/5 Plan) – $249 … 200K (8/5 Plan) – $279'; 'Does the $200K High Stakes Summer Plan Support Account Scaling?'. the5ers.com FAQ '2-Step Plan Rules & Specifications' (last update: November 2, 2026): 'The 2-Step plan offers two entry tiers for the $100,000 account to fit your budget and strategy: New ($149): Phase 1 profit target is 10%; Phase 2 is 5%. Classic ($179): Phase 1 profit target is 8%; Phase 2 is 5%.'; 'Maximum Loss: 10% of your initial balance.'; 'Daily Loss Limit: 3% of the previous day's closing balance or equity balance, whichever is higher.'; 'There is no consistency rule during the evaluation phases for the 2-Step plan.' FAQ 'What is the Summer Plan, and what are my Options?' (last update: November 3, 2026): 'The Summer Plan is a limited-time opportunity to get a Pro account with a $100,000 account starting from as low as $149 … 2-Step Plan (From $149): A traditional two-phase evaluation with two different pricing and target options (New or Classic).' FAQ 'How Does the Daily Loss Limit Work?' (last update: August 10, 2026): 'For both the 1-Step and 2-Step summer plans, the daily loss limit is 3%. It is calculated at the end of each trading day based on 3% of your account's EOD equity OR balance—whichever of the two is higher.' FAQ 'Summer Plan $50K programs' (last update: October 28, 2026) lists '2-Step New ($99): 10%/5% Max Loss, 3% Daily Loss' and '2-Step Classic ($119): 8%/5% Max Loss, 3% Daily Loss' — the maximum loss of the $50K options is not stated clearly there; the Summer Plan page's table states it (10%). None of these pages gives a reset time. Status 'verified': the $50K FAQ's '10%/5% Max Loss' begins with the table's figure; the wording is quoted in the notes."
       ]
     },
     {
@@ -1629,7 +1815,7 @@
       "id": "the5ers-2step-classic@2026-11-15",
       "firm": "The5ers",
       "program": "2-Step Plan — Classic (standard plan)",
-      "slug": "the5ers-2-step-classic",
+      "slug": null,
       "daily": {
         "pct": 3,
         "basis": "dayStart",
@@ -1660,20 +1846,85 @@
         "https://the5ers.com/faqs/2-step-plan-rules-specifications/",
         "The5ers live-chat transcript, 21 Sep 2026 (kept on file)"
       ],
-      "status": "verified-with-conflict",
-      "calculatorEligible": true,
+      "status": "superseded",
+      "calculatorEligible": false,
       "disclosure": "The5ers publishes 3% daily on its 2-Step Plan Rules page (last update 2 Nov 2026) and 5% on its High Stakes pages. The firm's live-chat assistant (21 Sep 2026) states the 3% applies to the standard 2-Step plans and 5% to High Stakes — this preset is the STANDARD 2-Step plan (Classic: targets 8% / 5%) at 3%. The 2-Step Plan Rules page states no minimum profitable-days requirement; the earlier preset's 3-day rule came from the High Stakes page and has been removed here. Verify on your dashboard.",
-      "notes": "Reset: the firm's assistant states MT5 server time, GMT+2 in winter and GMT+3 in summer; Bulwark uses the Europe/Athens zone for the countdown — in the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.",
+      "notes": "Superseded 2026-11-21 by the5ers-2step-classic@2026-11-21 — same rules; the successor names the product as the firm's pages do (the 2-Step plan of the Summer Plan) and no longer describes High Stakes as 5% for every size. Retained as a versioned historical preset.",
       "supersedes": "the5ers-2step-classic@2026-10-08",
       "verificationLog": [
-        "2026-11-15 encoded — re-issued vs the5ers-2step-classic@2026-10-08 for one reason: the disclosure banner cited the 2-Step Plan Rules page as 'last update 7 Sep 2026'; the page now reads 'last update: November 2, 2026' with the same rule text, and an existing id's banner cannot be edited in place. Rules re-read and unchanged: 'Maximum Loss: 10% of your initial balance'; 'Daily Loss Limit: 3% of the previous day's closing balance or equity balance, whichever is higher'; targets 8%/5%; 'There is no consistency rule during the evaluation phases'. Conflict with the High Stakes pages (5%) unchanged — disclosure stands."
+        "2026-11-15 encoded — re-issued vs the5ers-2step-classic@2026-10-08 for one reason: the disclosure banner cited the 2-Step Plan Rules page as 'last update 7 Sep 2026'; the page now reads 'last update: November 2, 2026' with the same rule text, and an existing id's banner cannot be edited in place. Rules re-read and unchanged: 'Maximum Loss: 10% of your initial balance'; 'Daily Loss Limit: 3% of the previous day's closing balance or equity balance, whichever is higher'; targets 8%/5%; 'There is no consistency rule during the evaluation phases'. Conflict with the High Stakes pages (5%) unchanged — disclosure stands.",
+        "2026-11-21 superseded — rules unchanged; re-issued for the program name and the caution (see the5ers-2step-classic@2026-11-21). This preset's banner says The5ers publishes '5% on its High Stakes pages'; the Program Rules table gives 5% up to $25K and 4% at $50K and $100K."
+      ],
+      "supersededBy": [
+        "the5ers-2step-classic@2026-11-21"
+      ]
+    },
+    {
+      "id": "the5ers-2step-classic@2026-11-21",
+      "firm": "The5ers",
+      "program": "2-Step Plan — Classic 8/5 (Summer Plan)",
+      "slug": "the5ers-2-step-classic",
+      "daily": {
+        "pct": 3,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          8,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of yesterday's closing balance and closing equity, taken at 00:00 MT5 server time (GMT+2 in winter, GMT+3 in summer).",
+      "verifiedAsOf": "2026-11-21",
+      "sources": [
+        "https://the5ers.com/summer-plan/",
+        "https://the5ers.com/faqs/2-step-plan-rules-specifications/",
+        "https://the5ers.com/faqs/what-is-the-summer-plan-and-what-are-my-options/",
+        "https://the5ers.com/faqs/how-does-the-daily-loss-limit-work-2/",
+        "The5ers live-chat transcript, 21 Sep 2026 (kept on file)"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "notes": "Daily loss 3% of the higher of the previous day's closing balance and closing equity; maximum loss 10% of the initial balance; profit targets 8% / 5% (Classic, which The5ers also sells as '8/5'). The Summer Plan page's table gives 3% daily and 10% maximum for each of its six 2-Step options — $50K, $100K and $200K, 10/5 and 8/5 (read on 21 November 2026 with each option selected). The5ers' 2-Step Plan Rules FAQ (last update 2 Nov 2026) states the same two limits for the $100,000 account. On the Pro account the Summer Plan adds a 50% consistency requirement, which this page does not model. Reset: the plan's own pages give no reset time; the firm's assistant (21 Sep 2026) states MT5 server time, GMT+2 in winter and GMT+3 in summer. Bulwark uses the Europe/Athens zone for the countdown — in the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.",
+      "supersedes": "the5ers-2step-classic@2026-11-15",
+      "notice": "For the 2-Step option of The5ers' Summer Plan only — 3% daily, 10% maximum, the same on its $50K, $100K and $200K options. Not for the Summer Plan 1-Step: its maximum loss is 6%, and this page would show it more room than it has. An account bought on The5ers' High Stakes page has other limits — 4% daily and 8% maximum at $50K and $100K, 5% and 10% up to $25K: use the calculators linked below. The5ers' FAQ has also used the name \"High Stakes Summer Plan\" for a Summer Plan option, so go by the limits your dashboard shows, not by the name. On a $50K account, check the maximum loss on your dashboard before relying on the max-loss floor here: The5ers' FAQ page for the $50K Summer Plan lists the 2-Step Classic as \"8%/5% Max Loss\", while its Summer Plan table gives 10%. If 8% were the limit, the max-loss floor of a $50K account would be $46,000, not the $45,000 this page shows.",
+      "related": [
+        {
+          "slug": "the5ers-high-stakes-2-step",
+          "label": "Bought on the High Stakes page, $50K or $100K? 4% daily, 8% maximum — use this calculator →"
+        },
+        {
+          "slug": "the5ers-high-stakes-2-step-up-to-25k",
+          "label": "Bought on the High Stakes page, $2.5K to $25K? 5% daily, 10% maximum — use this calculator →"
+        },
+        {
+          "slug": "the5ers-2-step-new",
+          "label": "The New option (10/5 — targets 10% / 5%) has its own calculator →"
+        }
+      ],
+      "verificationLog": [
+        "2026-11-21 encoded — re-issue of the5ers-2step-classic@2026-11-15: rules unchanged (3% daily of the higher of the previous day's closing balance and equity; 10% maximum, static; targets 8%/5%). Re-issued because the program name and the banner were wrong for what the firm's pages now show: this is the 2-Step plan of the Summer Plan, not a 'standard plan' beside a 5% High Stakes — High Stakes is 5% / 10% up to $25K and 4% / 8% at $50K and $100K (Program Rules table, read 2026-11-21). The conflict status is dropped: the 3% and the High Stakes figures belong to two program pages, each with its own table. the5ers.com/summer-plan (the site's own data gives its last modification as 2026-11-03T07:26:47Z), read on 2026-11-21 as displayed, with every option selected, and in the data the page is built from. Parameters table, '2 Steps', columns 1 Step / 2 Steps / Pro: '$50K 10/5' ($99) and '$50K 8/5' ($119), '$100k-10/5' ($149) and '$100k- 8/5' ($179), '$200k- 10/5' ($249) and '$200k- 8/5' ($279) — for every one of the six: Maximum Loss 10% | 10% | 10%, Maximum Daily Loss 3% | 3% | 3%, Min. Trades 1 | 1 | -, Consistency- Per Day - | - | 50%; Target 10% (10/5) or 8% (8/5) | 5%. '1 Step' ($50K $179, $100K $249): Maximum Loss 6%, Maximum Daily Loss 3%, Target 10%, Consistency- Per Day 50%. Risk Management tab, 2 Steps: 'Maximum Loss: 10% of your initial balance'; 'Daily Loss Limit: calculated at the end of each trading day based on 3% of your account's EOD equity OR balance—whichever of the two is higher.'; 'Consistency Requirement: 50% on the pro account'. FAQ articles in the Summer Plan category (last update: August 11, 2026): 'What Are The New $200K High Stakes Summer Plan Options?' — '200K (10/5 Plan) – $249 … 200K (8/5 Plan) – $279'; 'Does the $200K High Stakes Summer Plan Support Account Scaling?'. the5ers.com FAQ '2-Step Plan Rules & Specifications' (last update: November 2, 2026): 'The 2-Step plan offers two entry tiers for the $100,000 account to fit your budget and strategy: New ($149): Phase 1 profit target is 10%; Phase 2 is 5%. Classic ($179): Phase 1 profit target is 8%; Phase 2 is 5%.'; 'Maximum Loss: 10% of your initial balance.'; 'Daily Loss Limit: 3% of the previous day's closing balance or equity balance, whichever is higher.'; 'There is no consistency rule during the evaluation phases for the 2-Step plan.' FAQ 'What is the Summer Plan, and what are my Options?' (last update: November 3, 2026): 'The Summer Plan is a limited-time opportunity to get a Pro account with a $100,000 account starting from as low as $149 … 2-Step Plan (From $149): A traditional two-phase evaluation with two different pricing and target options (New or Classic).' FAQ 'How Does the Daily Loss Limit Work?' (last update: August 10, 2026): 'For both the 1-Step and 2-Step summer plans, the daily loss limit is 3%. It is calculated at the end of each trading day based on 3% of your account's EOD equity OR balance—whichever of the two is higher.' FAQ 'Summer Plan $50K programs' (last update: October 28, 2026) lists '2-Step New ($99): 10%/5% Max Loss, 3% Daily Loss' and '2-Step Classic ($119): 8%/5% Max Loss, 3% Daily Loss' — the maximum loss of the $50K options is not stated clearly there; the Summer Plan page's table states it (10%). None of these pages gives a reset time. Status kept 'verified', with the difference stated in the amber notice: the encoded limits are those of the program page's own table, which is explicit for each of the six options; the $50K FAQ's '8%/5% Max Loss' is the pair of this option's profit targets and is read here as those targets under the max-loss label — which cannot be settled from the firm's pages, so a $50K Classic holder is told to check the dashboard before relying on the max-loss floor, and is given the floor that 8% would mean ($46,000 against the $45,000 shown). This is the case 'How we verify' describes as unclear wording against the program's own rules table."
       ]
     },
     {
       "id": "the5ers-highstakes-2step@2026-10-08",
       "firm": "The5ers",
       "program": "High Stakes 2-Step",
-      "slug": "the5ers-high-stakes-2-step",
+      "slug": null,
       "daily": {
         "pct": 5,
         "basis": "dayStart",
@@ -1705,20 +1956,153 @@
         "https://the5ers.com/faqs/what-are-the-general-rules-for-the-high-stakes-program/",
         "the5ers.com live-chat transcript 2026-09-21 (02_research/the5ers_livechat_transcript_2026-09-21.md)"
       ],
-      "status": "verified-with-conflict",
-      "calculatorEligible": true,
+      "status": "superseded",
+      "calculatorEligible": false,
       "disclosure": "High Stakes 2-Step: 5% daily of the higher of starting balance and equity (the firm's High Stakes page, re-read 8 Oct 2026, and its live-chat assistant, 21 Sep 2026). Profit targets read from the High Stakes page itself: Step 1 10%, Step 2 5% — the June FAQ's 8% / 5% no longer appears there. Minimum 3 profitable days of at least 0.5% of the initial balance, profit measured as min(midnight balance, midnight equity) − previous day's balance. A separate 2-Step Plan Rules page states 3% daily — the firm's assistant says that applies to the standard plan, not High Stakes. Verify on your dashboard.",
       "profitableDays": {
         "required": 3,
         "minDayProfitPctOfInitial": 0.5
       },
-      "notes": "Reset: MT5 server time, GMT+2 in winter and GMT+3 in summer (firm's assistant); Bulwark uses the Europe/Athens zone for the countdown — in the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.",
+      "notes": "Superseded 2026-11-21 by the5ers-highstakes-2step-50k-100k@2026-11-21 and the5ers-highstakes-2step-up-to-25k@2026-11-21 — CORRECTION: this preset gave every account size a 5% daily and a 10% maximum loss. The5ers' Program Rules table gives $50K and $100K High Stakes accounts 4% and 8%. Retained as a versioned historical preset.",
       "verificationLog": [
         "2026-10-08 CHANGED — profit targets 8%/5% → 10%/5% (the5ers.com/high-stakes plan table, fetched 2026-10-08; the June FAQ, last update 15 Sep 2026, no longer lists targets); minimum 3 profitable days (≥0.5% of initial) encoded from the same page; reset zone re-encoded to the seasonal zone (Europe/Athens). Floors unchanged: 5% of the higher of starting balance/equity, 10% static max.",
         "2026-10-23 unchanged — the5ers.com High Stakes page and FAQ articles (max/daily loss and drawdown rule: last update 15 Sep 2026; profitable day: 5 Jul 2026): daily 5% of the higher of previous-day closing balance and equity at 00:00 server time (GMT+2 winter / GMT+3 summer), 10% of initial static, targets 10%/5%, 3 profitable days of ≥0.5% of initial measured as min(midnight balance, midnight equity) − previous day balance.",
-        "2026-11-15 unchanged — the5ers.com High Stakes page (targets 10%/5%, maximum daily loss 5%, maximum loss 10%, 3 profitable days of at least 0.5% of the initial balance) and FAQ articles (general rules, maximum loss and maximum daily loss, drawdown rule: last update 15 Sep 2026; profitable day: 5 Jul 2026): daily 5% of the higher of the previous day's closing equity and balance, taken at 00:00 server time (GMT+2 winter / GMT+3 summer); 10% of the initial balance; profitable day = min(midnight balance, midnight equity) − previous day balance."
+        "2026-11-15 unchanged — the5ers.com High Stakes page (targets 10%/5%, maximum daily loss 5%, maximum loss 10%, 3 profitable days of at least 0.5% of the initial balance) and FAQ articles (general rules, maximum loss and maximum daily loss, drawdown rule: last update 15 Sep 2026; profitable day: 5 Jul 2026): daily 5% of the higher of the previous day's closing equity and balance, taken at 00:00 server time (GMT+2 winter / GMT+3 summer); 10% of the initial balance; profitable day = min(midnight balance, midnight equity) − previous day balance.",
+        "2026-11-21 CHANGED — superseded (correction). the5ers.com/high-stakes, Program Rules table, read on 2026-11-21 for every account size and for both the New and the Classic option, as displayed and in the data the page is built from: $2.5K / $5K / $10K / $25K — Maximum Daily Loss 5%, Maximum Loss 10%; $50K / $100K — Maximum Daily Loss 4%, Maximum Loss 8% (the same in all three columns: Step 1, Step 2, Pro Trader); Profit Target Step 1 10% on New and 8% on Classic, Step 2 5%; Minimum Profitable Days 3 per step; 'A profitable day is a day on which the closed positions made a positive profit* of at least 0.5% of the initial balance' — '*… Minimum (Midnight Balance or Midnight Equity- whichever is the lowest) – Previous Day Balance'; Risk Management tab: 'Daily loss is 5%, 3% or 4% (depending on the program) of the starting equity of the day OR the starting balance of the day (the highest between them) at MT5 Server Time.' The page shows no date; the record of the page in the site's own data, which holds this table (one block per size), gives its last modification as 2026-10-08T08:36:01Z. FAQ 'What is the maximum loss and the maximum daily loss in the High Stakes program?' (last update: November 16, 2026): 'Maximum Loss: Ranges between 8% and 10% of the initial account balance.'; 'Maximum Daily Loss: Ranges between 3% and 5% of your starting daily equity or starting daily balance (whichever is higher), reset daily at MT5 Server Time (GMT+2 in winter / GMT+3 in summer).'; 'please verify the specific parameters on the Program Rules page for the account you hold or plan to purchase'. FAQ 'What is the drawdown rule for High Stakes?' (last update: November 16, 2026): 'Maximum Loss (8%–10%): Calculated as an absolute drawdown from your initial account balance.'; 'Daily Drawdown (3%–5%): Recalculated at 00:00 server time based on whichever is higher between your previous day's closing balance or closing equity.'; its worked example, headed 'Using a 5% Limit Example', uses a $100K account. On 16 Nov 2026 both articles still read 'last update: September 15, 2026' and gave 10% and 5% without a range. This desk's reads of 8 and 23 October and 15 November 2026 recorded the table for the account size shown first and did not select each size: the lines above that record 'maximum daily loss 5%, maximum loss 10%' are true of the four smaller sizes only. The day the table first showed 4% and 8% for the two larger sizes is not known: the record of the page in the firm's own site data, which holds the table, was last modified on 2026-10-08T08:36:01Z — some hours after this desk's read of 8 October (made in the Brisbane afternoon) and before its reads of 23 October and 15 November. The 2026-11-15 line above also lists the 'general rules' FAQ article among those dated 15 Sep 2026; that article reads 'last update: November 3, 2026' and carries payout caps, inactivity limits and the news rule only."
       ],
-      "supersedes": "the5ers-highstakes-2step@2026-09-21"
+      "supersedes": "the5ers-highstakes-2step@2026-09-21",
+      "supersededBy": [
+        "the5ers-highstakes-2step-50k-100k@2026-11-21",
+        "the5ers-highstakes-2step-up-to-25k@2026-11-21"
+      ]
+    },
+    {
+      "id": "the5ers-highstakes-2step-50k-100k@2026-11-21",
+      "firm": "The5ers",
+      "program": "High Stakes 2-Step — $50K and $100K accounts",
+      "slug": "the5ers-high-stakes-2-step",
+      "daily": {
+        "pct": 4,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 8,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          10,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your starting balance and starting equity for today, as recorded at 00:00 MT5 server time (GMT+2 in winter, GMT+3 in summer).",
+      "verifiedAsOf": "2026-11-21",
+      "sources": [
+        "https://the5ers.com/high-stakes/",
+        "https://the5ers.com/faqs/what-is-the-maximum-loss-and-the-maximum-daily-loss-in-the-high-stakes-program/",
+        "https://the5ers.com/faqs/what-is-the-drawdown-rule-for-high-stakes/"
+      ],
+      "status": "verified-with-conflict",
+      "calculatorEligible": true,
+      "profitableDays": {
+        "required": 3,
+        "minDayProfitPctOfInitial": 0.5
+      },
+      "notes": "For $50K and $100K High Stakes accounts: daily loss 4% of the higher of the previous day's closing balance and closing equity, recalculated at 00:00 server time; maximum loss 8% of the initial balance. Profit targets shown are the New option's — Step 1 10%, Step 2 5%. The Classic option's Step 1 target is 8%: on a Classic account the Step 1 target shown here is higher than yours. Each step also needs 3 profitable days of at least 0.5% of the initial balance, profit measured as min(midnight balance, midnight equity) − previous day's balance. The5ers' pages do not say whether an account bought before its table showed these figures keeps other limits — read yours from your dashboard. Reset: MT5 server time, GMT+2 in winter and GMT+3 in summer (The5ers' FAQ on the maximum loss and maximum daily loss, last update 16 Nov 2026); Bulwark uses the Europe/Athens zone for the countdown — in the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.",
+      "supersedes": "the5ers-highstakes-2step@2026-10-08",
+      "disclosure": "The5ers' Program Rules table gives $50K and $100K High Stakes accounts a 4% maximum daily loss and an 8% maximum loss; its $2.5K to $25K accounts have 5% and 10%. The firm's FAQ (last update 16 Nov 2026) gives the limits as ranges (maximum loss 8% to 10%, daily 3% to 5%) and tells you to check the Program Rules, yet its worked example still uses a 5% limit on a $100K account. This page uses the Program Rules table — the tighter figures. Before this correction it showed 5% and 10% for every account size. Verify on your dashboard.",
+      "notice": "Not for Summer Plan accounts. The5ers' Summer Plan — its FAQ has also called the $200K option the \"High Stakes Summer Plan\" — has a 3% daily loss limit (and a 6% maximum loss on its 1-Step): on such an account this page shows more room than you have. If your dashboard shows a 3% daily limit and a 10% maximum loss, use the Summer Plan 2-Step calculator linked below; there is no calculator here for the Summer Plan 1-Step.",
+      "related": [
+        {
+          "slug": "the5ers-high-stakes-2-step-up-to-25k",
+          "label": "A $2.5K, $5K, $10K or $25K High Stakes account? Its limits are 5% daily and 10% maximum — use this calculator →"
+        },
+        {
+          "slug": "the5ers-2-step-new",
+          "label": "Dashboard shows 3% daily and 10% maximum (Summer Plan 2-Step, New 10/5)? Use this calculator →"
+        },
+        {
+          "slug": "the5ers-2-step-classic",
+          "label": "Dashboard shows 3% daily and 10% maximum (Summer Plan 2-Step, Classic 8/5)? Use this calculator →"
+        }
+      ],
+      "verificationLog": [
+        "2026-11-21 encoded — CORRECTION vs the5ers-highstakes-2step@2026-10-08, which gave every account size 5% daily and 10% maximum. the5ers.com/high-stakes, Program Rules table, read on 2026-11-21 for every account size and for both the New and the Classic option, as displayed and in the data the page is built from: $2.5K / $5K / $10K / $25K — Maximum Daily Loss 5%, Maximum Loss 10%; $50K / $100K — Maximum Daily Loss 4%, Maximum Loss 8% (the same in all three columns: Step 1, Step 2, Pro Trader); Profit Target Step 1 10% on New and 8% on Classic, Step 2 5%; Minimum Profitable Days 3 per step; 'A profitable day is a day on which the closed positions made a positive profit* of at least 0.5% of the initial balance' — '*… Minimum (Midnight Balance or Midnight Equity- whichever is the lowest) – Previous Day Balance'; Risk Management tab: 'Daily loss is 5%, 3% or 4% (depending on the program) of the starting equity of the day OR the starting balance of the day (the highest between them) at MT5 Server Time.' The page shows no date; the record of the page in the site's own data, which holds this table (one block per size), gives its last modification as 2026-10-08T08:36:01Z. FAQ 'What is the maximum loss and the maximum daily loss in the High Stakes program?' (last update: November 16, 2026): 'Maximum Loss: Ranges between 8% and 10% of the initial account balance.'; 'Maximum Daily Loss: Ranges between 3% and 5% of your starting daily equity or starting daily balance (whichever is higher), reset daily at MT5 Server Time (GMT+2 in winter / GMT+3 in summer).'; 'please verify the specific parameters on the Program Rules page for the account you hold or plan to purchase'. FAQ 'What is the drawdown rule for High Stakes?' (last update: November 16, 2026): 'Maximum Loss (8%–10%): Calculated as an absolute drawdown from your initial account balance.'; 'Daily Drawdown (3%–5%): Recalculated at 00:00 server time based on whichever is higher between your previous day's closing balance or closing equity.'; its worked example, headed 'Using a 5% Limit Example', uses a $100K account. On 16 Nov 2026 both articles still read 'last update: September 15, 2026' and gave 10% and 5% without a range. Encoded for the two larger sizes: daily 4% of the higher of the previous day's closing balance and equity, maximum loss 8% of the initial balance, static; targets 10% / 5% (New); 3 profitable days per step. Status 'verified-with-conflict': the FAQ's worked example (5% on a $100K account) against the Program Rules table (4%) — the table is used. the5ers.com/summer-plan (the site's own data gives its last modification as 2026-11-03T07:26:47Z), parameters table read on 2026-11-21 with '2 Steps' and each of its six options selected ($50K, $100K and $200K, each 10/5 and 8/5): Maximum Loss 10% and Maximum Daily Loss 3% in all three columns for every option. Two FAQ articles in the FAQ's Summer Plan category (last update: August 11, 2026) are titled 'What Are The New $200K High Stakes Summer Plan Options?' and 'Does the $200K High Stakes Summer Plan Support Account Scaling?'. The High Stakes FAQ's daily-loss range starts at 3%; the Program Rules table shows 4% or 5% for every size; 3% is the Summer Plan's daily limit. A Summer Plan holder may therefore look for the account under High Stakes: this page carries a notice that it is not for Summer Plan accounts and links to the two Summer Plan calculators."
+      ]
+    },
+    {
+      "id": "the5ers-highstakes-2step-up-to-25k@2026-11-21",
+      "firm": "The5ers",
+      "program": "High Stakes 2-Step — $2.5K to $25K accounts",
+      "slug": "the5ers-high-stakes-2-step-up-to-25k",
+      "daily": {
+        "pct": 5,
+        "basis": "dayStart",
+        "anchorSemantic": "maxOf",
+        "model": "static",
+        "resetTz": "Europe/Athens",
+        "resetHour": 0
+      },
+      "max": {
+        "pct": 10,
+        "model": "static"
+      },
+      "target": {
+        "pctByPhase": [
+          10,
+          5
+        ],
+        "assessedOn": "closedBalance"
+      },
+      "minDays": 0,
+      "breach": {
+        "daily": "terminate",
+        "max": "terminate"
+      },
+      "anchorHint": "Enter the HIGHER of your starting balance and starting equity for today, as recorded at 00:00 MT5 server time (GMT+2 in winter, GMT+3 in summer).",
+      "verifiedAsOf": "2026-11-21",
+      "sources": [
+        "https://the5ers.com/high-stakes/",
+        "https://the5ers.com/faqs/what-is-the-maximum-loss-and-the-maximum-daily-loss-in-the-high-stakes-program/",
+        "https://the5ers.com/faqs/what-is-the-drawdown-rule-for-high-stakes/"
+      ],
+      "status": "verified",
+      "calculatorEligible": true,
+      "profitableDays": {
+        "required": 3,
+        "minDayProfitPctOfInitial": 0.5
+      },
+      "notes": "For $2.5K, $5K, $10K and $25K High Stakes accounts: daily loss 5% of the higher of the previous day's closing balance and closing equity, recalculated at 00:00 server time; maximum loss 10% of the initial balance. Profit targets shown are the New option's — Step 1 10%, Step 2 5%. The Classic option's Step 1 target is 8%: on a Classic account the Step 1 target shown here is higher than yours. Each step also needs 3 profitable days of at least 0.5% of the initial balance, profit measured as min(midnight balance, midnight equity) − previous day's balance. The5ers' pages do not say whether an account bought before its table showed these figures keeps other limits — read yours from your dashboard. Reset: MT5 server time, GMT+2 in winter and GMT+3 in summer (The5ers' FAQ on the maximum loss and maximum daily loss, last update 16 Nov 2026); Bulwark uses the Europe/Athens zone for the countdown — in the few weeks each year when European and US daylight-saving dates differ, confirm the reset moment on your dashboard.",
+      "supersedes": "the5ers-highstakes-2step@2026-10-08",
+      "defaultInitialSize": 25000,
+      "notice": "For $2.5K, $5K, $10K and $25K High Stakes accounts only. The5ers' Program Rules table gives $50K and $100K accounts tighter limits — 4% daily and 8% maximum: for one of those, use the $50K / $100K calculator linked below. Do not enter a larger account size on this page: it would show a $50K or $100K account more room than it has. Summer Plan accounts ($50K, $100K, $200K; 3% daily) are not covered here either.",
+      "related": [
+        {
+          "slug": "the5ers-high-stakes-2-step",
+          "label": "A $50K or $100K High Stakes account? Its limits are 4% daily and 8% maximum — use this calculator →"
+        },
+        {
+          "slug": "the5ers-2-step-new",
+          "label": "Dashboard shows 3% daily and 10% maximum (Summer Plan 2-Step, New 10/5)? Use this calculator →"
+        },
+        {
+          "slug": "the5ers-2-step-classic",
+          "label": "Dashboard shows 3% daily and 10% maximum (Summer Plan 2-Step, Classic 8/5)? Use this calculator →"
+        }
+      ],
+      "verificationLog": [
+        "2026-11-21 encoded — re-issue of the5ers-highstakes-2step@2026-10-08 for the four smaller account sizes only; figures unchanged for these sizes. the5ers.com/high-stakes, Program Rules table, read on 2026-11-21 for every account size and for both the New and the Classic option, as displayed and in the data the page is built from: $2.5K / $5K / $10K / $25K — Maximum Daily Loss 5%, Maximum Loss 10%; $50K / $100K — Maximum Daily Loss 4%, Maximum Loss 8% (the same in all three columns: Step 1, Step 2, Pro Trader); Profit Target Step 1 10% on New and 8% on Classic, Step 2 5%; Minimum Profitable Days 3 per step; 'A profitable day is a day on which the closed positions made a positive profit* of at least 0.5% of the initial balance' — '*… Minimum (Midnight Balance or Midnight Equity- whichever is the lowest) – Previous Day Balance'; Risk Management tab: 'Daily loss is 5%, 3% or 4% (depending on the program) of the starting equity of the day OR the starting balance of the day (the highest between them) at MT5 Server Time.' The page shows no date; the record of the page in the site's own data, which holds this table (one block per size), gives its last modification as 2026-10-08T08:36:01Z. FAQ 'What is the maximum loss and the maximum daily loss in the High Stakes program?' (last update: November 16, 2026): 'Maximum Loss: Ranges between 8% and 10% of the initial account balance.'; 'Maximum Daily Loss: Ranges between 3% and 5% of your starting daily equity or starting daily balance (whichever is higher), reset daily at MT5 Server Time (GMT+2 in winter / GMT+3 in summer).'; 'please verify the specific parameters on the Program Rules page for the account you hold or plan to purchase'. FAQ 'What is the drawdown rule for High Stakes?' (last update: November 16, 2026): 'Maximum Loss (8%–10%): Calculated as an absolute drawdown from your initial account balance.'; 'Daily Drawdown (3%–5%): Recalculated at 00:00 server time based on whichever is higher between your previous day's closing balance or closing equity.'; its worked example, headed 'Using a 5% Limit Example', uses a $100K account. On 16 Nov 2026 both articles still read 'last update: September 15, 2026' and gave 10% and 5% without a range. Encoded for $2.5K to $25K: daily 5% of the higher of the previous day's closing balance and equity, maximum loss 10% of the initial balance, static; targets 10% / 5% (New); 3 profitable days per step. The page opens at $25,000. the5ers.com/summer-plan (the site's own data gives its last modification as 2026-11-03T07:26:47Z), parameters table read on 2026-11-21 with '2 Steps' and each of its six options selected ($50K, $100K and $200K, each 10/5 and 8/5): Maximum Loss 10% and Maximum Daily Loss 3% in all three columns for every option. Two FAQ articles in the FAQ's Summer Plan category (last update: August 11, 2026) are titled 'What Are The New $200K High Stakes Summer Plan Options?' and 'Does the $200K High Stakes Summer Plan Support Account Scaling?'. The High Stakes FAQ's daily-loss range starts at 3%; the Program Rules table shows 4% or 5% for every size; 3% is the Summer Plan's daily limit. A Summer Plan holder may therefore look for the account under High Stakes: this page carries a notice that it is not for Summer Plan accounts and links to the two Summer Plan calculators."
+      ]
     },
     {
       "id": "topstep-combine-50k@2026-10-08r2",
@@ -1753,7 +2137,7 @@
         "max": "terminate"
       },
       "anchorHint": "Enter $50,000 as the account size and your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it flattens positions and locks trading until the next session, but does not fail the Combine.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://intercom.help/topstep-llc/en/articles/8284204",
         "https://help.topstep.com/en/articles/10490293",
@@ -1761,12 +2145,13 @@
       ],
       "status": "verified",
       "calculatorEligible": true,
-      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $1,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $2,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $3,000. Consistency target (Topstep art. 8284208): your single best day must stay at or below 55% of the profit target; exceeding it is not a violation — the target rises until the best day is back under the cap. The calculator models this (engine v0.2.2, E-14) and shows the raised target when it applies.",
+      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $1,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $2,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $3,000. Consistency target (Topstep art. 8284208): your single best day must stay at or below 55% of the profit target; exceeding it is not a violation — the target rises until the best day is back under the cap. The calculator models this (engine v0.2.2, E-14) and shows the raised target when it applies. Topstep's Maximum Loss Limit article (19 Nov 2026) also describes a Static Trading Combine, whose Maximum Loss Limit is $2,000 at this size and never moves. This page models the trailing limit of the original Trading Combine — check your account's parameters. Topstep's Trading Combine Parameters table (19 Nov 2026) also lists a minimum of 2 trading days, which this page does not show.",
       "defaultInitialSize": 50000,
       "verificationLog": [
         "2026-10-08 r2 — consistency rule encoded from Topstep's own page now that the engine models a target-denominated cap with raise semantics (E-14/E-15; HELM FA-54 agrees). Floors unchanged.",
         "2026-10-23 unchanged — help.topstep.com: DLL art. 10490293 (optional in the Combine; $1,000 / $2,000 / $3,000; not a violation — flattens and locks until 5 PM CT), MLL art. 8284204 ($2,000 / $3,000 / $4,500; trails the highest end-of-day balance, never down, locks at the starting balance), consistency art. 8284208 (best day ≤ 55% of the Profit Target; exceeding raises the target). Provenance: the program overview art. 8284099 still words the rule as 'below 55% of total profits' — the dedicated article 8284208 governs (HELM register §4, agreed both desks 2026-10-08); 8284208's own formula line also reads 'Best Day Profit ÷ Total Profit' while its summary and best-day recommendations ($1,650 / $3,300 / $4,950 = 55% of the target) use the Profit Target — the required profit is identical under both readings (total profit ≥ max(target, best day ÷ 0.55)), so no number changes.",
-        "2026-11-15 unchanged — help.topstep.com: DLL art. 10490293 (30 Jun 2026: optional in the Combine; $1,000 / $2,000 / $3,000; 'not a rule violation'; positions flattened, no new trades until 5 PM CT), MLL art. 8284204 (18 Sep 2026: $2,000 / $3,000 / $4,500; rises with the end-of-day balance, never down; 'Once it reaches your starting balance, it locks permanently'; monitored in real time on unrealized P&L), consistency art. 8284208 (17 Sep 2026: 55% 'is a hard line'; exceeding it raises the Profit Target), program overview art. 8284099 (10 Sep 2026: still 'below 55% of total profits' — the dedicated article governs, as agreed with the sibling desk 2026-10-08)."
+        "2026-11-15 unchanged — help.topstep.com: DLL art. 10490293 (30 Jun 2026: optional in the Combine; $1,000 / $2,000 / $3,000; 'not a rule violation'; positions flattened, no new trades until 5 PM CT), MLL art. 8284204 (18 Sep 2026: $2,000 / $3,000 / $4,500; rises with the end-of-day balance, never down; 'Once it reaches your starting balance, it locks permanently'; monitored in real time on unrealized P&L), consistency art. 8284208 (17 Sep 2026: 55% 'is a hard line'; exceeding it raises the Profit Target), program overview art. 8284099 (10 Sep 2026: still 'below 55% of total profits' — the dedicated article governs, as agreed with the sibling desk 2026-10-08).",
+        "2026-11-21 unchanged — help.topstep.com read in a browser. Maximum Loss Limit art. 8284204 — MODIFIED 2026-11-19 (recorded before: 18 Sep 2026), read in full: '$50K $2,000 · $100K $3,000 · $150K $4,500'; trailing: 'Rises as your end-of-day balance grows. Never moves down. Locks permanently once it reaches your starting balance.'; 'If your balance hits it at any point during the trading day, including on unrealized P&L, your account is liquidated immediately.' — unchanged for the Trading Combine. New on that page: a Static Trading Combine whose Maximum Loss Limit never moves ($25K $1,000, $50K $2,000, $100K $4,000, $150K $6,000; 'An account uses a static MLL only if its parameters say so') — one sentence added to the notes. Consistency art. 8284208 — MODIFIED 2026-11-19 (recorded before: 17 Sep 2026), read in full: 'Your single best day of profit must stay at or below 55% of your Profit Target. If it exceeds that, your Profit Target increases.'; 'Less than $1,650 / $3,300 / $4,950'; '55% is a hard line. It is not rounded, and there is no buffer.' — unchanged. Daily Loss Limit art. 10490293 (modified 2026-06-30) and Program Overview art. 8284099 (modified 2026-09-10): dates unchanged. Trading Combine Parameters art. 8284197 (modified 2026-11-19T15:21:46Z) — not a page this preset cites; found by the independent reviewer and read in full during the review of site v0.3.8: 'Parameters at a glance' for $50K / $100K / $150K — Profit Target $3,000 / $6,000 / $9,000; Maximum Loss Limit $2,000 / $3,000 / $4,500; Consistency Target 55% of Profit Target; Best Day Recommendation Less than $1,650 / $3,300 / $4,950; Daily Loss Limit (optional) $1,000 / $2,000 / $3,000; Minimum trading days 2 / 2 / 2; Time limit to pass None — the figures this preset uses are the same; the minimum of 2 trading days is not encoded here (minDays 0 is a rule field of a published id) and is stated in the notes; a dated re-issue is to follow."
       ],
       "supersedes": "topstep-combine-50k@2026-10-08",
       "consistency": {
@@ -1809,7 +2194,7 @@
         "max": "terminate"
       },
       "anchorHint": "Enter $100,000 as the account size and your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it flattens positions and locks trading until the next session, but does not fail the Combine.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://intercom.help/topstep-llc/en/articles/8284204",
         "https://help.topstep.com/en/articles/10490293",
@@ -1817,12 +2202,13 @@
       ],
       "status": "verified",
       "calculatorEligible": true,
-      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $2,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $3,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $6,000. Consistency target (Topstep art. 8284208): your single best day must stay at or below 55% of the profit target; exceeding it is not a violation — the target rises until the best day is back under the cap. The calculator models this (engine v0.2.2, E-14) and shows the raised target when it applies.",
+      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $2,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $3,000 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $6,000. Consistency target (Topstep art. 8284208): your single best day must stay at or below 55% of the profit target; exceeding it is not a violation — the target rises until the best day is back under the cap. The calculator models this (engine v0.2.2, E-14) and shows the raised target when it applies. Topstep's Maximum Loss Limit article (19 Nov 2026) also describes a Static Trading Combine, whose Maximum Loss Limit is $4,000 at this size and never moves. This page models the trailing limit of the original Trading Combine — check your account's parameters. Topstep's Trading Combine Parameters table (19 Nov 2026) also lists a minimum of 2 trading days, which this page does not show.",
       "defaultInitialSize": 100000,
       "verificationLog": [
         "2026-10-08 r2 — consistency rule encoded from Topstep's own page now that the engine models a target-denominated cap with raise semantics (E-14/E-15; HELM FA-54 agrees). Floors unchanged.",
         "2026-10-23 unchanged — help.topstep.com: DLL art. 10490293 (optional in the Combine; $1,000 / $2,000 / $3,000; not a violation — flattens and locks until 5 PM CT), MLL art. 8284204 ($2,000 / $3,000 / $4,500; trails the highest end-of-day balance, never down, locks at the starting balance), consistency art. 8284208 (best day ≤ 55% of the Profit Target; exceeding raises the target). Provenance: the program overview art. 8284099 still words the rule as 'below 55% of total profits' — the dedicated article 8284208 governs (HELM register §4, agreed both desks 2026-10-08); 8284208's own formula line also reads 'Best Day Profit ÷ Total Profit' while its summary and best-day recommendations ($1,650 / $3,300 / $4,950 = 55% of the target) use the Profit Target — the required profit is identical under both readings (total profit ≥ max(target, best day ÷ 0.55)), so no number changes.",
-        "2026-11-15 unchanged — help.topstep.com: DLL art. 10490293 (30 Jun 2026: optional in the Combine; $1,000 / $2,000 / $3,000; 'not a rule violation'; positions flattened, no new trades until 5 PM CT), MLL art. 8284204 (18 Sep 2026: $2,000 / $3,000 / $4,500; rises with the end-of-day balance, never down; 'Once it reaches your starting balance, it locks permanently'; monitored in real time on unrealized P&L), consistency art. 8284208 (17 Sep 2026: 55% 'is a hard line'; exceeding it raises the Profit Target), program overview art. 8284099 (10 Sep 2026: still 'below 55% of total profits' — the dedicated article governs, as agreed with the sibling desk 2026-10-08)."
+        "2026-11-15 unchanged — help.topstep.com: DLL art. 10490293 (30 Jun 2026: optional in the Combine; $1,000 / $2,000 / $3,000; 'not a rule violation'; positions flattened, no new trades until 5 PM CT), MLL art. 8284204 (18 Sep 2026: $2,000 / $3,000 / $4,500; rises with the end-of-day balance, never down; 'Once it reaches your starting balance, it locks permanently'; monitored in real time on unrealized P&L), consistency art. 8284208 (17 Sep 2026: 55% 'is a hard line'; exceeding it raises the Profit Target), program overview art. 8284099 (10 Sep 2026: still 'below 55% of total profits' — the dedicated article governs, as agreed with the sibling desk 2026-10-08).",
+        "2026-11-21 unchanged — help.topstep.com read in a browser. Maximum Loss Limit art. 8284204 — MODIFIED 2026-11-19 (recorded before: 18 Sep 2026), read in full: '$50K $2,000 · $100K $3,000 · $150K $4,500'; trailing: 'Rises as your end-of-day balance grows. Never moves down. Locks permanently once it reaches your starting balance.'; 'If your balance hits it at any point during the trading day, including on unrealized P&L, your account is liquidated immediately.' — unchanged for the Trading Combine. New on that page: a Static Trading Combine whose Maximum Loss Limit never moves ($25K $1,000, $50K $2,000, $100K $4,000, $150K $6,000; 'An account uses a static MLL only if its parameters say so') — one sentence added to the notes. Consistency art. 8284208 — MODIFIED 2026-11-19 (recorded before: 17 Sep 2026), read in full: 'Your single best day of profit must stay at or below 55% of your Profit Target. If it exceeds that, your Profit Target increases.'; 'Less than $1,650 / $3,300 / $4,950'; '55% is a hard line. It is not rounded, and there is no buffer.' — unchanged. Daily Loss Limit art. 10490293 (modified 2026-06-30) and Program Overview art. 8284099 (modified 2026-09-10): dates unchanged. Trading Combine Parameters art. 8284197 (modified 2026-11-19T15:21:46Z) — not a page this preset cites; found by the independent reviewer and read in full during the review of site v0.3.8: 'Parameters at a glance' for $50K / $100K / $150K — Profit Target $3,000 / $6,000 / $9,000; Maximum Loss Limit $2,000 / $3,000 / $4,500; Consistency Target 55% of Profit Target; Best Day Recommendation Less than $1,650 / $3,300 / $4,950; Daily Loss Limit (optional) $1,000 / $2,000 / $3,000; Minimum trading days 2 / 2 / 2; Time limit to pass None — the figures this preset uses are the same; the minimum of 2 trading days is not encoded here (minDays 0 is a rule field of a published id) and is stated in the notes; a dated re-issue is to follow."
       ],
       "supersedes": "topstep-combine-100k@2026-10-08",
       "consistency": {
@@ -1865,7 +2251,7 @@
         "max": "terminate"
       },
       "anchorHint": "Enter $150,000 as the account size and your balance at the start of today's session (Topstep's day rolls at 5:00 PM Central Time). The Daily Loss Limit is an objective: hitting it flattens positions and locks trading until the next session, but does not fail the Combine.",
-      "verifiedAsOf": "2026-11-15",
+      "verifiedAsOf": "2026-11-21",
       "sources": [
         "https://intercom.help/topstep-llc/en/articles/8284204",
         "https://help.topstep.com/en/articles/10490293",
@@ -1873,12 +2259,13 @@
       ],
       "status": "verified",
       "calculatorEligible": true,
-      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $3,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $4,500 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $9,000. Consistency target (Topstep art. 8284208): your single best day must stay at or below 55% of the profit target; exceeding it is not a violation — the target rises until the best day is back under the cap. The calculator models this (engine v0.2.2, E-14) and shows the raised target when it applies.",
+      "notes": "Topstep defines its limits in dollars: Daily Loss Limit $3,000 (2% of the account size; an objective, not a violation — hitting it flattens positions and locks trading until 5 PM CT), Maximum Loss Limit $4,500 (trails your highest end-of-day balance, never moves down, locks at the starting balance), profit target $9,000. Consistency target (Topstep art. 8284208): your single best day must stay at or below 55% of the profit target; exceeding it is not a violation — the target rises until the best day is back under the cap. The calculator models this (engine v0.2.2, E-14) and shows the raised target when it applies. Topstep's Maximum Loss Limit article (19 Nov 2026) also describes a Static Trading Combine, whose Maximum Loss Limit is $6,000 at this size and never moves. This page models the trailing limit of the original Trading Combine — check your account's parameters. Topstep's Trading Combine Parameters table (19 Nov 2026) also lists a minimum of 2 trading days, which this page does not show.",
       "defaultInitialSize": 150000,
       "verificationLog": [
         "2026-10-08 r2 — consistency rule encoded from Topstep's own page now that the engine models a target-denominated cap with raise semantics (E-14/E-15; HELM FA-54 agrees). Floors unchanged.",
         "2026-10-23 unchanged — help.topstep.com: DLL art. 10490293 (optional in the Combine; $1,000 / $2,000 / $3,000; not a violation — flattens and locks until 5 PM CT), MLL art. 8284204 ($2,000 / $3,000 / $4,500; trails the highest end-of-day balance, never down, locks at the starting balance), consistency art. 8284208 (best day ≤ 55% of the Profit Target; exceeding raises the target). Provenance: the program overview art. 8284099 still words the rule as 'below 55% of total profits' — the dedicated article 8284208 governs (HELM register §4, agreed both desks 2026-10-08); 8284208's own formula line also reads 'Best Day Profit ÷ Total Profit' while its summary and best-day recommendations ($1,650 / $3,300 / $4,950 = 55% of the target) use the Profit Target — the required profit is identical under both readings (total profit ≥ max(target, best day ÷ 0.55)), so no number changes.",
-        "2026-11-15 unchanged — help.topstep.com: DLL art. 10490293 (30 Jun 2026: optional in the Combine; $1,000 / $2,000 / $3,000; 'not a rule violation'; positions flattened, no new trades until 5 PM CT), MLL art. 8284204 (18 Sep 2026: $2,000 / $3,000 / $4,500; rises with the end-of-day balance, never down; 'Once it reaches your starting balance, it locks permanently'; monitored in real time on unrealized P&L), consistency art. 8284208 (17 Sep 2026: 55% 'is a hard line'; exceeding it raises the Profit Target), program overview art. 8284099 (10 Sep 2026: still 'below 55% of total profits' — the dedicated article governs, as agreed with the sibling desk 2026-10-08)."
+        "2026-11-15 unchanged — help.topstep.com: DLL art. 10490293 (30 Jun 2026: optional in the Combine; $1,000 / $2,000 / $3,000; 'not a rule violation'; positions flattened, no new trades until 5 PM CT), MLL art. 8284204 (18 Sep 2026: $2,000 / $3,000 / $4,500; rises with the end-of-day balance, never down; 'Once it reaches your starting balance, it locks permanently'; monitored in real time on unrealized P&L), consistency art. 8284208 (17 Sep 2026: 55% 'is a hard line'; exceeding it raises the Profit Target), program overview art. 8284099 (10 Sep 2026: still 'below 55% of total profits' — the dedicated article governs, as agreed with the sibling desk 2026-10-08).",
+        "2026-11-21 unchanged — help.topstep.com read in a browser. Maximum Loss Limit art. 8284204 — MODIFIED 2026-11-19 (recorded before: 18 Sep 2026), read in full: '$50K $2,000 · $100K $3,000 · $150K $4,500'; trailing: 'Rises as your end-of-day balance grows. Never moves down. Locks permanently once it reaches your starting balance.'; 'If your balance hits it at any point during the trading day, including on unrealized P&L, your account is liquidated immediately.' — unchanged for the Trading Combine. New on that page: a Static Trading Combine whose Maximum Loss Limit never moves ($25K $1,000, $50K $2,000, $100K $4,000, $150K $6,000; 'An account uses a static MLL only if its parameters say so') — one sentence added to the notes. Consistency art. 8284208 — MODIFIED 2026-11-19 (recorded before: 17 Sep 2026), read in full: 'Your single best day of profit must stay at or below 55% of your Profit Target. If it exceeds that, your Profit Target increases.'; 'Less than $1,650 / $3,300 / $4,950'; '55% is a hard line. It is not rounded, and there is no buffer.' — unchanged. Daily Loss Limit art. 10490293 (modified 2026-06-30) and Program Overview art. 8284099 (modified 2026-09-10): dates unchanged. Trading Combine Parameters art. 8284197 (modified 2026-11-19T15:21:46Z) — not a page this preset cites; found by the independent reviewer and read in full during the review of site v0.3.8: 'Parameters at a glance' for $50K / $100K / $150K — Profit Target $3,000 / $6,000 / $9,000; Maximum Loss Limit $2,000 / $3,000 / $4,500; Consistency Target 55% of Profit Target; Best Day Recommendation Less than $1,650 / $3,300 / $4,950; Daily Loss Limit (optional) $1,000 / $2,000 / $3,000; Minimum trading days 2 / 2 / 2; Time limit to pass None — the figures this preset uses are the same; the minimum of 2 trading days is not encoded here (minDays 0 is a rule field of a published id) and is stated in the notes; a dated re-issue is to follow."
       ],
       "supersedes": "topstep-combine-150k@2026-10-08",
       "consistency": {
@@ -1922,7 +2309,8 @@
       "verificationLog": [
         "2026-10-08 n/a — rules you set yourself",
         "2026-10-23 n/a — rules you set yourself",
-        "2026-11-15 n/a — rules you set yourself"
+        "2026-11-15 n/a — rules you set yourself",
+        "2026-11-21 n/a — rules you set yourself"
       ]
     },
     {
@@ -2651,7 +3039,7 @@
     }
   ],
   "pendingPrimaryFetch": [
-    "Apex Trader Funding — PRIMARY FETCH DONE 2026-10-23, re-read 2026-11-15 (apextraderfunding.com help centre, five pages; the EOD and Intraday evaluation pages are re-dated 26 Oct 2026 with unchanged figures): EOD Evaluation (25K/50K/100K/150K: target $1,500/$3,000/$6,000/$9,000; EOD drawdown $1,000/$2,000/$3,000/$4,000 recalculated at 4:59:59 PM ET on the closing balance, trails the highest EOD balance, enforced intraday; Daily Loss Limit $500/$1,000/$1,500/$2,000 fixed for the session — pauses the day, not a failure; day resets 6:00 PM ET; no minimum days; consistency not applied; 30-day access) and Intraday Evaluation (same targets and drawdown amounts, live trailing on peak balance including unrealized gains, no DLL). Encodable with no engine change: each daily limit works out to the cent as a percentage of the account size (cross-run 2026-10-23), and the platform difference does not touch an evaluation in progress — on Rithmic/WealthCharts the threshold stops trailing only once the highest balance has reached target + drawdown, i.e. after the profit target; before that both platforms compute the same threshold, and Tradovate's (trails indefinitely) is the tighter reading afterwards. Eight calculators (EOD ×4, Intraday ×4) are the next release.",
+    "Apex Trader Funding — PRIMARY FETCH DONE 2026-10-23, re-read 2026-11-15 (apextraderfunding.com help centre, five pages; the EOD and Intraday evaluation pages are re-dated 26 Oct 2026 with unchanged figures): EOD Evaluation (25K/50K/100K/150K: target $1,500/$3,000/$6,000/$9,000; EOD drawdown $1,000/$2,000/$3,000/$4,000 recalculated at 4:59:59 PM ET on the closing balance, trails the highest EOD balance, enforced intraday; Daily Loss Limit $500/$1,000/$1,500/$2,000 fixed for the session — pauses the day, not a failure; day resets 6:00 PM ET; no minimum days; consistency not applied; 30-day access) and Intraday Evaluation (same targets and drawdown amounts, live trailing on peak balance including unrealized gains, no DLL). Encodable with no engine change: each daily limit works out to the cent as a percentage of the account size (cross-run 2026-10-23), and the platform difference does not touch an evaluation in progress — on Rithmic/WealthCharts the threshold stops trailing only once the highest balance has reached target + drawdown, i.e. after the profit target; before that both platforms compute the same threshold, and Tradovate's (trails indefinitely) is the tighter reading afterwards. Eight calculators (EOD ×4, Intraday ×4) are the next release. Re-checked 2026-11-21: all seven help-centre pages carry the modified dates recorded on 2026-11-15; the two evaluation pages re-read in full, every figure unchanged.",
     "Funded Trading Plus",
     "Alpha Capital",
     "E8 Markets",
